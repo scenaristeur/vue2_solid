@@ -1,6 +1,6 @@
 {
   "name": "@smag0/vue2_solid",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/vue2_solid.js",
   "module": "dist/vue2_solid.mjs",
@@ -24,6 +24,8 @@
     "rollup-plugin-vue": "^5.0.0"
   },
   "dependencies": {
-    "@vue/compiler-sfc": "^3.2.37"
+    "@inrupt/solid-client-authn-browser": "^1.12.2",
+    "bootstrap": "^4.5.3",
+    "bootstrap-vue": "^2.21.2"
   }
 }

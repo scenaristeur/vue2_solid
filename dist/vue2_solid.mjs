@@ -1,3 +1,8 @@
+import * as sc from '@inrupt/solid-client-authn-browser';
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+
 //
 //
 //
@@ -10,7 +15,7 @@
 //
 //
 
-var script$3 = {
+var script$2 = {
   name: 'InputText',
   data(){
     return {
@@ -19,15 +24,15 @@ var script$3 = {
   },
   methods:{
     inc(){
-      this.$store.commit('my_store/incremente', this.value);
+      this.$store.commit('vue2_solid_store/incremente', this.value);
     },
     dec(){
-      this.$store.commit('my_store/decremente', this.value);
+      this.$store.commit('vue2_solid_store/decremente', this.value);
     }
   },
   computed: {
     getSharedStoreState() {
-      return this.$store.state.my_store.foo - 1;
+      return this.$store.state.vue2_solid_store.foo - 1;
     }
   }
 };
@@ -108,10 +113,10 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 }
 
 /* script */
-const __vue_script__$3 = script$3;
+const __vue_script__$2 = script$2;
 
 /* template */
-var __vue_render__$3 = function () {
+var __vue_render__$2 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -143,56 +148,6 @@ var __vue_render__$3 = function () {
     _vm._v(" "),
     _c("button", { on: { click: _vm.dec } }, [_vm._v("dec")]),
   ])
-};
-var __vue_staticRenderFns__$3 = [];
-__vue_render__$3._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$3 = undefined;
-  /* scoped */
-  const __vue_scope_id__$3 = undefined;
-  /* module identifier */
-  const __vue_module_identifier__$3 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$3 = false;
-  /* style inject */
-  
-  /* style inject SSR */
-  
-  /* style inject shadow dom */
-  
-
-  
-  const __vue_component__$3 = /*#__PURE__*/normalizeComponent(
-    { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
-    __vue_inject_styles__$3,
-    __vue_script__$3,
-    __vue_scope_id__$3,
-    __vue_is_functional_template__$3,
-    __vue_module_identifier__$3,
-    false,
-    undefined,
-    undefined,
-    undefined
-  );
-
-//
-//
-//
-
-var script$2 = {
-  name: 'InputTextarea'
-};
-
-/* script */
-const __vue_script__$2 = script$2;
-
-/* template */
-var __vue_render__$2 = function () {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("textarea")
 };
 var __vue_staticRenderFns__$2 = [];
 __vue_render__$2._withStripped = true;
@@ -230,14 +185,9 @@ __vue_render__$2._withStripped = true;
 //
 //
 
-    var script$1 = {
-        name: 'component-a',
-        computed: {
-            getSharedStoreState() {
-                return this.$store.state.my_store.foo - 1;
-            }
-        }
-    };
+var script$1 = {
+  name: 'InputTextarea'
+};
 
 /* script */
 const __vue_script__$1 = script$1;
@@ -247,7 +197,7 @@ var __vue_render__$1 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("div", [_vm._v("Foo: " + _vm._s(_vm.getSharedStoreState))])
+  return _c("textarea")
 };
 var __vue_staticRenderFns__$1 = [];
 __vue_render__$1._withStripped = true;
@@ -284,15 +234,174 @@ __vue_render__$1._withStripped = true;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-    var script = {
-        name: 'component-b',
-        computed: {
-            getSharedStoreState() {
-                return this.$store.state.my_store.foo + 1;
-            }
+var script = {
+  name: "SolidLogin",
+  props: [
+    "clientName"
+  ],
+  data() {
+    return {
+      issuers: [
+        { value: "https://solidcommunity.net", text: 'SolidCommunity.net (NSS)' },
+        { value: "https://solidweb.org", text: 'Solidweb.org (NSS)' },
+        { value: 'https://solidweb.me/', text: 'Solidweb.me (CSS)'},
+        { value: "https://broker.pod.inrupt.com", text: 'Broker Pod Inrupt (Entreprise Solid Server)' },
+        { value: "https://inrupt.net", text: 'Inrupt.net (NSS)' },
+        { value: "https://dev.inrupt.net", text: 'dev.inrupt.net (NSS)' },
+        { value: "https://trinpod.us/", text: 'Trinpod.us (hs ?)'},
+        { value: "other", text: 'Autre / Other' },
+      ],
+      issuer: null,
+      restore: true,
+      other: ""
+    }
+  },
+  created(){
+    this.$checkSession();
+  },
+  methods:{
+    onInput(){
+      console.log("input", this.other);
+    },
+    onChange(){
+      console.log("change", this.other);
+      if (this.other != undefined && this.other.length != undefined)  {
+        this.issuer = this.other;
+        this.login(this.issuer);
+      }
+    },
+    login(issuer){
+      console.log(issuer);
+      this.issuer = issuer;
+      if (this.issuer != null && this.issuer != "other"){
+        console.log(this.issuer);
+        let params = {issuer : this.issuer, clientName: this.clientName};
+        this.$login(params);
+      }
+    },
+    logout(){
+      this.$logout();
+    }
+  },
+  computed:{
+    session:{
+      get () { return this.$store.state.vue2_solid_store.session },
+      set (/*value*/) { /*this.updateTodo(value)*/ }
+    },
+    state() {
+      return this.other.startsWith('http')
+    },
+    invalidFeedback() {
+      if (this.other.length> 0 && !this.other.startsWith('http')) {
+        return "the url of your pod provider should start with `http`"
+      }
+      return "the url of your pod provider, not your webId ! "
+    }
+  }
+};
+
+const isOldIE = typeof navigator !== 'undefined' &&
+    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+function createInjector(context) {
+    return (id, style) => addStyle(id, style);
+}
+let HEAD;
+const styles = {};
+function addStyle(id, css) {
+    const group = isOldIE ? css.media || 'default' : id;
+    const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+    if (!style.ids.has(id)) {
+        style.ids.add(id);
+        let code = css.source;
+        if (css.map) {
+            // https://developer.chrome.com/devtools/docs/javascript-debugging
+            // this makes source maps inside style tags work properly in Chrome
+            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+            // http://stackoverflow.com/a/26603875
+            code +=
+                '\n/*# sourceMappingURL=data:application/json;base64,' +
+                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                    ' */';
         }
-    };
+        if (!style.element) {
+            style.element = document.createElement('style');
+            style.element.type = 'text/css';
+            if (css.media)
+                style.element.setAttribute('media', css.media);
+            if (HEAD === undefined) {
+                HEAD = document.head || document.getElementsByTagName('head')[0];
+            }
+            HEAD.appendChild(style.element);
+        }
+        if ('styleSheet' in style.element) {
+            style.styles.push(code);
+            style.element.styleSheet.cssText = style.styles
+                .filter(Boolean)
+                .join('\n');
+        }
+        else {
+            const index = style.ids.size - 1;
+            const textNode = document.createTextNode(code);
+            const nodes = style.element.childNodes;
+            if (nodes[index])
+                style.element.removeChild(nodes[index]);
+            if (nodes.length)
+                style.element.insertBefore(textNode, nodes[index]);
+            else
+                style.element.appendChild(textNode);
+        }
+    }
+}
 
 /* script */
 const __vue_script__ = script;
@@ -302,21 +411,135 @@ var __vue_render__ = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("div", [_vm._v("Bar: " + _vm._s(_vm.getSharedStoreState))])
+  return _c("span", { staticClass: "login" }, [
+    _vm.session == null || _vm.session.isLoggedIn == false
+      ? _c(
+          "div",
+          { staticClass: "d-flex align-items-center" },
+          [
+            _c(
+              "b-form-group",
+              [
+                _c("b-form-select", {
+                  attrs: { autofocus: "", size: "sm", options: _vm.issuers },
+                  on: { change: _vm.login },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "first",
+                        fn: function () {
+                          return [
+                            _c(
+                              "b-form-select-option",
+                              { attrs: { value: null, disabled: "" } },
+                              [_vm._v("-- Login / Connexion --")]
+                            ),
+                          ]
+                        },
+                        proxy: true,
+                      },
+                    ],
+                    null,
+                    false,
+                    3168236525
+                  ),
+                  model: {
+                    value: _vm.issuer,
+                    callback: function ($$v) {
+                      _vm.issuer = $$v;
+                    },
+                    expression: "issuer",
+                  },
+                }),
+                _vm._v(" "),
+                _vm.issuer == "other"
+                  ? _c(
+                      "div",
+                      [
+                        _c(
+                          "b-form-group",
+                          {
+                            attrs: {
+                              id: "fieldset-1",
+                              description: "ex: `https://solidcommunity.net`",
+                              label: "url of your pod provider",
+                              "label-for": "input-1",
+                              "valid-feedback": "Thxs!",
+                              "invalid-feedback": _vm.invalidFeedback,
+                              state: _vm.state,
+                            },
+                          },
+                          [
+                            _c("b-form-input", {
+                              attrs: {
+                                id: "input-1",
+                                state: _vm.state,
+                                trim: "",
+                              },
+                              on: { change: _vm.onChange },
+                              model: {
+                                value: _vm.other,
+                                callback: function ($$v) {
+                                  _vm.other = $$v;
+                                },
+                                expression: "other",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-button",
+                          { attrs: { size: "sm", variant: "info" } },
+                          [_vm._v("Login / connexion")]
+                        ),
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+              ],
+              1
+            ),
+          ],
+          1
+        )
+      : _c(
+          "div",
+          { staticClass: "d-flex align-items-center" },
+          [
+            _c(
+              "b-button",
+              {
+                attrs: { variant: "outline-danger", size: "sm" },
+                on: { click: _vm.logout },
+              },
+              [_vm._v("Logout")]
+            ),
+            _vm._v(" "),
+            _c("a", { attrs: { href: _vm.session.webId, target: "_blank" } }, [
+              _vm._v("pod"),
+            ]),
+          ],
+          1
+        ),
+  ])
 };
 var __vue_staticRenderFns__ = [];
 __vue_render__._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__ = undefined;
+  const __vue_inject_styles__ = function (inject) {
+    if (!inject) return
+    inject("data-v-15f66768_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .login{\nfloat: left\n} */\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidLogin.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAyHA;;GAEA","file":"SolidLogin.vue","sourcesContent":["<template>\n  <span class=\"login\">\n    <!-- <b-icon-person-circle></b-icon-person-circle> -->\n    <div v-if=\"session == null || session.isLoggedIn == false\" class=\"d-flex align-items-center\">\n      <b-form-group>\n\n        <!-- <b-dropdown id=\"dropdown-login\"\n        text=\"Login\"\n        class=\"m-md-2\"\n        size=\"sm\"\n        variant=\"success\">\n        <b-dropdown-item v-for=\"issuer in issuers\" :key=\"issuer.value\" @click=\"login(issuer.value)\">\n        {{issuer.text}}\n      </b-dropdown-item>\n    </b-dropdown> -->\n\n\n    <b-form-select autofocus size=\"sm\" v-model=\"issuer\"\n    :options=\"issuers\" @change=\"login\">\n    <template #first>\n      <b-form-select-option :value=\"null\" disabled>-- Login / Connexion --</b-form-select-option>\n    </template>\n\n  </b-form-select>\n\n  <div v-if=\"issuer == 'other'\">\n    <b-form-group\n    id=\"fieldset-1\"\n    description= \"ex: `https://solidcommunity.net`\"\n    label=\"url of your pod provider\"\n    label-for=\"input-1\"\n    valid-feedback=\"Thxs!\"\n    :invalid-feedback=\"invalidFeedback\"\n    :state=\"state\"\n    >\n\n    <b-form-input id=\"input-1\" v-model=\"other\" :state=\"state\" @change=\"onChange\" trim></b-form-input>\n  </b-form-group>\n\n  <b-button size=\"sm\" variant=\"info\">Login / connexion</b-button>\n</div>\n</b-form-group>\n</div>\n\n<div v-else class=\"d-flex align-items-center\">\n  <b-button @click=\"logout\" variant=\"outline-danger\" size=\"sm\">Logout</b-button>\n  <a :href=\"session.webId\" target=\"_blank\">pod</a>\n</div>\n\n</span>\n</template>\n\n<script>\nexport default {\n  name: \"SolidLogin\",\n  props: [\n    \"clientName\"\n  ],\n  data() {\n    return {\n      issuers: [\n        { value: \"https://solidcommunity.net\", text: 'SolidCommunity.net (NSS)' },\n        { value: \"https://solidweb.org\", text: 'Solidweb.org (NSS)' },\n        { value: 'https://solidweb.me/', text: 'Solidweb.me (CSS)'},\n        { value: \"https://broker.pod.inrupt.com\", text: 'Broker Pod Inrupt (Entreprise Solid Server)' },\n        { value: \"https://inrupt.net\", text: 'Inrupt.net (NSS)' },\n        { value: \"https://dev.inrupt.net\", text: 'dev.inrupt.net (NSS)' },\n        { value: \"https://trinpod.us/\", text: 'Trinpod.us (hs ?)'},\n        { value: \"other\", text: 'Autre / Other' },\n      ],\n      issuer: null,\n      restore: true,\n      other: \"\"\n    }\n  },\n  created(){\n    this.$checkSession()\n  },\n  methods:{\n    onInput(){\n      console.log(\"input\", this.other)\n    },\n    onChange(){\n      console.log(\"change\", this.other)\n      if (this.other != undefined && this.other.length != undefined)  {\n        this.issuer = this.other\n        this.login(this.issuer)\n      }\n    },\n    login(issuer){\n      console.log(issuer)\n      this.issuer = issuer\n      if (this.issuer != null && this.issuer != \"other\"){\n        console.log(this.issuer)\n        let params = {issuer : this.issuer, clientName: this.clientName}\n        this.$login(params)\n      }\n    },\n    logout(){\n      this.$logout()\n    }\n  },\n  computed:{\n    session:{\n      get () { return this.$store.state.vue2_solid_store.session },\n      set (/*value*/) { /*this.updateTodo(value)*/ }\n    },\n    state() {\n      return this.other.startsWith('http')\n    },\n    invalidFeedback() {\n      if (this.other.length> 0 && !this.other.startsWith('http')) {\n        return \"the url of your pod provider should start with `http`\"\n      }\n      return \"the url of your pod provider, not your webId ! \"\n    }\n  }\n}\n</script>\n\n<style>\n/* .login{\nfloat: left\n} */\n</style>\n"]}, media: undefined });
+
+  };
   /* scoped */
   const __vue_scope_id__ = undefined;
   /* module identifier */
   const __vue_module_identifier__ = undefined;
   /* functional template */
   const __vue_is_functional_template__ = false;
-  /* style inject */
-  
   /* style inject SSR */
   
   /* style inject shadow dom */
@@ -331,12 +554,21 @@ __vue_render__._withStripped = true;
     __vue_is_functional_template__,
     __vue_module_identifier__,
     false,
-    undefined,
+    createInjector,
     undefined,
     undefined
   );
 
-var components = { InputTextarea: __vue_component__$2, InputText: __vue_component__$3, myComponentA: __vue_component__$1, myComponentB: __vue_component__ };
+// import myComponentA from './myComponentA.vue'
+// import myComponentB from './myComponentB.vue'
+
+var components = {
+  InputTextarea: __vue_component__$1,
+  InputText: __vue_component__$2,
+  // myComponentA,
+  // myComponentB
+  SolidLogin: __vue_component__
+};
 
 // import Vue from 'vue'
 // import idb from '@/api/idb-nodes';
@@ -389,16 +621,18 @@ const actions = {
   // }
 };
 
-var myStore = {
+var vue2_solid_store = {
   namespaced: true,
   state,
   actions,
   mutations
 };
 
+const LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL = "solid_session_restore_url";
+
 const Vue2Solid = {
   install (Vue, options) {
-    let rootStore = options.store;
+    let store = options.store;
     for (const prop in components) {
       if (components.hasOwnProperty(prop)) {
         const component = components[prop];
@@ -406,14 +640,86 @@ const Vue2Solid = {
       }
     }
 
+    Vue.use(BootstrapVue);
+     // Vue.use(BIconLink)
+     // Vue.use(BIconEye)
+     // Vue.use(BIconShare)
+     // Vue.use(BIconFileArrowUp)
+     // Vue.use(BIconFileArrowDown)
+     // Vue.use(BIconClipboardPlus)
+     // Vue.use(BIconCloudUpload)
+     Vue.use(BootstrapVueIcons);
+
+
     // Vue.component(componentA.name, componentA);
     // Vue.component(componentB.name, componentB);
 
-    const storeName = 'my_store';// While app only available AFTER new Vue() in main.js...
+    const storeName = 'vue2_solid_store';// While app only available AFTER new Vue() in main.js...
     // Add store only once.
-    if(!rootStore.hasModule(storeName)) {
-      rootStore.registerModule(storeName, myStore);
+    if(!store.hasModule(storeName)) {
+      store.registerModule(storeName, vue2_solid_store);
     }
+
+
+
+
+// Globals
+
+Vue.prototype.$checkSession = async function(){
+  localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, window.location.toString());
+  // console.log("check session", document.location)
+  // localStorage.setItem(Date.now, document.location)
+
+  sc.onSessionRestore((url) => {
+    history.replaceState(null, "", url);
+  });
+
+
+  await sc.handleIncomingRedirect({
+    restorePreviousSession: true
+  }).then((info) => {
+    if(info.isLoggedIn ==  true){
+      console.log(`Logged in with WebID [${info.webId}]`);
+      store.commit('vue2_solid_store/setSession',info);
+      let session = sc.getDefaultSession();
+      console.log(session);
+      //this.$getPodInfosFromSession(session)
+      // This line is not reached until you are successfully logged in
+      localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, "");
+    }
+  });
+
+};
+
+Vue.prototype.$login = async function(params){
+  console.log("login", params);
+  if (!sc.getDefaultSession().info.isLoggedIn) {
+    await sc.login({
+      oidcIssuer: params.issuer,
+      redirectUrl: window.location.href,
+      clientName: params.clientName //|| "clientName not provided see vue2_solid doc"
+    });
+  }
+};
+
+Vue.prototype.$logout = async function(){
+  let session = sc.getDefaultSession();
+  await session.logout();
+  store.commit('vue2_solid_store/setSession',null);
+  store.commit('vue2_solid_store/setPod', null);
+  //store.dispatch('nodes/clearStore')
+};
+
+
+
+
+
+
+
+
+
+
+
   }
 };
 

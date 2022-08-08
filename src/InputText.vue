@@ -19,15 +19,15 @@ export default {
   },
   methods:{
     inc(){
-      this.$store.commit('my_store/incremente', this.value)
+      this.$store.commit('vue2_solid_store/incremente', this.value)
     },
     dec(){
-      this.$store.commit('my_store/decremente', this.value)
+      this.$store.commit('vue2_solid_store/decremente', this.value)
     }
   },
   computed: {
     getSharedStoreState() {
-      return this.$store.state.my_store.foo - 1;
+      return this.$store.state.vue2_solid_store.foo - 1;
     }
   }
 }

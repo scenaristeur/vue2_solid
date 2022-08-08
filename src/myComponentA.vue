@@ -6,7 +6,7 @@
         name: 'component-a',
         computed: {
             getSharedStoreState() {
-                return this.$store.state.my_store.foo - 1;
+                return this.$store.state.vue2_solid_store.foo - 1;
             }
         }
     };
