@@ -17,7 +17,9 @@ const mutations = {
   },
   setPod(state, p){
     console.log("pod",p)
-    state.pod = p
+    console.log()
+    state.pod = Object.assign({}, p)
+    console.log("pod state", state.pod)
   },
   incremente(state, val){
     console.log("inc")

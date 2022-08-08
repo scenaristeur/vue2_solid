@@ -5,6 +5,52 @@ import components from'./components' // method1
 // import componentB from './myComponentB.vue';
 import vue2_solid_store from './store.js'
 
+import {
+  getSolidDataset,
+  getThingAll,
+  //getPublicAccess,
+  //  getAgentAccess,
+  //getSolidDatasetWithAcl,
+  //getPublicAccess,
+  //getAgentAccess,
+  // getFile,
+  // isRawData,
+  // getContentType,
+  //saveFileInContainer,
+  // getContainedResourceUrlAll,
+  // getStringNoLocaleAll,
+  // createContainerAt,
+  // getSourceUrl,
+  // deleteFile,
+  //removeThing,
+  // removeAll,
+  //removeStringNoLocale,
+  //deleteContainer,
+  //addStringNoLocale,
+  //setThing,
+  //saveSolidDatasetAt,
+  //createSolidDataset,
+  //createThing,
+  //addUrl,
+  //buildThing,
+  //overwriteFile,
+  getStringNoLocale,
+  getThing,
+  getUrlAll,
+  getUrl,
+  //addDatetime,
+  //  getDatetime,
+  //setUrl,
+  //setStringNoLocale,
+  //setDecimal,
+  //setInteger,
+  //  getDecimal,
+  //getInteger,
+  // setDatetime
+} from "@inrupt/solid-client";
+import { FOAF, /*LDP,*/ VCARD, /*RDF,*/ AS, /*RDFS, OWL*/  } from "@inrupt/vocab-common-rdf";
+import { WS, SOLID } from "@inrupt/vocab-solid-common";
+
 import * as sc from '@inrupt/solid-client-authn-browser'
 const LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL = "solid_session_restore_url"
 
@@ -76,7 +122,7 @@ Vue.prototype.$checkSession = async function(){
       store.commit('vue2_solid_store/setSession',info)
       let session = sc.getDefaultSession()
       console.log(session)
-      //this.$getPodInfosFromSession(session)
+      this.$getPodInfosFromSession(session)
       // This line is not reached until you are successfully logged in
       localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, "")
     }
@@ -101,6 +147,88 @@ Vue.prototype.$logout = async function(){
   store.commit('vue2_solid_store/setSession',null)
   store.commit('vue2_solid_store/setPod', null)
   //store.dispatch('nodes/clearStore')
+}
+
+Vue.prototype.$getPodInfosFromSession = async function(session){
+  // try{
+  let pod = {}
+  pod.logged = session.info.isLoggedIn
+  if (pod.logged) {
+    pod.webId = session.info.webId
+// let pod2_full = await this.$getPodInfos(pod)
+    store.commit('vue2_solid_store/setPod', pod)
+    // pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
+    // pod.workspaces == undefined ? pod.workspaces = [] : ""
+
+    // store.commit('vue2_solid_store/setPod', pod)
+    //  this.$checkChanges()
+    //this.$synchronize()
+    //  await this.$getVerses(pod)
+
+    // if (pod.storage != null){
+    //   pod.brains = pod.storage+'brains.json'
+    //   Vue.prototype.$checkBrains()
+    //   //  this.$setCurrentThingUrl(pod.storage)
+    //   //  store.commit('booklice/setPath', pod.storage+'public/bookmarks/')
+    //   //let publicTagFile = pod.storage+'public/tags.ttl'
+    //   //let privateTagFile = podStorage+'private/tags.ttl'
+    //   // let tags = await this.$getTags(publicTagFile)
+    //   // console.log("############################tags",tags)
+    // }
+  }else{
+    store.commit('vue2_solid_store/setPod', null)
+    //  store.commit('solid/setThings', [])
+  }
+  // } catch(e){
+  //   alert("$getPodInfosFromSession "+e)
+  // }
+},
+Vue.prototype.$getPodInfos = async function(pod){
+  try{
+    const dataset = await getSolidDataset( pod.webId, { fetch: sc.fetch });
+    let profile = await getThing( dataset, pod.webId );
+    pod.name = await getStringNoLocale(profile, FOAF.name);
+    pod.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
+    pod.storage = await getUrl(profile, WS.storage);
+
+    if (pod.storage == null){
+      // let storage = await getLink(pod.webId)
+      // console.log("storage", storage)
+      // for community solid server with no pim:storage
+      pod.storage = pod.webId.split('/').slice(0,-2).join('/')+'/'
+    }
+
+
+    pod.photo = await getUrl(profile, VCARD.hasPhoto);
+    pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
+    // pod.workspaces = []
+    //
+    // let publicTypeIndexUtl = pod.storage+'settings/publicTypeIndex.ttl'
+    // const pti_ds = await getSolidDataset( publicTypeIndexUtl, { fetch: sc.fetch });
+    // let indexes = await getThingAll(pti_ds)
+    // for await (const i of indexes){
+    //   let types = await getUrlAll(i, "http://www.w3.org/ns/solid/terms#forClass");
+    //   //console.log(types)
+    //   if(types.includes("https://scenaristeur.github.io/verse#Workspace")){
+    //     console.log(i)
+    //     let ws = {}
+    //     ws.name =  await getStringNoLocale(i, AS.name)
+    //     ws.url = await getUrl(i,SOLID.instance)
+    //     pod.workspaces.push(ws)
+    //   }
+    // }
+    //console.log(ws)
+    //  pod.workspaces = await getUrlAll(pti_ds, "http://www.w3.org/ns/solid/terms#forClass", "https://www.w3.org/ns/activitystreams#Collection");
+    // pod.publicTags = await this.$getTags(pod.storage+'public/tags.ttl')
+    // store.commit("vatch/addToNetwork", pod.publicTags)
+    //this.$subscribe(pod.storage)
+    //  console.log("getpodinfos",pod)
+  }catch(e)
+  {
+    console.log("erreur",e, pod)
+  }
+  console.log("pod in getinfos",pod)
+  return pod
 }
 
 

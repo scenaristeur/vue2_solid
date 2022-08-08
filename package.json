@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
     "docs:dev": "vuepress dev docs",
-   "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs"
   },
   "repository": "https://github.com/scenaristeur/vue2_solid",
   "keywords": [
@@ -40,7 +40,10 @@
     "vuepress": "^1.9.7"
   },
   "dependencies": {
+    "@inrupt/solid-client": "^1.23.1",
     "@inrupt/solid-client-authn-browser": "^1.12.2",
+    "@inrupt/vocab-common-rdf": "^1.0.5",
+    "@inrupt/vocab-solid-common": "^0.7.5",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2"
   }

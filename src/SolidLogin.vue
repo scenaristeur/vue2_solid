@@ -46,7 +46,9 @@
   <b-button @click="logout" variant="outline-danger" size="sm">Logout</b-button>
   <a :href="session.webId" target="_blank">pod</a>
 </div>
+<div class="">
 
+  </div>
 </span>
 </template>
 
