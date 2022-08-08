@@ -1,5 +1,5 @@
 module.exports = {
-  base: "vue2_solid",
+  // base: "vue2_solid",
   locales: {
     '/': {
       lang: 'en-US',
