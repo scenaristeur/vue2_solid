@@ -694,13 +694,28 @@ __vue_render__$5._withStripped = true;
 //
 //
 //
+//
+//
 
 
 var script$4 = {
   name: 'SolidProfile',
+  // data(){
+  //   return {
+  //     webId:
+  //   }
+  // }
+  // watch:{
+  //   current_webId(){
+  //     console.log("in profile", this.current_webId)
+  //   }
+  // },
   computed:{
     session(){
       return this.$store.state.vue2_solid_store.session
+    },
+    current_webId(){
+      return this.$store.state.vue2_solid_store.current_webId
     },
   }
 };
@@ -725,7 +740,9 @@ var __vue_render__$4 = function () {
           _vm.session != null
             ? _c("SolidFriends", { attrs: { webId: _vm.session.webId } })
             : _vm._e(),
-          _vm._v("\n  session   " + _vm._s(_vm.session) + "\n"),
+          _vm._v("\n  session   " + _vm._s(_vm.session) + "\n  "),
+          _c("hr"),
+          _vm._v("\n  current_webId: " + _vm._s(_vm.current_webId) + "\n"),
         ],
         1
       )
@@ -1024,6 +1041,10 @@ var script$1 = {
       console.log('getFriends',this.webId);
       this.friends = await this.$getFriends(this.webId);
       console.log(this.friends);
+    },
+    setUser(webId){
+      console.log('setUser', webId);
+      this.$store.commit('vue2_solid_store/setCurrentWebId', webId);
     }
   },
   watch:{
@@ -1055,7 +1076,15 @@ var __vue_render__$1 = function () {
         _vm._l(_vm.friends, function (f) {
           return _c(
             "b-list-group-item",
-            { key: f.webId, attrs: { button: "" } },
+            {
+              key: f.webId,
+              attrs: { button: "" },
+              on: {
+                click: function ($event) {
+                  return _vm.setUser(f.webId)
+                },
+              },
+            },
             [_c("SolidUserSmall", { attrs: { webId: f.webId } })],
             1
           )
@@ -1072,11 +1101,11 @@ __vue_render__$1._withStripped = true;
   /* style */
   const __vue_inject_styles__$1 = function (inject) {
     if (!inject) return
-    inject("data-v-b18c806a_0", { source: "\n.solid-friends[data-v-b18c806a] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidFriends.vue"],"names":[],"mappings":";AAgDA;AAEA","file":"SolidFriends.vue","sourcesContent":["<template>\n\n  <b-card\n  header=\"Friends\"\n  class=\"solid-friends\"\n  no-body>\n  <!-- webId : {{ webId}}\n  friends : {{ friends}} -->\n  <b-list-group flush>\n    <b-list-group-item button v-for=\"f in friends\" :key=\"f.webId\">\n      <SolidUserSmall :webId=\"f.webId\" />\n      <!-- {{f.webId}} -->\n    </b-list-group-item>\n  </b-list-group>\n\n</b-card>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidFriends',\n  props: ['webId'],\n  data(){\n    return {\n      friends: null\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      console.log('getFriends',this.webId)\n      this.friends = await this.$getFriends(this.webId)\n      console.log(this.friends)\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-friends {\n\n}\n</style>\n"]}, media: undefined });
+    inject("data-v-54362636_0", { source: "\n.solid-friends[data-v-54362636] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidFriends.vue"],"names":[],"mappings":";AAoDA;AAEA","file":"SolidFriends.vue","sourcesContent":["<template>\n\n  <b-card\n  header=\"Friends\"\n  class=\"solid-friends\"\n  no-body>\n  <!-- webId : {{ webId}}\n  friends : {{ friends}} -->\n  <b-list-group flush>\n    <b-list-group-item button v-for=\"f in friends\" :key=\"f.webId\" @click=\"setUser(f.webId)\">\n      <SolidUserSmall :webId=\"f.webId\"  />\n      <!-- {{f.webId}} -->\n    </b-list-group-item>\n  </b-list-group>\n\n</b-card>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidFriends',\n  props: ['webId'],\n  data(){\n    return {\n      friends: null\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      console.log('getFriends',this.webId)\n      this.friends = await this.$getFriends(this.webId)\n      console.log(this.friends)\n    },\n    setUser(webId){\n      console.log('setUser', webId)\n      this.$store.commit('vue2_solid_store/setCurrentWebId', webId)\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-friends {\n\n}\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$1 = "data-v-b18c806a";
+  const __vue_scope_id__$1 = "data-v-54362636";
   /* module identifier */
   const __vue_module_identifier__$1 = undefined;
   /* functional template */
@@ -1183,7 +1212,8 @@ const state = () => ({
   // doc: null
   session: null,
   pod: null,
-  foo: 12
+  foo: 12,
+  current_webId: null
 });
 
 const mutations = {
@@ -1203,7 +1233,11 @@ const mutations = {
   decremente(state, val ){
     console.log("dec");
     state.foo -= val;
-  }
+  },
+  setCurrentWebId(state, w){
+    console.log("current_webId",w);
+    state.current_webId = w;
+  },
   // updateDoc(state, newDoc) {
   //   state.doc = newDoc
   //   //render(newDoc)
@@ -1284,6 +1318,7 @@ const Vue2Solid = {
         if(session.isLoggedIn ==  true){
           console.log(`Logged in with WebID [${session.webId}]`);
           store.commit('vue2_solid_store/setSession',session);
+          store.commit('vue2_solid_store/setCurrentWebId',session.webId);
           // let session = sc.getDefaultSession()
           //   console.log(session)
           // await this.$getPodInfosFromSession(session)

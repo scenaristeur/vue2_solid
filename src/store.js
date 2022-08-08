@@ -7,7 +7,8 @@ const state = () => ({
   // doc: null
   session: null,
   pod: null,
-  foo: 12
+  foo: 12,
+  current_webId: null
 })
 
 const mutations = {
@@ -27,7 +28,11 @@ const mutations = {
   decremente(state, val ){
     console.log("dec")
     state.foo -= val
-  }
+  },
+  setCurrentWebId(state, w){
+    console.log("current_webId",w)
+    state.current_webId = w
+  },
   // updateDoc(state, newDoc) {
   //   state.doc = newDoc
   //   //render(newDoc)
