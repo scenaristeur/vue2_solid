@@ -1,23 +1,44 @@
-Vue2 componentts to do all the boring thing when creating a Solid decentralized app https://solidproject.org/
+# Vue.js 2.x componentts to do all the boring things when creating a Solid decentralized app
 
-https://solidproject.org/
+[What is the Solid Project](https://solidproject.org/)
 
-(demo)[Vue2 componentts to do all the boring thing when creating a Solid decentralized app https://solidproject.org/]
+[demo](https://scenaristeur.github.io/vue2_solid_demo)
 
-(doc)[https://github.com/scenaristeur/vue2_solid]
+[doc](https://github.com/scenaristeur/vue2_solid)
 
 
 # Usage
-- create a new vuejs app
+- create a new vuejs app !!!(be sure to choose the version Vue.js 2.x (does not work with Vue 3.x))!!!
+
+prerequis : nodejs > 16, vue-cli
+
+
 ```
+npm install -g @vue/cli
 vue create myapp
+
+? Please pick a preset: Manually select features
+? Check the features needed for your project: Babel, PWA, Router, Vuex, Linter
+? Choose a version of Vue.js that you want to start the project with 2.x
+? Use history mode for router? (Requires proper server setup for index fallback in production) Yes
+? Pick a linter / formatter config: Basic
+? Pick additional lint features: Lint on save
+? Where do you prefer placing config for Babel, ESLint, etc.? In dedicated config files
+? Save this as a preset for future projects? Yes
+? Save preset as: my_model
+
+
+
 ```
-- choose vue2
-- install vue2_solid
+
+- install @smag0/vue2_solid
 ```
+cd myapp
 npm install --save @smag0/vue2_solid
+
+npm run serve
 ```
-- import in main.js providing the store to the plugin
+- import Vue2Solid in the src/main.js of your app, providing the store to the plugin
 ```
 import Vue from 'vue'
 import App from './App.vue'
@@ -25,10 +46,8 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
-// import Vue2Solid from './plugins/vue2_solid/'
-import Vue2Solid from 'vue2-solid'
-//
-Vue.use(Vue2Solid, {store: store});
+import Vue2Solid from 'vue2-solid' //   <------ here
+Vue.use(Vue2Solid, {store: store});     <------ & here
 
 Vue.config.productionTip = false
 
@@ -40,8 +59,8 @@ new Vue({
 
   ```
 
-  - use anywhere in your app
-  exemple : src/App.vue
+  - enjoy ! and use anywhere in your app
+  -- exemple in src/App.vue
   ```
   <template>
   <div id="app">
@@ -50,10 +69,10 @@ new Vue({
   <router-link to="/about">About</router-link>
   </nav>
 
+  <SolidLogin clientName="My Great App" />   <------ here
+  <InputText />                              <------ here
+  <InputTextarea />                          <------ here
 
-  <InputText />
-  <InputTextarea />
-  <SolidLogin clientName="My Great App" />
 
 
   <router-view/>
