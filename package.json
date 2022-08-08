@@ -1,0 +1,26 @@
+{
+  "name": "@smag0/vue2_solid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/vue2_solid.js",
+  "module": "dist/vue2_solid.mjs",
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "rollup": "^2.77.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-vue": "^6.0.0"
+  }
+}
