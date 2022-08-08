@@ -1,4 +1,4 @@
-# Vue.js 2.x componentts to do all the boring things when creating a Solid decentralized app
+# Vue.js 2.x components to do all the boring things when creating a Solid decentralized app
 
 [What is the Solid Project](https://solidproject.org/)
 
