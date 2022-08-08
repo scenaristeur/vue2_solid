@@ -8,7 +8,8 @@ const state = () => ({
   session: null,
   pod: null,
   foo: 12,
-  webId: null
+  webId: null,
+  history: []
 })
 
 const mutations = {
@@ -31,6 +32,7 @@ const mutations = {
   },
   setWebId(state, w){
     console.log("webId",w)
+    state.history.push(w)
     state.webId = w
   },
   // updateDoc(state, newDoc) {

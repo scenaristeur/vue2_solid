@@ -6,12 +6,15 @@
   user : {{ user}}
 
 </div> -->
-<span v-if="user != null" class="d-flex align-items-center">
-  <!-- {{user.photo}} {{user.name}} -->
-  <b-avatar variant="info" :src="user.photo" class="mr-3"></b-avatar>
-  <span class="mr-auto">{{user.name || webId}}</span>
-  <b-badge>{{ friends.length}}</b-badge>
+<span>
+  <span v-if="user != null" class="d-flex align-items-center">
+    <!-- {{user.photo}} {{user.name}} -->
+    <b-avatar variant="info" :src="user.photo" class="mr-3"></b-avatar>
+    <span class="mr-auto">{{user.name || webId}}</span>
+    <b-badge>{{ friends.length}}</b-badge>
 
+  </span>
+  <span v-else><small><i>...Loading {{webId}}</i></small></span>
 </span>
 
 </template>
@@ -32,7 +35,7 @@ export default {
   methods: {
     async init(){
       console.log('get!user',this.webId)
-      this.user = await this.$getUser(this.webId)
+      this.user = await this.$getUser(this.webId) ||
       console.log(this.user)
       this.friends = await this.$getFriends(this.webId)
       // this.friendsLength = friends.length

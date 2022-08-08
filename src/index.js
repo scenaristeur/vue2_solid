@@ -149,35 +149,41 @@ const Vue2Solid = {
     }
 
     Vue.prototype.$getUser = async function(webId){
+              let user = {wedId: webId}
       try{
-        let user = {wedId: webId}
+
         console.log("user before",user)
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
         user.name = await getStringNoLocale(profile, FOAF.name);
         // user.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
         user.storage = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/'
-          user.photo = await getUrl(profile, VCARD.hasPhoto);
+        user.photo = await getUrl(profile, VCARD.hasPhoto);
         console.log("user after",user)
-        return user
-        }catch(e)
+
+      }catch(e)
       {
         console.log("erreur",e)
+        user.name = "can not load "+webId
       }
+        return user
     }
 
     Vue.prototype.$getFriends = async function(webId){
+      let friends = []
       try{
-        let friends = []
+
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
         friends = await getUrlAll(profile, FOAF.knows).map(f => {return {webId: f}})
-        console.log(friends)
-        return friends
-            }catch(e)
+
+      }catch(e)
       {
         console.log("erreur",e)
+
       }
+      console.log(friends)
+      return friends
     }
 
     //

@@ -1,13 +1,19 @@
 <template>
 
   <b-card
-  header="Friends"
   class="solid-friends"
   no-body>
-  {{webId}}
+  <b-card-header>
+    Friends <b-button v-if="session.webId != webId" @click="setUser(session.webId)" variant="primary" size="sm" class="ml-3">Me</b-button>
+    <b-dropdown id="dropdown-1" text="history" class="m-md-2" variant="primary" size="sm">
+      <b-dropdown-item v-for="h in history" @click="setUser(h)">{{h}}</b-dropdown-item>
+    </b-dropdown>
+    <b-button disabled @click="addFriend" variant="primary" size="sm">+</b-button>
+
+  </b-card-header>
   <!-- webId : {{ webId}}
   friends : {{ friends}} -->
-  <b-list-group flush>
+  <b-list-group flush class="scroll">
     <b-list-group-item button v-for="f in friends" :key="f.webId" @click="setUser(f.webId)">
       <SolidUserSmall :webId="f.webId"  />
       <!-- {{f.webId}} -->
@@ -51,6 +57,12 @@ export default {
     webId(){
       return this.$store.state.vue2_solid_store.webId
     },
+    history(){
+      return this.$store.state.vue2_solid_store.history
+    },
+    session(){
+      return this.$store.state.vue2_solid_store.session
+    },
   }
 
 }
@@ -59,5 +71,11 @@ export default {
 <style lang="css" scoped>
 .solid-friends {
 
+}
+.scroll{
+  max-height: 50vh;
+  margin-bottom: 10px;
+  overflow-y:scroll;
+  -webkit-overflow-scrolling: touch;
 }
 </style>

@@ -15,6 +15,9 @@ tag="article"
 style="max-width: 20rem;"
 class="mb-2 solid-user"
 >
+<b-card-header>
+
+</b-card-header>
 <b-card-text>
 
 </b-card-text>
@@ -42,6 +45,8 @@ export default {
       }else{
         this.user = null
       }
+
+
     }
   },
   watch:{
