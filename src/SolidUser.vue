@@ -1,21 +1,21 @@
 <template>
 
   <!-- <div>
-    User : {{ webId}}
-<hr>
-user : {{ user}}
+  User : {{ webId}}
+  <hr>
+  user : {{ user}}
 
-  </div> -->
-  <b-card v-if="user != null"
-  :title="user.name || 'no name'"
-  :img-src="user.photo || 'no photo'"
-  img-alt="Image"
-  img-top
-  tag="article"
-  style="max-width: 20rem;"
-  class="mb-2 solid-user"
-  >
-  <b-card-text>
+</div> -->
+<b-card v-if="user != null"
+:title="user.name || 'no name'"
+:img-src="user.photo || 'no photo'"
+img-alt="Image"
+img-top
+tag="article"
+style="max-width: 20rem;"
+class="mb-2 solid-user"
+>
+<b-card-text>
 
 </b-card-text>
 
@@ -27,7 +27,6 @@ user : {{ user}}
 <script>
 export default {
   name: 'SolidUser',
-  props: ['webId'],
   data(){
     return {
       user: null
@@ -38,15 +37,22 @@ export default {
   },
   methods: {
     async init(){
-      console.log('get!user',this.webId)
-      this.user = await this.$getUser(this.webId)
-      console.log(this.user)
+      if(this.webId != null){
+        this.user = await this.$getUser(this.webId)
+      }else{
+        this.user = null
+      }
     }
   },
   watch:{
     webId(){
       this.init()
     }
+  },
+  computed:{
+    webId(){
+      return this.$store.state.vue2_solid_store.webId
+    },
   }
 
 }

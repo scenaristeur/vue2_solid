@@ -4,6 +4,7 @@
   header="Friends"
   class="solid-friends"
   no-body>
+  {{webId}}
   <!-- webId : {{ webId}}
   friends : {{ friends}} -->
   <b-list-group flush>
@@ -20,10 +21,9 @@
 <script>
 export default {
   name: 'SolidFriends',
-  props: ['webId'],
   data(){
     return {
-      friends: null
+      friends: []
     }
   },
   created(){
@@ -31,19 +31,26 @@ export default {
   },
   methods: {
     async init(){
-      console.log('getFriends',this.webId)
-      this.friends = await this.$getFriends(this.webId)
-      console.log(this.friends)
+      if(this.webId != null){
+        this.friends = await this.$getFriends(this.webId)
+      }else{
+        this.friends = []
+      }
     },
     setUser(webId){
       console.log('setUser', webId)
-      this.$store.commit('vue2_solid_store/setCurrentWebId', webId)
+      this.$store.commit('vue2_solid_store/setWebId', webId)
     }
   },
   watch:{
     webId(){
       this.init()
     }
+  },
+  computed:{
+    webId(){
+      return this.$store.state.vue2_solid_store.webId
+    },
   }
 
 }

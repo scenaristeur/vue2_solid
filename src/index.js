@@ -118,7 +118,7 @@ const Vue2Solid = {
         if(session.isLoggedIn ==  true){
           console.log(`Logged in with WebID [${session.webId}]`)
           store.commit('vue2_solid_store/setSession',session)
-          store.commit('vue2_solid_store/setCurrentWebId',session.webId)
+          store.commit('vue2_solid_store/setWebId',session.webId)
           // let session = sc.getDefaultSession()
           //   console.log(session)
           // await this.$getPodInfosFromSession(session)
