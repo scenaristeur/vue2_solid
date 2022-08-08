@@ -4,7 +4,7 @@
   class="solid-friends"
   no-body>
   <b-card-header>
-    Friends <b-button v-if="session.webId != webId" @click="setUser(session.webId)" variant="primary" size="sm" class="ml-3">Me</b-button>
+    Friends <b-button v-if="session != null && session.webId != webId" @click="setUser(session.webId)" variant="primary" size="sm" class="ml-3">Me</b-button>
     <b-dropdown id="dropdown-1" text="history" class="m-md-2" variant="primary" size="sm">
       <b-dropdown-item v-for="h in history" :key="h" @click="setUser(h)">{{h}}</b-dropdown-item>
     </b-dropdown>
@@ -42,6 +42,9 @@ export default {
       }else{
         this.friends = []
       }
+    },
+    addFriend(){
+      console.log('add')
     },
     setUser(webId){
       console.log('setUser', webId)

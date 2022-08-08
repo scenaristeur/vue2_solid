@@ -2,9 +2,9 @@
   <span class="login">
     <!-- <b-icon-person-circle></b-icon-person-circle> -->
     <!-- https://vuetailwind.com/components/button -->
-        <button class="mx-2 px-2 py-1 text-xs rounded text-gray-800 border focus:outline-none hover:bg-gray-100">Default</button>
+        <!-- <button class="mx-2 px-2 py-1 text-xs rounded text-gray-800 border focus:outline-none hover:bg-gray-100">Default</button>
     <button class="mx-2 px-4 py-2 text-sm rounded text-white bg-red-500 focus:outline-none hover:bg-red-400">Danger</button>
-        <button class="mx-2 px-4 py-2 text-sm text-blue-600 focus:outline-none hover:underline">Link</button>
+        <button class="mx-2 px-4 py-2 text-sm text-blue-600 focus:outline-none hover:underline">Link</button> -->
     <div v-if="session == null || session.isLoggedIn == false" class="d-flex align-items-center">
       <b-form-group>
 
