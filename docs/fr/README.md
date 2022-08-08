@@ -82,10 +82,11 @@ new Vue({
   <router-link to="/about">About</router-link>
   </nav>
 
-  <SolidLogin clientName="My Great App" />   <------ here
-  <InputText />                              <------ here
-  <InputTextarea />                          <------ here
 
+  SolidLogin :
+      <SolidLogin clientName="Vue2Solid_Demo" />  <------ here
+  SolidProfile :
+   <SolidProfile />                               <------ here
 
 
   <router-view/>
