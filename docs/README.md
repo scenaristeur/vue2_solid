@@ -7,6 +7,9 @@
 a voir pour completer https://dev.to/siegerts/creating-a-vue-js-component-library-part-iv-documentation-with-vuepress-56h5
 
 
+slassh
+gh
+
 [[toc]]
 
 -------------

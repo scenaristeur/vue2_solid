@@ -1,5 +1,8 @@
 module.exports = {
-  // base: "vue2_solid",
+  base: "/vue2_solid/",
+  // base : '/',
+  // base: process.env.VUEPRESS_BASE || '/',
+  // base = process.env.NODE_ENV === 'production' ? '/vue2_solid/' : '/'
   locales: {
     '/': {
       lang: 'en-US',
