@@ -8,6 +8,11 @@ module.exports = {
       lang: 'en-US',
       title: 'Vue2Solid 🥂',
       description: 'Documentation site for the Vue2Solid component library plugin'
+    },
+    '/fr/': {
+      lang: 'fr-FR',
+      title: 'Vue2Solid 🥂',
+      description: "Site de documentation du plugin Vue2Solid pour faciliter la création d'application decentralisées basées sur le projet Solid de Tim Berners Lee"
     }
   },
   markdown: {
@@ -38,7 +43,10 @@ module.exports = {
           { text: 'Getting Started', link: '/guide/getting_started' },
           { text: 'Components', link: '/components/using_components' },
           // external link to git repo...again
-          { text: 'GitHub', link: 'https://github.com/scenaristeur/vue2_solid' }
+          { text: 'GitHub', link: 'https://github.com/scenaristeur/vue2_solid' },
+          { text: 'Discussion', link: 'https://forum.solidproject.org/'},
+          { text: 'I need help', link: 'https://gitter.im/solid/home'}
+
         ],
         sidebar: {
           '/components/': [
@@ -50,12 +58,54 @@ module.exports = {
               'SolidFriends',
               'SolidChat',
               'SolidList',
-              'SolidItem'
+              'SolidItem',
+              'SolidBrowser',
+              'SolidGraph2D',
+              'SolidGraph3D'
             ]
           }
         ]
       }
+    },
+    '/fr/': {
+      label: 'Français',
+      selectText: 'Langues',
+      lastUpdated: 'Dernière màj',
+      // service worker is configured but will only register in production
+      serviceWorker: {
+        updatePopup: {
+          message: 'Un nouveau contenu est disponible.',
+          buttonText: 'Rafraîchir'
+        }
+      },
+      nav: [
+        { text: 'Bien Démarrer', link: '/fr/guide/getting_started' },
+        { text: 'Composants', link: '/fr/components/using_components' },
+        // external link to git repo...again
+        { text: 'GitHub', link: 'https://github.com/scenaristeur/vue2_solid' },
+        { text: 'Discussion', link: 'https://forum.solidproject.org/'},
+        { text: "J'ai besoin d'aide", link: 'https://gitter.im/solid/home'}
+
+      ],
+      sidebar: {
+        '/fr/components/': [
+          {
+            title: 'Composants',
+            collapsable: false,
+            children: ['SolidLogin',
+            'SolidProfile',
+            'SolidFriends',
+            'SolidChat',
+            'SolidList',
+            'SolidItem',
+            'SolidBrowser',
+            'SolidGraph2D',
+            'SolidGraph3D'
+          ]
+        }
+      ]
     }
+  }
   }
 }
 }

@@ -40,7 +40,7 @@ var sc__namespace = /*#__PURE__*/_interopNamespace(sc);
 //
 //
 
-var script$3 = {
+var script$8 = {
   name: 'InputText',
   data(){
     return {
@@ -138,10 +138,10 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 }
 
 /* script */
-const __vue_script__$3 = script$3;
+const __vue_script__$8 = script$8;
 
 /* template */
-var __vue_render__$3 = function () {
+var __vue_render__$8 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -174,17 +174,17 @@ var __vue_render__$3 = function () {
     _c("button", { on: { click: _vm.dec } }, [_vm._v("dec")]),
   ])
 };
-var __vue_staticRenderFns__$3 = [];
-__vue_render__$3._withStripped = true;
+var __vue_staticRenderFns__$8 = [];
+__vue_render__$8._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__$3 = undefined;
+  const __vue_inject_styles__$8 = undefined;
   /* scoped */
-  const __vue_scope_id__$3 = undefined;
+  const __vue_scope_id__$8 = undefined;
   /* module identifier */
-  const __vue_module_identifier__$3 = undefined;
+  const __vue_module_identifier__$8 = undefined;
   /* functional template */
-  const __vue_is_functional_template__$3 = false;
+  const __vue_is_functional_template__$8 = false;
   /* style inject */
   
   /* style inject SSR */
@@ -193,13 +193,13 @@ __vue_render__$3._withStripped = true;
   
 
   
-  const __vue_component__$3 = /*#__PURE__*/normalizeComponent(
-    { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
-    __vue_inject_styles__$3,
-    __vue_script__$3,
-    __vue_scope_id__$3,
-    __vue_is_functional_template__$3,
-    __vue_module_identifier__$3,
+  const __vue_component__$8 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
+    __vue_inject_styles__$8,
+    __vue_script__$8,
+    __vue_scope_id__$8,
+    __vue_is_functional_template__$8,
+    __vue_module_identifier__$8,
     false,
     undefined,
     undefined,
@@ -210,31 +210,31 @@ __vue_render__$3._withStripped = true;
 //
 //
 
-var script$2 = {
+var script$7 = {
   name: 'InputTextarea'
 };
 
 /* script */
-const __vue_script__$2 = script$2;
+const __vue_script__$7 = script$7;
 
 /* template */
-var __vue_render__$2 = function () {
+var __vue_render__$7 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
   return _c("textarea")
 };
-var __vue_staticRenderFns__$2 = [];
-__vue_render__$2._withStripped = true;
+var __vue_staticRenderFns__$7 = [];
+__vue_render__$7._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__$2 = undefined;
+  const __vue_inject_styles__$7 = undefined;
   /* scoped */
-  const __vue_scope_id__$2 = undefined;
+  const __vue_scope_id__$7 = undefined;
   /* module identifier */
-  const __vue_module_identifier__$2 = undefined;
+  const __vue_module_identifier__$7 = undefined;
   /* functional template */
-  const __vue_is_functional_template__$2 = false;
+  const __vue_is_functional_template__$7 = false;
   /* style inject */
   
   /* style inject SSR */
@@ -243,13 +243,13 @@ __vue_render__$2._withStripped = true;
   
 
   
-  const __vue_component__$2 = /*#__PURE__*/normalizeComponent(
-    { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
-    __vue_inject_styles__$2,
-    __vue_script__$2,
-    __vue_scope_id__$2,
-    __vue_is_functional_template__$2,
-    __vue_module_identifier__$2,
+  const __vue_component__$7 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
+    __vue_inject_styles__$7,
+    __vue_script__$7,
+    __vue_scope_id__$7,
+    __vue_is_functional_template__$7,
+    __vue_module_identifier__$7,
     false,
     undefined,
     undefined,
@@ -311,7 +311,7 @@ __vue_render__$2._withStripped = true;
 //
 //
 
-var script$1 = {
+var script$6 = {
   name: "SolidLogin",
   props: [
     "clientName"
@@ -361,9 +361,11 @@ var script$1 = {
     }
   },
   computed:{
-    session:{
-      get () { return this.$store.state.vue2_solid_store.session },
-      set (/*value*/) { /*this.updateTodo(value)*/ }
+    session(){
+     return this.$store.state.vue2_solid_store.session
+    },
+    pod(){
+     return this.$store.state.vue2_solid_store.pod
     },
     state() {
       return this.other.startsWith('http')
@@ -431,10 +433,10 @@ function addStyle(id, css) {
 }
 
 /* script */
-const __vue_script__$1 = script$1;
+const __vue_script__$6 = script$6;
 
 /* template */
-var __vue_render__$1 = function () {
+var __vue_render__$6 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -554,17 +556,527 @@ var __vue_render__$1 = function () {
     _c("div", {}),
   ])
 };
+var __vue_staticRenderFns__$6 = [];
+__vue_render__$6._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$6 = function (inject) {
+    if (!inject) return
+    inject("data-v-752ef2d8_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .login{\nfloat: left\n} */\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidLogin.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA6HA;;GAEA","file":"SolidLogin.vue","sourcesContent":["<template>\n  <span class=\"login\">\n    <!-- <b-icon-person-circle></b-icon-person-circle> -->\n    <div v-if=\"session == null || session.isLoggedIn == false\" class=\"d-flex align-items-center\">\n      <b-form-group>\n\n        <!-- <b-dropdown id=\"dropdown-login\"\n        text=\"Login\"\n        class=\"m-md-2\"\n        size=\"sm\"\n        variant=\"success\">\n        <b-dropdown-item v-for=\"issuer in issuers\" :key=\"issuer.value\" @click=\"login(issuer.value)\">\n        {{issuer.text}}\n      </b-dropdown-item>\n    </b-dropdown> -->\n\n\n    <b-form-select autofocus size=\"sm\" v-model=\"issuer\"\n    :options=\"issuers\" @change=\"login\">\n    <template #first>\n      <b-form-select-option :value=\"null\" disabled>-- Login / Connexion --</b-form-select-option>\n    </template>\n\n  </b-form-select>\n\n  <div v-if=\"issuer == 'other'\">\n    <b-form-group\n    id=\"fieldset-1\"\n    description= \"ex: `https://solidcommunity.net`\"\n    label=\"url of your pod provider\"\n    label-for=\"input-1\"\n    valid-feedback=\"Thxs!\"\n    :invalid-feedback=\"invalidFeedback\"\n    :state=\"state\"\n    >\n\n    <b-form-input id=\"input-1\" v-model=\"other\" :state=\"state\" @change=\"onChange\" trim></b-form-input>\n  </b-form-group>\n\n  <b-button size=\"sm\" variant=\"info\">Login / connexion</b-button>\n</div>\n</b-form-group>\n</div>\n\n<div v-else class=\"d-flex align-items-center\">\n  <b-button @click=\"logout\" variant=\"outline-danger\" size=\"sm\">Logout</b-button>\n  <a :href=\"session.webId\" target=\"_blank\">pod</a>\n</div>\n<div class=\"\">\n\n  </div>\n</span>\n</template>\n\n<script>\nexport default {\n  name: \"SolidLogin\",\n  props: [\n    \"clientName\"\n  ],\n  data() {\n    return {\n      issuers: [\n        { value: \"https://solidcommunity.net\", text: 'SolidCommunity.net (NSS)' },\n        { value: \"https://solidweb.org\", text: 'Solidweb.org (NSS)' },\n        { value: 'https://solidweb.me/', text: 'Solidweb.me (CSS)'},\n        { value: \"https://broker.pod.inrupt.com\", text: 'Broker Pod Inrupt (Entreprise Solid Server)' },\n        { value: \"https://inrupt.net\", text: 'Inrupt.net (NSS)' },\n        { value: \"https://dev.inrupt.net\", text: 'dev.inrupt.net (NSS)' },\n        { value: \"https://trinpod.us/\", text: 'Trinpod.us (hs ?)'},\n        { value: \"other\", text: 'Autre / Other' },\n      ],\n      issuer: null,\n      restore: true,\n      other: \"\"\n    }\n  },\n  created(){\n    this.$checkSession()\n  },\n  methods:{\n    onInput(){\n      console.log(\"input\", this.other)\n    },\n    onChange(){\n      console.log(\"change\", this.other)\n      if (this.other != undefined && this.other.length != undefined)  {\n        this.issuer = this.other\n        this.login(this.issuer)\n      }\n    },\n    login(issuer){\n      console.log(issuer)\n      this.issuer = issuer\n      if (this.issuer != null && this.issuer != \"other\"){\n        console.log(this.issuer)\n        let params = {issuer : this.issuer, clientName: this.clientName}\n        this.$login(params)\n      }\n    },\n    logout(){\n      this.$logout()\n    }\n  },\n  computed:{\n    session(){\n     return this.$store.state.vue2_solid_store.session\n    },\n    pod(){\n     return this.$store.state.vue2_solid_store.pod\n    },\n    state() {\n      return this.other.startsWith('http')\n    },\n    invalidFeedback() {\n      if (this.other.length> 0 && !this.other.startsWith('http')) {\n        return \"the url of your pod provider should start with `http`\"\n      }\n      return \"the url of your pod provider, not your webId ! \"\n    }\n  }\n}\n</script>\n\n<style>\n/* .login{\nfloat: left\n} */\n</style>\n"]}, media: undefined });
+
+  };
+  /* scoped */
+  const __vue_scope_id__$6 = undefined;
+  /* module identifier */
+  const __vue_module_identifier__$6 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$6 = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$6 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
+    __vue_inject_styles__$6,
+    __vue_script__$6,
+    __vue_scope_id__$6,
+    __vue_is_functional_template__$6,
+    __vue_module_identifier__$6,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$5 = {
+  name: 'SolidBrowser',
+  // data(){
+  //   return {
+  //     profile: null
+  //   }
+  // },
+  // mounted(){
+  //   let pod = this.$store.state.vue2_solid_store.pod
+  //   console.log("created", pod)
+  // },
+
+  watch:{
+    pod(){
+      console.log("pod in profile", this.pod);
+    },
+    // async session(){
+    //   console.log("session in browser", this.session)
+    //   this.profile = await this.$getPodInfosFromSession(this.session)
+    // },
+
+
+  },
+  computed:{
+    pod(){
+     return this.$store.state.vue2_solid_store.pod
+    },
+    session(){
+    return this.$store.state.vue2_solid_store.session
+    },
+  }
+
+
+};
+
+/* script */
+const __vue_script__$5 = script$5;
+
+/* template */
+var __vue_render__$5 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("b-container", [
+    _vm._v(
+      "\n    Browser\nPOD : " +
+        _vm._s(_vm.pod) +
+        "\n    session " +
+        _vm._s(_vm.session) +
+        "\n    "
+    ),
+  ])
+};
+var __vue_staticRenderFns__$5 = [];
+__vue_render__$5._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$5 = undefined;
+  /* scoped */
+  const __vue_scope_id__$5 = undefined;
+  /* module identifier */
+  const __vue_module_identifier__$5 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$5 = false;
+  /* style inject */
+  
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$5 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
+    __vue_inject_styles__$5,
+    __vue_script__$5,
+    __vue_scope_id__$5,
+    __vue_is_functional_template__$5,
+    __vue_module_identifier__$5,
+    false,
+    undefined,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+var script$4 = {
+  name: 'SolidProfile',
+  computed:{
+    session(){
+      return this.$store.state.vue2_solid_store.session
+    },
+  }
+};
+
+/* script */
+const __vue_script__$4 = script$4;
+
+/* template */
+var __vue_render__$4 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _vm.session
+    ? _c(
+        "b-card-group",
+        { staticClass: "solid-profile", attrs: { deck: "" } },
+        [
+          _vm.session != null
+            ? _c("SolidUser", { attrs: { webId: _vm.session.webId } })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.session != null
+            ? _c("SolidFriends", { attrs: { webId: _vm.session.webId } })
+            : _vm._e(),
+          _vm._v("\n  session   " + _vm._s(_vm.session) + "\n"),
+        ],
+        1
+      )
+    : _vm._e()
+};
+var __vue_staticRenderFns__$4 = [];
+__vue_render__$4._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$4 = undefined;
+  /* scoped */
+  const __vue_scope_id__$4 = undefined;
+  /* module identifier */
+  const __vue_module_identifier__$4 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$4 = false;
+  /* style inject */
+  
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$4 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
+    __vue_inject_styles__$4,
+    __vue_script__$4,
+    __vue_scope_id__$4,
+    __vue_is_functional_template__$4,
+    __vue_module_identifier__$4,
+    false,
+    undefined,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$3 = {
+  name: 'SolidUser',
+  props: ['webId'],
+  data(){
+    return {
+      user: null
+    }
+  },
+  created(){
+    this.init();
+  },
+  methods: {
+    async init(){
+      console.log('get!user',this.webId);
+      this.user = await this.$getUser(this.webId);
+      console.log(this.user);
+    }
+  },
+  watch:{
+    webId(){
+      this.init();
+    }
+  }
+
+};
+
+/* script */
+const __vue_script__$3 = script$3;
+
+/* template */
+var __vue_render__$3 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _vm.user != null
+    ? _c(
+        "b-card",
+        {
+          staticClass: "mb-2 solid-user",
+          staticStyle: { "max-width": "20rem" },
+          attrs: {
+            title: _vm.user.name || "no name",
+            "img-src": _vm.user.photo || "no photo",
+            "img-alt": "Image",
+            "img-top": "",
+            tag: "article",
+          },
+        },
+        [_c("b-card-text")],
+        1
+      )
+    : _vm._e()
+};
+var __vue_staticRenderFns__$3 = [];
+__vue_render__$3._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$3 = function (inject) {
+    if (!inject) return
+    inject("data-v-44fd83e0_0", { source: "\n.solid-user[data-v-44fd83e0] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidUser.vue"],"names":[],"mappings":";AAuDA;AAEA","file":"SolidUser.vue","sourcesContent":["<template>\n\n  <!-- <div>\n    User : {{ webId}}\n<hr>\nuser : {{ user}}\n\n  </div> -->\n  <b-card v-if=\"user != null\"\n  :title=\"user.name || 'no name'\"\n  :img-src=\"user.photo || 'no photo'\"\n  img-alt=\"Image\"\n  img-top\n  tag=\"article\"\n  style=\"max-width: 20rem;\"\n  class=\"mb-2 solid-user\"\n  >\n  <b-card-text>\n\n</b-card-text>\n\n<!-- <b-button href=\"#\" variant=\"primary\">Go somewhere</b-button> -->\n</b-card>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidUser',\n  props: ['webId'],\n  data(){\n    return {\n      user: null\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      console.log('get!user',this.webId)\n      this.user = await this.$getUser(this.webId)\n      console.log(this.user)\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-user {\n\n}\n</style>\n"]}, media: undefined });
+
+  };
+  /* scoped */
+  const __vue_scope_id__$3 = "data-v-44fd83e0";
+  /* module identifier */
+  const __vue_module_identifier__$3 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$3 = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$3 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
+    __vue_inject_styles__$3,
+    __vue_script__$3,
+    __vue_scope_id__$3,
+    __vue_is_functional_template__$3,
+    __vue_module_identifier__$3,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$2 = {
+  name: 'SolidUserSmall',
+  props: ['webId'],
+  data(){
+    return {
+      user: null,
+      friends:[]
+    }
+  },
+  created(){
+    this.init();
+  },
+  methods: {
+    async init(){
+      console.log('get!user',this.webId);
+      this.user = await this.$getUser(this.webId);
+      console.log(this.user);
+      this.friends = await this.$getFriends(this.webId);
+      // this.friendsLength = friends.length
+    },
+
+  },
+  watch:{
+    webId(){
+      this.init();
+    }
+  }
+
+};
+
+/* script */
+const __vue_script__$2 = script$2;
+
+/* template */
+var __vue_render__$2 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _vm.user != null
+    ? _c(
+        "span",
+        { staticClass: "d-flex align-items-center" },
+        [
+          _c("b-avatar", {
+            staticClass: "mr-3",
+            attrs: { variant: "info", src: _vm.user.photo },
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "mr-auto" }, [
+            _vm._v(_vm._s(_vm.user.name || _vm.webId)),
+          ]),
+          _vm._v(" "),
+          _c("b-badge", [_vm._v(_vm._s(_vm.friends.length))]),
+        ],
+        1
+      )
+    : _vm._e()
+};
+var __vue_staticRenderFns__$2 = [];
+__vue_render__$2._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$2 = function (inject) {
+    if (!inject) return
+    inject("data-v-1f934c33_0", { source: "\n.solid-user[data-v-1f934c33] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidUserSmall.vue"],"names":[],"mappings":";AAmDA;AAEA","file":"SolidUserSmall.vue","sourcesContent":["<template>\n\n  <!-- <div>\n  User : {{ webId}}\n  <hr>\n  user : {{ user}}\n\n</div> -->\n<span v-if=\"user != null\" class=\"d-flex align-items-center\">\n  <!-- {{user.photo}} {{user.name}} -->\n  <b-avatar variant=\"info\" :src=\"user.photo\" class=\"mr-3\"></b-avatar>\n  <span class=\"mr-auto\">{{user.name || webId}}</span>\n  <b-badge>{{ friends.length}}</b-badge>\n\n</span>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidUserSmall',\n  props: ['webId'],\n  data(){\n    return {\n      user: null,\n      friends:[]\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      console.log('get!user',this.webId)\n      this.user = await this.$getUser(this.webId)\n      console.log(this.user)\n      this.friends = await this.$getFriends(this.webId)\n      // this.friendsLength = friends.length\n    },\n\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-user {\n\n}\n</style>\n"]}, media: undefined });
+
+  };
+  /* scoped */
+  const __vue_scope_id__$2 = "data-v-1f934c33";
+  /* module identifier */
+  const __vue_module_identifier__$2 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$2 = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$2 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
+    __vue_inject_styles__$2,
+    __vue_script__$2,
+    __vue_scope_id__$2,
+    __vue_is_functional_template__$2,
+    __vue_module_identifier__$2,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$1 = {
+  name: 'SolidFriends',
+  props: ['webId'],
+  data(){
+    return {
+      friends: null
+    }
+  },
+  created(){
+    this.init();
+  },
+  methods: {
+    async init(){
+      console.log('getFriends',this.webId);
+      this.friends = await this.$getFriends(this.webId);
+      console.log(this.friends);
+    }
+  },
+  watch:{
+    webId(){
+      this.init();
+    }
+  }
+
+};
+
+/* script */
+const __vue_script__$1 = script$1;
+
+/* template */
+var __vue_render__$1 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c(
+    "b-card",
+    {
+      staticClass: "solid-friends",
+      attrs: { header: "Friends", "no-body": "" },
+    },
+    [
+      _c(
+        "b-list-group",
+        { attrs: { flush: "" } },
+        _vm._l(_vm.friends, function (f) {
+          return _c(
+            "b-list-group-item",
+            { key: f.webId, attrs: { button: "" } },
+            [_c("SolidUserSmall", { attrs: { webId: f.webId } })],
+            1
+          )
+        }),
+        1
+      ),
+    ],
+    1
+  )
+};
 var __vue_staticRenderFns__$1 = [];
 __vue_render__$1._withStripped = true;
 
   /* style */
   const __vue_inject_styles__$1 = function (inject) {
     if (!inject) return
-    inject("data-v-15cce75a_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .login{\nfloat: left\n} */\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidLogin.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA2HA;;GAEA","file":"SolidLogin.vue","sourcesContent":["<template>\n  <span class=\"login\">\n    <!-- <b-icon-person-circle></b-icon-person-circle> -->\n    <div v-if=\"session == null || session.isLoggedIn == false\" class=\"d-flex align-items-center\">\n      <b-form-group>\n\n        <!-- <b-dropdown id=\"dropdown-login\"\n        text=\"Login\"\n        class=\"m-md-2\"\n        size=\"sm\"\n        variant=\"success\">\n        <b-dropdown-item v-for=\"issuer in issuers\" :key=\"issuer.value\" @click=\"login(issuer.value)\">\n        {{issuer.text}}\n      </b-dropdown-item>\n    </b-dropdown> -->\n\n\n    <b-form-select autofocus size=\"sm\" v-model=\"issuer\"\n    :options=\"issuers\" @change=\"login\">\n    <template #first>\n      <b-form-select-option :value=\"null\" disabled>-- Login / Connexion --</b-form-select-option>\n    </template>\n\n  </b-form-select>\n\n  <div v-if=\"issuer == 'other'\">\n    <b-form-group\n    id=\"fieldset-1\"\n    description= \"ex: `https://solidcommunity.net`\"\n    label=\"url of your pod provider\"\n    label-for=\"input-1\"\n    valid-feedback=\"Thxs!\"\n    :invalid-feedback=\"invalidFeedback\"\n    :state=\"state\"\n    >\n\n    <b-form-input id=\"input-1\" v-model=\"other\" :state=\"state\" @change=\"onChange\" trim></b-form-input>\n  </b-form-group>\n\n  <b-button size=\"sm\" variant=\"info\">Login / connexion</b-button>\n</div>\n</b-form-group>\n</div>\n\n<div v-else class=\"d-flex align-items-center\">\n  <b-button @click=\"logout\" variant=\"outline-danger\" size=\"sm\">Logout</b-button>\n  <a :href=\"session.webId\" target=\"_blank\">pod</a>\n</div>\n<div class=\"\">\n\n  </div>\n</span>\n</template>\n\n<script>\nexport default {\n  name: \"SolidLogin\",\n  props: [\n    \"clientName\"\n  ],\n  data() {\n    return {\n      issuers: [\n        { value: \"https://solidcommunity.net\", text: 'SolidCommunity.net (NSS)' },\n        { value: \"https://solidweb.org\", text: 'Solidweb.org (NSS)' },\n        { value: 'https://solidweb.me/', text: 'Solidweb.me (CSS)'},\n        { value: \"https://broker.pod.inrupt.com\", text: 'Broker Pod Inrupt (Entreprise Solid Server)' },\n        { value: \"https://inrupt.net\", text: 'Inrupt.net (NSS)' },\n        { value: \"https://dev.inrupt.net\", text: 'dev.inrupt.net (NSS)' },\n        { value: \"https://trinpod.us/\", text: 'Trinpod.us (hs ?)'},\n        { value: \"other\", text: 'Autre / Other' },\n      ],\n      issuer: null,\n      restore: true,\n      other: \"\"\n    }\n  },\n  created(){\n    this.$checkSession()\n  },\n  methods:{\n    onInput(){\n      console.log(\"input\", this.other)\n    },\n    onChange(){\n      console.log(\"change\", this.other)\n      if (this.other != undefined && this.other.length != undefined)  {\n        this.issuer = this.other\n        this.login(this.issuer)\n      }\n    },\n    login(issuer){\n      console.log(issuer)\n      this.issuer = issuer\n      if (this.issuer != null && this.issuer != \"other\"){\n        console.log(this.issuer)\n        let params = {issuer : this.issuer, clientName: this.clientName}\n        this.$login(params)\n      }\n    },\n    logout(){\n      this.$logout()\n    }\n  },\n  computed:{\n    session:{\n      get () { return this.$store.state.vue2_solid_store.session },\n      set (/*value*/) { /*this.updateTodo(value)*/ }\n    },\n    state() {\n      return this.other.startsWith('http')\n    },\n    invalidFeedback() {\n      if (this.other.length> 0 && !this.other.startsWith('http')) {\n        return \"the url of your pod provider should start with `http`\"\n      }\n      return \"the url of your pod provider, not your webId ! \"\n    }\n  }\n}\n</script>\n\n<style>\n/* .login{\nfloat: left\n} */\n</style>\n"]}, media: undefined });
+    inject("data-v-b18c806a_0", { source: "\n.solid-friends[data-v-b18c806a] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidFriends.vue"],"names":[],"mappings":";AAgDA;AAEA","file":"SolidFriends.vue","sourcesContent":["<template>\n\n  <b-card\n  header=\"Friends\"\n  class=\"solid-friends\"\n  no-body>\n  <!-- webId : {{ webId}}\n  friends : {{ friends}} -->\n  <b-list-group flush>\n    <b-list-group-item button v-for=\"f in friends\" :key=\"f.webId\">\n      <SolidUserSmall :webId=\"f.webId\" />\n      <!-- {{f.webId}} -->\n    </b-list-group-item>\n  </b-list-group>\n\n</b-card>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidFriends',\n  props: ['webId'],\n  data(){\n    return {\n      friends: null\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      console.log('getFriends',this.webId)\n      this.friends = await this.$getFriends(this.webId)\n      console.log(this.friends)\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-friends {\n\n}\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$1 = undefined;
+  const __vue_scope_id__$1 = "data-v-b18c806a";
   /* module identifier */
   const __vue_module_identifier__$1 = undefined;
   /* functional template */
@@ -594,47 +1106,12 @@ __vue_render__$1._withStripped = true;
 //
 //
 //
-//
-//
-//
-//
 
-var script = {
-  name: 'SolidBrowser',
-  data(){
-    return {
-      profile: null
-    }
-  },
-  created(){
-    this.pod = this.$store.state.vue2_solid_store.pod;
-    console.log("created", this.pod);
-  },
-
-  watch:{
-    pod(){
-      console.log("pod in browser", this.pod);
-    },
-    async session(){
-      console.log("session in browser", this.session);
-      this.profile = await this.$getPodInfosFromSession(this.session);
-    },
+  var script = {
+    name: 'SolidStorage',
 
 
-  },
-  computed:{
-    pod:{
-      get () { return this.$store.state.vue2_solid_store.pod },
-      set (/*value*/) { /*this.updateTodo(value)*/ }
-    },
-    session:{
-      get () { return this.$store.state.vue2_solid_store.session },
-      set (/*value*/) { /*this.updateTodo(value)*/ }
-    },
-  }
-
-
-};
+  };
 
 /* script */
 const __vue_script__ = script;
@@ -644,30 +1121,23 @@ var __vue_render__ = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("b-container", [
-    _vm.pod != null
-      ? _c("div", [_vm._v("POD : " + _vm._s(_vm.pod))])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v("\n  session " + _vm._s(_vm.session) + "\n  "),
-    _c("hr"),
-    _vm._v("\n  profile : " + _vm._s(_vm.profile) + "\n"),
-  ])
+  return _c("div", { staticClass: "solid-storage" })
 };
 var __vue_staticRenderFns__ = [];
 __vue_render__._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__ = undefined;
+  const __vue_inject_styles__ = function (inject) {
+    if (!inject) return
+    inject("data-v-8e5e676a_0", { source: "\n.solid-storage[data-v-8e5e676a] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidStorage.vue"],"names":[],"mappings":";AAeA;AAEA","file":"SolidStorage.vue","sourcesContent":["<template>\n  <div class=\"solid-storage\">\n\n  </div>\n</template>\n\n<script>\n  export default {\n    name: 'SolidStorage',\n\n\n  }\n</script>\n\n<style lang=\"css\" scoped>\n  .solid-storage {\n\n  }\n</style>\n"]}, media: undefined });
+
+  };
   /* scoped */
-  const __vue_scope_id__ = undefined;
+  const __vue_scope_id__ = "data-v-8e5e676a";
   /* module identifier */
   const __vue_module_identifier__ = undefined;
   /* functional template */
   const __vue_is_functional_template__ = false;
-  /* style inject */
-  
   /* style inject SSR */
   
   /* style inject shadow dom */
@@ -682,7 +1152,7 @@ __vue_render__._withStripped = true;
     __vue_is_functional_template__,
     __vue_module_identifier__,
     false,
-    undefined,
+    createInjector,
     undefined,
     undefined
   );
@@ -691,12 +1161,17 @@ __vue_render__._withStripped = true;
 // import myComponentB from './myComponentB.vue'
 
 var components = {
-  InputTextarea: __vue_component__$2,
-  InputText: __vue_component__$3,
+  InputTextarea: __vue_component__$7,
+  InputText: __vue_component__$8,
   // myComponentA,
   // myComponentB
-  SolidLogin: __vue_component__$1,
-  SolidBrowser: __vue_component__
+  SolidLogin: __vue_component__$6,
+  SolidBrowser: __vue_component__$5,
+  SolidProfile: __vue_component__$4,
+  SolidFriends: __vue_component__$1,
+  SolidUser: __vue_component__$3,
+  SolidUserSmall: __vue_component__$2,
+  SolidStorage: __vue_component__
 };
 
 // import Vue from 'vue'
@@ -718,8 +1193,7 @@ const mutations = {
   },
   setPod(state, p){
     console.log("pod",p);
-    console.log();
-    state.pod = Object.assign({}, p);
+    state.pod = p;
     console.log("pod state", state.pod);
   },
   incremente(state, val){
@@ -772,14 +1246,14 @@ const Vue2Solid = {
     }
 
     Vue.use(bootstrapVue.BootstrapVue);
-     // Vue.use(BIconLink)
-     // Vue.use(BIconEye)
-     // Vue.use(BIconShare)
-     // Vue.use(BIconFileArrowUp)
-     // Vue.use(BIconFileArrowDown)
-     // Vue.use(BIconClipboardPlus)
-     // Vue.use(BIconCloudUpload)
-     Vue.use(bootstrapVue.BootstrapVueIcons);
+    // Vue.use(BIconLink)
+    // Vue.use(BIconEye)
+    // Vue.use(BIconShare)
+    // Vue.use(BIconFileArrowUp)
+    // Vue.use(BIconFileArrowDown)
+    // Vue.use(BIconClipboardPlus)
+    // Vue.use(BIconCloudUpload)
+    Vue.use(bootstrapVue.BootstrapVueIcons);
 
 
     // Vue.component(componentA.name, componentA);
@@ -792,146 +1266,172 @@ const Vue2Solid = {
     }
 
 
+    // Globals
+
+    Vue.prototype.$checkSession = async function(){
+      localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, window.location.toString());
+      // console.log("check session", document.location)
+      // localStorage.setItem(Date.now, document.location)
+
+      sc__namespace.onSessionRestore((url) => {
+        history.replaceState(null, "", url);
+      });
 
 
-// Globals
+      await sc__namespace.handleIncomingRedirect({
+        restorePreviousSession: true
+      }).then(async (session) => {
+        if(session.isLoggedIn ==  true){
+          console.log(`Logged in with WebID [${session.webId}]`);
+          store.commit('vue2_solid_store/setSession',session);
+          // let session = sc.getDefaultSession()
+          //   console.log(session)
+          // await this.$getPodInfosFromSession(session)
+          // This line is not reached until you are successfully logged in
+          localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, "");
+        }
+      });
 
-Vue.prototype.$checkSession = async function(){
-  localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, window.location.toString());
-  // console.log("check session", document.location)
-  // localStorage.setItem(Date.now, document.location)
+    };
 
-  sc__namespace.onSessionRestore((url) => {
-    history.replaceState(null, "", url);
-  });
+    Vue.prototype.$login = async function(params){
+      console.log("login", params);
+      if (!sc__namespace.getDefaultSession().info.isLoggedIn) {
+        await sc__namespace.login({
+          oidcIssuer: params.issuer,
+          redirectUrl: window.location.href,
+          clientName: params.clientName //|| "clientName not provided see vue2_solid doc"
+        });
+      }
+    };
 
-
-  await sc__namespace.handleIncomingRedirect({
-    restorePreviousSession: true
-  }).then((info) => {
-    if(info.isLoggedIn ==  true){
-      console.log(`Logged in with WebID [${info.webId}]`);
-      store.commit('vue2_solid_store/setSession',info);
+    Vue.prototype.$logout = async function(){
       let session = sc__namespace.getDefaultSession();
-      console.log(session);
-      this.$getPodInfosFromSession(session);
-      // This line is not reached until you are successfully logged in
-      localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, "");
-    }
-  });
+      await session.logout();
+      store.commit('vue2_solid_store/setSession',null);
+      store.commit('vue2_solid_store/setPod', null);
+      //store.dispatch('nodes/clearStore')
+    };
 
-};
+    Vue.prototype.$getUser = async function(webId){
+      try{
+        let user = {wedId: webId};
+        console.log("user before",user);
+        const dataset = await solidClient.getSolidDataset( webId, { fetch: sc__namespace.fetch });
+        let profile = await solidClient.getThing( dataset, webId );
+        user.name = await solidClient.getStringNoLocale(profile, vocabCommonRdf.FOAF.name);
+        // user.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
+        user.storage = await solidClient.getUrl(profile, vocabSolidCommon.WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/';
+          user.photo = await solidClient.getUrl(profile, vocabCommonRdf.VCARD.hasPhoto);
+        console.log("user after",user);
+        return user
+        }catch(e)
+      {
+        console.log("erreur",e);
+      }
+    };
 
-Vue.prototype.$login = async function(params){
-  console.log("login", params);
-  if (!sc__namespace.getDefaultSession().info.isLoggedIn) {
-    await sc__namespace.login({
-      oidcIssuer: params.issuer,
-      redirectUrl: window.location.href,
-      clientName: params.clientName //|| "clientName not provided see vue2_solid doc"
-    });
-  }
-};
+    Vue.prototype.$getFriends = async function(webId){
+      try{
+        let friends = [];
+        const dataset = await solidClient.getSolidDataset( webId, { fetch: sc__namespace.fetch });
+        let profile = await solidClient.getThing( dataset, webId );
+        friends = await solidClient.getUrlAll(profile, vocabCommonRdf.FOAF.knows).map(f => {return {webId: f}});
+        console.log(friends);
+        return friends
+            }catch(e)
+      {
+        console.log("erreur",e);
+      }
+    };
 
-Vue.prototype.$logout = async function(){
-  let session = sc__namespace.getDefaultSession();
-  await session.logout();
-  store.commit('vue2_solid_store/setSession',null);
-  store.commit('vue2_solid_store/setPod', null);
-  //store.dispatch('nodes/clearStore')
-};
-
-Vue.prototype.$getPodInfosFromSession = async function(session){
-  // try{
-  let pod = {};
-  pod.logged = session.info.isLoggedIn;
-  if (pod.logged) {
-    pod.webId = session.info.webId;
-// let pod2_full = await this.$getPodInfos(pod)
-    store.commit('vue2_solid_store/setPod', pod);
-    // pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
-    // pod.workspaces == undefined ? pod.workspaces = [] : ""
-
-    // store.commit('vue2_solid_store/setPod', pod)
-    //  this.$checkChanges()
-    //this.$synchronize()
-    //  await this.$getVerses(pod)
-
-    // if (pod.storage != null){
-    //   pod.brains = pod.storage+'brains.json'
-    //   Vue.prototype.$checkBrains()
-    //   //  this.$setCurrentThingUrl(pod.storage)
-    //   //  store.commit('booklice/setPath', pod.storage+'public/bookmarks/')
-    //   //let publicTagFile = pod.storage+'public/tags.ttl'
-    //   //let privateTagFile = podStorage+'private/tags.ttl'
-    //   // let tags = await this.$getTags(publicTagFile)
-    //   // console.log("############################tags",tags)
-    // }
-  }else {
-    store.commit('vue2_solid_store/setPod', null);
-    //  store.commit('solid/setThings', [])
-  }
-  // } catch(e){
-  //   alert("$getPodInfosFromSession "+e)
-  // }
-},
-Vue.prototype.$getPodInfos = async function(pod){
-  try{
-    const dataset = await solidClient.getSolidDataset( pod.webId, { fetch: sc__namespace.fetch });
-    let profile = await solidClient.getThing( dataset, pod.webId );
-    pod.name = await solidClient.getStringNoLocale(profile, vocabCommonRdf.FOAF.name);
-    pod.friends = await solidClient.getUrlAll(profile, vocabCommonRdf.FOAF.knows).map(webId => {return {webId: webId}});
-    pod.storage = await solidClient.getUrl(profile, vocabSolidCommon.WS.storage);
-
-    if (pod.storage == null){
-      // let storage = await getLink(pod.webId)
-      // console.log("storage", storage)
-      // for community solid server with no pim:storage
-      pod.storage = pod.webId.split('/').slice(0,-2).join('/')+'/';
-    }
-
-
-    pod.photo = await solidClient.getUrl(profile, vocabCommonRdf.VCARD.hasPhoto);
-    pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : "";
-    // pod.workspaces = []
     //
-    // let publicTypeIndexUtl = pod.storage+'settings/publicTypeIndex.ttl'
-    // const pti_ds = await getSolidDataset( publicTypeIndexUtl, { fetch: sc.fetch });
-    // let indexes = await getThingAll(pti_ds)
-    // for await (const i of indexes){
-    //   let types = await getUrlAll(i, "http://www.w3.org/ns/solid/terms#forClass");
-    //   //console.log(types)
-    //   if(types.includes("https://scenaristeur.github.io/verse#Workspace")){
-    //     console.log(i)
-    //     let ws = {}
-    //     ws.name =  await getStringNoLocale(i, AS.name)
-    //     ws.url = await getUrl(i,SOLID.instance)
-    //     pod.workspaces.push(ws)
+    // Vue.prototype.$getPodInfosFromSession = async function(session){
+    //   // try{
+    //   console.log('session', session)
+    //   let pod = {}
+    //   pod.logged = session.isLoggedIn
+    //   if (pod.logged) {
+    //     pod.webId = session.webId
+    //     // pod = await this.$getPodInfos(pod)
+    //     // console.log("getinfos",pod)
+    //     store.commit('vue2_solid_store/setPod', pod)
+    //     // pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
+    //     // pod.workspaces == undefined ? pod.workspaces = [] : ""
+    //
+    //     // store.commit('vue2_solid_store/setPod', pod)
+    //     //  this.$checkChanges()
+    //     //this.$synchronize()
+    //     //  await this.$getVerses(pod)
+    //
+    //     // if (pod.storage != null){
+    //     //   pod.brains = pod.storage+'brains.json'
+    //     //   Vue.prototype.$checkBrains()
+    //     //   //  this.$setCurrentThingUrl(pod.storage)
+    //     //   //  store.commit('booklice/setPath', pod.storage+'public/bookmarks/')
+    //     //   //let publicTagFile = pod.storage+'public/tags.ttl'
+    //     //   //let privateTagFile = podStorage+'private/tags.ttl'
+    //     //   // let tags = await this.$getTags(publicTagFile)
+    //     //   // console.log("############################tags",tags)
+    //     // }
+    //   }else{
+    //     store.commit('vue2_solid_store/setPod', null)
+    //     //  store.commit('solid/setThings', [])
     //   }
+    //   // } catch(e){
+    //   //   alert("$getPodInfosFromSession "+e)
+    //   // }
+    // },
+    //
+
+    // Vue.prototype.$getPodInfos = async function(pod){
+    //   console.log("getpodinfos", pod)
+    //   try{
+    //     const dataset = await getSolidDataset( pod.webId, { fetch: sc.fetch });
+    //     let profile = await getThing( dataset, pod.webId );
+    //     pod.name = await getStringNoLocale(profile, FOAF.name);
+    //     pod.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
+    //     pod.storage = await getUrl(profile, WS.storage);
+    //
+    //     if (pod.storage == null){
+    //       // let storage = await getLink(pod.webId)
+    //       // console.log("storage", storage)
+    //       // for community solid server with no pim:storage
+    //       pod.storage = pod.webId.split('/').slice(0,-2).join('/')+'/'
+    //     }
+    //
+    //
+    //     pod.photo = await getUrl(profile, VCARD.hasPhoto);
+    //     pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
+    //     // pod.workspaces = []
+    //     //
+    //     // let publicTypeIndexUtl = pod.storage+'settings/publicTypeIndex.ttl'
+    //     // const pti_ds = await getSolidDataset( publicTypeIndexUtl, { fetch: sc.fetch });
+    //     // let indexes = await getThingAll(pti_ds)
+    //     // for await (const i of indexes){
+    //     //   let types = await getUrlAll(i, "http://www.w3.org/ns/solid/terms#forClass");
+    //     //   //console.log(types)
+    //     //   if(types.includes("https://scenaristeur.github.io/verse#Workspace")){
+    //     //     console.log(i)
+    //     //     let ws = {}
+    //     //     ws.name =  await getStringNoLocale(i, AS.name)
+    //     //     ws.url = await getUrl(i,SOLID.instance)
+    //     //     pod.workspaces.push(ws)
+    //     //   }
+    //     // }
+    //     //console.log(ws)
+    //     //  pod.workspaces = await getUrlAll(pti_ds, "http://www.w3.org/ns/solid/terms#forClass", "https://www.w3.org/ns/activitystreams#Collection");
+    //     // pod.publicTags = await this.$getTags(pod.storage+'public/tags.ttl')
+    //     // store.commit("vatch/addToNetwork", pod.publicTags)
+    //     //this.$subscribe(pod.storage)
+    //     //  console.log("getpodinfos",pod)
+    //   }catch(e)
+    //   {
+    //     console.log("erreur",e, pod)
+    //   }
+    //   console.log("pod in getinfos",pod)
+    //   return await pod
     // }
-    //console.log(ws)
-    //  pod.workspaces = await getUrlAll(pti_ds, "http://www.w3.org/ns/solid/terms#forClass", "https://www.w3.org/ns/activitystreams#Collection");
-    // pod.publicTags = await this.$getTags(pod.storage+'public/tags.ttl')
-    // store.commit("vatch/addToNetwork", pod.publicTags)
-    //this.$subscribe(pod.storage)
-    //  console.log("getpodinfos",pod)
-  }catch(e)
-  {
-    console.log("erreur",e, pod);
-  }
-  console.log("pod in getinfos",pod);
-  return pod
-};
-
-
-
-
-
-
-
-
-
-
 
   }
 };

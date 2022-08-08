@@ -7,7 +7,7 @@ import vue2_solid_store from './store.js'
 
 import {
   getSolidDataset,
-  getThingAll,
+  // getThingAll,
   //getPublicAccess,
   //  getAgentAccess,
   //getSolidDatasetWithAcl,
@@ -48,8 +48,8 @@ import {
   //getInteger,
   // setDatetime
 } from "@inrupt/solid-client";
-import { FOAF, /*LDP,*/ VCARD, /*RDF,*/ AS, /*RDFS, OWL*/  } from "@inrupt/vocab-common-rdf";
-import { WS, SOLID } from "@inrupt/vocab-solid-common";
+import { FOAF, /*LDP,*/ VCARD, /*RDF,*/ /*AS,*/ /*RDFS, OWL*/  } from "@inrupt/vocab-common-rdf";
+import { WS/*, SOLID*/ } from "@inrupt/vocab-solid-common";
 
 import * as sc from '@inrupt/solid-client-authn-browser'
 const LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL = "solid_session_restore_url"
@@ -64,10 +64,10 @@ import { BootstrapVue,
   // BIconClipboardPlus,
   // BIconCloudUpload
   BootstrapVueIcons
- } from 'bootstrap-vue'
+} from 'bootstrap-vue'
 
-  import 'bootstrap/dist/css/bootstrap.css'
-  import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 const Vue2Solid = {
   install (Vue, options) {
@@ -80,14 +80,14 @@ const Vue2Solid = {
     }
 
     Vue.use(BootstrapVue)
-     // Vue.use(BIconLink)
-     // Vue.use(BIconEye)
-     // Vue.use(BIconShare)
-     // Vue.use(BIconFileArrowUp)
-     // Vue.use(BIconFileArrowDown)
-     // Vue.use(BIconClipboardPlus)
-     // Vue.use(BIconCloudUpload)
-     Vue.use(BootstrapVueIcons)
+    // Vue.use(BIconLink)
+    // Vue.use(BIconEye)
+    // Vue.use(BIconShare)
+    // Vue.use(BIconFileArrowUp)
+    // Vue.use(BIconFileArrowDown)
+    // Vue.use(BIconClipboardPlus)
+    // Vue.use(BIconCloudUpload)
+    Vue.use(BootstrapVueIcons)
 
 
     // Vue.component(componentA.name, componentA);
@@ -100,146 +100,172 @@ const Vue2Solid = {
     }
 
 
+    // Globals
+
+    Vue.prototype.$checkSession = async function(){
+      localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, window.location.toString())
+      // console.log("check session", document.location)
+      // localStorage.setItem(Date.now, document.location)
+
+      sc.onSessionRestore((url) => {
+        history.replaceState(null, "", url)
+      });
 
 
-// Globals
+      await sc.handleIncomingRedirect({
+        restorePreviousSession: true
+      }).then(async (session) => {
+        if(session.isLoggedIn ==  true){
+          console.log(`Logged in with WebID [${session.webId}]`)
+          store.commit('vue2_solid_store/setSession',session)
+          // let session = sc.getDefaultSession()
+          //   console.log(session)
+          // await this.$getPodInfosFromSession(session)
+          // This line is not reached until you are successfully logged in
+          localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, "")
+        }
+      })
 
-Vue.prototype.$checkSession = async function(){
-  localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, window.location.toString())
-  // console.log("check session", document.location)
-  // localStorage.setItem(Date.now, document.location)
+    }
 
-  sc.onSessionRestore((url) => {
-    history.replaceState(null, "", url)
-  });
+    Vue.prototype.$login = async function(params){
+      console.log("login", params)
+      if (!sc.getDefaultSession().info.isLoggedIn) {
+        await sc.login({
+          oidcIssuer: params.issuer,
+          redirectUrl: window.location.href,
+          clientName: params.clientName //|| "clientName not provided see vue2_solid doc"
+        });
+      }
+    }
 
-
-  await sc.handleIncomingRedirect({
-    restorePreviousSession: true
-  }).then((info) => {
-    if(info.isLoggedIn ==  true){
-      console.log(`Logged in with WebID [${info.webId}]`)
-      store.commit('vue2_solid_store/setSession',info)
+    Vue.prototype.$logout = async function(){
       let session = sc.getDefaultSession()
-      console.log(session)
-      this.$getPodInfosFromSession(session)
-      // This line is not reached until you are successfully logged in
-      localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, "")
-    }
-  })
-
-}
-
-Vue.prototype.$login = async function(params){
-  console.log("login", params)
-  if (!sc.getDefaultSession().info.isLoggedIn) {
-    await sc.login({
-      oidcIssuer: params.issuer,
-      redirectUrl: window.location.href,
-      clientName: params.clientName //|| "clientName not provided see vue2_solid doc"
-    });
-  }
-}
-
-Vue.prototype.$logout = async function(){
-  let session = sc.getDefaultSession()
-  await session.logout()
-  store.commit('vue2_solid_store/setSession',null)
-  store.commit('vue2_solid_store/setPod', null)
-  //store.dispatch('nodes/clearStore')
-}
-
-Vue.prototype.$getPodInfosFromSession = async function(session){
-  // try{
-  let pod = {}
-  pod.logged = session.info.isLoggedIn
-  if (pod.logged) {
-    pod.webId = session.info.webId
-// let pod2_full = await this.$getPodInfos(pod)
-    store.commit('vue2_solid_store/setPod', pod)
-    // pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
-    // pod.workspaces == undefined ? pod.workspaces = [] : ""
-
-    // store.commit('vue2_solid_store/setPod', pod)
-    //  this.$checkChanges()
-    //this.$synchronize()
-    //  await this.$getVerses(pod)
-
-    // if (pod.storage != null){
-    //   pod.brains = pod.storage+'brains.json'
-    //   Vue.prototype.$checkBrains()
-    //   //  this.$setCurrentThingUrl(pod.storage)
-    //   //  store.commit('booklice/setPath', pod.storage+'public/bookmarks/')
-    //   //let publicTagFile = pod.storage+'public/tags.ttl'
-    //   //let privateTagFile = podStorage+'private/tags.ttl'
-    //   // let tags = await this.$getTags(publicTagFile)
-    //   // console.log("############################tags",tags)
-    // }
-  }else{
-    store.commit('vue2_solid_store/setPod', null)
-    //  store.commit('solid/setThings', [])
-  }
-  // } catch(e){
-  //   alert("$getPodInfosFromSession "+e)
-  // }
-},
-Vue.prototype.$getPodInfos = async function(pod){
-  try{
-    const dataset = await getSolidDataset( pod.webId, { fetch: sc.fetch });
-    let profile = await getThing( dataset, pod.webId );
-    pod.name = await getStringNoLocale(profile, FOAF.name);
-    pod.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
-    pod.storage = await getUrl(profile, WS.storage);
-
-    if (pod.storage == null){
-      // let storage = await getLink(pod.webId)
-      // console.log("storage", storage)
-      // for community solid server with no pim:storage
-      pod.storage = pod.webId.split('/').slice(0,-2).join('/')+'/'
+      await session.logout()
+      store.commit('vue2_solid_store/setSession',null)
+      store.commit('vue2_solid_store/setPod', null)
+      //store.dispatch('nodes/clearStore')
     }
 
+    Vue.prototype.$getUser = async function(webId){
+      try{
+        let user = {wedId: webId}
+        console.log("user before",user)
+        const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
+        let profile = await getThing( dataset, webId );
+        user.name = await getStringNoLocale(profile, FOAF.name);
+        // user.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
+        user.storage = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/'
+          user.photo = await getUrl(profile, VCARD.hasPhoto);
+        console.log("user after",user)
+        return user
+        }catch(e)
+      {
+        console.log("erreur",e)
+      }
+    }
 
-    pod.photo = await getUrl(profile, VCARD.hasPhoto);
-    pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
-    // pod.workspaces = []
+    Vue.prototype.$getFriends = async function(webId){
+      try{
+        let friends = []
+        const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
+        let profile = await getThing( dataset, webId );
+        friends = await getUrlAll(profile, FOAF.knows).map(f => {return {webId: f}})
+        console.log(friends)
+        return friends
+            }catch(e)
+      {
+        console.log("erreur",e)
+      }
+    }
+
     //
-    // let publicTypeIndexUtl = pod.storage+'settings/publicTypeIndex.ttl'
-    // const pti_ds = await getSolidDataset( publicTypeIndexUtl, { fetch: sc.fetch });
-    // let indexes = await getThingAll(pti_ds)
-    // for await (const i of indexes){
-    //   let types = await getUrlAll(i, "http://www.w3.org/ns/solid/terms#forClass");
-    //   //console.log(types)
-    //   if(types.includes("https://scenaristeur.github.io/verse#Workspace")){
-    //     console.log(i)
-    //     let ws = {}
-    //     ws.name =  await getStringNoLocale(i, AS.name)
-    //     ws.url = await getUrl(i,SOLID.instance)
-    //     pod.workspaces.push(ws)
+    // Vue.prototype.$getPodInfosFromSession = async function(session){
+    //   // try{
+    //   console.log('session', session)
+    //   let pod = {}
+    //   pod.logged = session.isLoggedIn
+    //   if (pod.logged) {
+    //     pod.webId = session.webId
+    //     // pod = await this.$getPodInfos(pod)
+    //     // console.log("getinfos",pod)
+    //     store.commit('vue2_solid_store/setPod', pod)
+    //     // pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
+    //     // pod.workspaces == undefined ? pod.workspaces = [] : ""
+    //
+    //     // store.commit('vue2_solid_store/setPod', pod)
+    //     //  this.$checkChanges()
+    //     //this.$synchronize()
+    //     //  await this.$getVerses(pod)
+    //
+    //     // if (pod.storage != null){
+    //     //   pod.brains = pod.storage+'brains.json'
+    //     //   Vue.prototype.$checkBrains()
+    //     //   //  this.$setCurrentThingUrl(pod.storage)
+    //     //   //  store.commit('booklice/setPath', pod.storage+'public/bookmarks/')
+    //     //   //let publicTagFile = pod.storage+'public/tags.ttl'
+    //     //   //let privateTagFile = podStorage+'private/tags.ttl'
+    //     //   // let tags = await this.$getTags(publicTagFile)
+    //     //   // console.log("############################tags",tags)
+    //     // }
+    //   }else{
+    //     store.commit('vue2_solid_store/setPod', null)
+    //     //  store.commit('solid/setThings', [])
     //   }
+    //   // } catch(e){
+    //   //   alert("$getPodInfosFromSession "+e)
+    //   // }
+    // },
+    //
+
+    // Vue.prototype.$getPodInfos = async function(pod){
+    //   console.log("getpodinfos", pod)
+    //   try{
+    //     const dataset = await getSolidDataset( pod.webId, { fetch: sc.fetch });
+    //     let profile = await getThing( dataset, pod.webId );
+    //     pod.name = await getStringNoLocale(profile, FOAF.name);
+    //     pod.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
+    //     pod.storage = await getUrl(profile, WS.storage);
+    //
+    //     if (pod.storage == null){
+    //       // let storage = await getLink(pod.webId)
+    //       // console.log("storage", storage)
+    //       // for community solid server with no pim:storage
+    //       pod.storage = pod.webId.split('/').slice(0,-2).join('/')+'/'
+    //     }
+    //
+    //
+    //     pod.photo = await getUrl(profile, VCARD.hasPhoto);
+    //     pod.neuroneStore == undefined ? pod.neuroneStore = pod.storage+'public/neurones/' : ""
+    //     // pod.workspaces = []
+    //     //
+    //     // let publicTypeIndexUtl = pod.storage+'settings/publicTypeIndex.ttl'
+    //     // const pti_ds = await getSolidDataset( publicTypeIndexUtl, { fetch: sc.fetch });
+    //     // let indexes = await getThingAll(pti_ds)
+    //     // for await (const i of indexes){
+    //     //   let types = await getUrlAll(i, "http://www.w3.org/ns/solid/terms#forClass");
+    //     //   //console.log(types)
+    //     //   if(types.includes("https://scenaristeur.github.io/verse#Workspace")){
+    //     //     console.log(i)
+    //     //     let ws = {}
+    //     //     ws.name =  await getStringNoLocale(i, AS.name)
+    //     //     ws.url = await getUrl(i,SOLID.instance)
+    //     //     pod.workspaces.push(ws)
+    //     //   }
+    //     // }
+    //     //console.log(ws)
+    //     //  pod.workspaces = await getUrlAll(pti_ds, "http://www.w3.org/ns/solid/terms#forClass", "https://www.w3.org/ns/activitystreams#Collection");
+    //     // pod.publicTags = await this.$getTags(pod.storage+'public/tags.ttl')
+    //     // store.commit("vatch/addToNetwork", pod.publicTags)
+    //     //this.$subscribe(pod.storage)
+    //     //  console.log("getpodinfos",pod)
+    //   }catch(e)
+    //   {
+    //     console.log("erreur",e, pod)
+    //   }
+    //   console.log("pod in getinfos",pod)
+    //   return await pod
     // }
-    //console.log(ws)
-    //  pod.workspaces = await getUrlAll(pti_ds, "http://www.w3.org/ns/solid/terms#forClass", "https://www.w3.org/ns/activitystreams#Collection");
-    // pod.publicTags = await this.$getTags(pod.storage+'public/tags.ttl')
-    // store.commit("vatch/addToNetwork", pod.publicTags)
-    //this.$subscribe(pod.storage)
-    //  console.log("getpodinfos",pod)
-  }catch(e)
-  {
-    console.log("erreur",e, pod)
-  }
-  console.log("pod in getinfos",pod)
-  return pod
-}
-
-
-
-
-
-
-
-
-
-
 
   }
 }

@@ -1,11 +1,23 @@
-# Vue.js 2.x components to do all the boring things when creating a Solid decentralized app
+# vue2_solid
+<!--[Home](/)--> <!-- Sends the user to the root README.md -->
+
+Tu veux aider pour traduire ? Discutons-en sur [github](https://github.com/scenaristeur/vue2_solid/labels/internationalization)
+
+
+[Getting Started](guide/getting_started) <!-- Or you can append .html -->
+[Components](components/SolidLogin) <!-- Or you can append .html -->
+
+
+[[toc]]
+
+
+## Vue.js 2.x components to do all the boring things when creating a Solid decentralized app
 
 [What is the Solid Project](https://solidproject.org/) |
+[Solid Project Community Forum](https://forum.solidproject.org/) |
+[Solid Community Chat (gitter/matrix)](https://gitter.im/solid/home) |
 [demo](https://scenaristeur.github.io/vue2_solid_demo) |
-
-[Complete Documentation](https://scenaristeur.github.io/vue2_solid)
-
-[Documentation Complète en français](https://scenaristeur.github.io/vue2_solid/fr)
+[doc](https://scenaristeur.github.io/vue2_solid)
 
 
 # Usage
@@ -81,3 +93,5 @@ new Vue({
   </template>
   ...
   ```
+
+  next : [Components](components/SolidLogin)

@@ -103,9 +103,11 @@ export default {
     }
   },
   computed:{
-    session:{
-      get () { return this.$store.state.vue2_solid_store.session },
-      set (/*value*/) { /*this.updateTodo(value)*/ }
+    session(){
+     return this.$store.state.vue2_solid_store.session
+    },
+    pod(){
+     return this.$store.state.vue2_solid_store.pod
     },
     state() {
       return this.other.startsWith('http')
