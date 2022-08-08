@@ -21,6 +21,9 @@
   "devDependencies": {
     "rollup": "^2.77.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-vue": "^6.0.0"
+    "rollup-plugin-vue": "^5.0.0"
+  },
+  "dependencies": {
+    "@vue/compiler-sfc": "^3.2.37"
   }
 }
