@@ -11,7 +11,7 @@
         </template>
         <b-dropdown-item v-for="p in paths" :key="p.path" @click="setPath(p.path)">{{p.path}}</b-dropdown-item>
       </b-dropdown>
-
+      <b-button size="sm" @click="back" variant="primary" >&lt;-</b-button>
       <b-button size="sm" @click="add" variant="success">+</b-button>
 
     </b-card-header>
@@ -42,10 +42,11 @@ export default {
       let storage = null
       if(this.webId != null){
         storage = await this.$getStorage(this.webId)
+        this.$store.commit('vue2_solid_store/setPath', storage)
       }else{
         this.friends = []
       }
-      this.$store.commit('vue2_solid_store/setPath', storage)
+
     },
     async setPath(p){
       let storage = {type: 'pod', path: p}
@@ -56,6 +57,12 @@ export default {
       console.log("add towhat? to ", this.paths.slice(-1)[0].path)
       let f= {path: this.paths.slice(-1)[0].path}
       this.$store.commit('vue2_solid_store/setFile', f)
+    },
+    async back(){
+      let back = this.paths.slice(-2)[0].path
+      console.log(back)
+      let storage = await this.$getStorage(back)
+      this.$store.commit('vue2_solid_store/setPath', storage)
     }
   },
   watch:{

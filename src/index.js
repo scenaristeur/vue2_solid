@@ -8,7 +8,7 @@ import vue2_solid_store from './store.js'
 import {
   getSolidDataset,
   getThingAll,
-  universalAccess,
+  // universalAccess,
   //getPublicAccess,
   //  getAgentAccess,
   //getSolidDatasetWithAcl,
@@ -158,6 +158,7 @@ const Vue2Solid = {
         // user.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
         user.storage = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/'
         user.photo = await getUrl(profile, VCARD.hasPhoto);
+        this.$store.commit('vue2_solid_store/addUser', user)
       }catch(e)
       {
         console.log("erreur",e)
@@ -172,6 +173,7 @@ const Vue2Solid = {
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
         friends = await getUrlAll(profile, FOAF.knows).map(f => {return {webId: f}})
+        this.$store.commit('vue2_solid_store/addFriends', friends)
       }catch(e)
       {
         console.log("erreur",e)
@@ -200,10 +202,10 @@ const Vue2Solid = {
         let things  = await getThingAll( dataset );
         storage.containers = things.filter(t => t.url.endsWith('/') && t.url!= storage.path)
         storage.files = things.filter(t => !t.url.endsWith('/'))
-        storage.permissions = await universalAccess.getAgentAccessAll(
-          storage.path, // resource
-          { fetch: sc.fetch }                // fetch function from authenticated session
-        )
+        // storage.permissions = await universalAccess.getAgentAccessAll(
+        //   storage.path, // resource
+        //   { fetch: sc.fetch }                // fetch function from authenticated session
+        // )
       }catch(e)
       {
         console.log("erreur",e)
@@ -211,6 +213,42 @@ const Vue2Solid = {
       console.log(storage)
       return storage
     }
+
+    Vue.prototype.$updateNode = function(n){
+      let g = store.state.vue2_solid_store.graph
+      let gData = g.graphData()
+      const index = gData.nodes.findIndex(x => x.id == n.id);
+      index === -1 ? gData.nodes.push(n) : "" //this.nodes[index] = Object.assign({}, n)
+      g.graphData({nodes: gData.nodes, links: gData.links})
+    }
+
+    Vue.prototype.$updateLinks = function(l){
+      let g = store.state.vue2_solid_store.graph
+      let gData = g.graphData()
+      const index = gData.links.findIndex(x => x.source == l.source && x.target==l.target && x.name == l.name);
+      index === -1 ? gData.links.push(l) : "" //this.links[index] = Object.assign({}, l)
+      g.graphData({nodes: gData.nodes, links: gData.links})
+    }
+
+    Vue.prototype.$nodeFocus = function(node) {
+ //  console.log("node",node)
+
+   const distance = 100;
+   let pos = {x: distance, y: distance, z: distance}
+   if(node.x != 0 && node.y != 0 && node.z != 0){
+     const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+     pos = { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }
+   }
+   store.state.vue2_solid_store.graph.cameraPosition(
+     pos, // new position
+     node, // lookAt ({ x, y, z })
+     3000  // ms transition duration
+   );
+   // console.log(store.state.core.graph)
+  // let n = store.state.core.nodes.find(n => n.id == node.id)
+   // store.commit ('core/setCurrentNode', n)
+
+ }
 
     //
     // Vue.prototype.$getPodInfosFromSession = async function(session){

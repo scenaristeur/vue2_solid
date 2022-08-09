@@ -1,21 +1,23 @@
 <template>
   <div class="explorer-3d">
-
+    <!-- <b-button v-model="nodeExtended" @click="nodeExtended = !nodeExtended" size="sm" variant="primary">extended {{nodeExtended}}</b-button> -->
     <div id="3d-graph" ref="graph"></div>
-    3d {{path}}
   </div>
 </template>
 
 <script>
 import ForceGraph3D from '3d-force-graph';
+import {CSS2DRenderer, CSS2DObject} from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+import * as THREE from 'three';
 
 export default {
   name: 'Explorer3D',
   data(){
     return{
-      graph: null,
+      // graph: null,
       nodes: [],
-      links: []
+      links: [],
+      // nodeExtended: false
     }
   },
   mounted(){
@@ -30,49 +32,63 @@ export default {
     //   }))
     // };
     console.log(this.$refs.graph.parentElement.clientWidth)
-    this.graph = ForceGraph3D()
+    let graph = ForceGraph3D({
+      extraRenderers: [new CSS2DRenderer()]
+    })
     (this.$refs.graph)
-    .width(window.innerWidth/3).height(window.innerHeight/3)
+    .width(this.$refs.graph.parentElement.clientWidth/2).height(window.innerHeight/2)
     .nodeAutoColorBy('group')
     .onNodeClick(node => this.onNodeClick(node))
+    // .nodeThreeObject(node => {
+    //     const nodeEl = document.createElement('div');
+    //     nodeEl.textContent = node.id;
+    //     nodeEl.style.color = node.color;
+    //     nodeEl.className = 'node-label';
+    //     return new CSS2DObject(nodeEl);
+    //   })
+    //   .nodeThreeObjectExtend(true)
+    console.log(graph)
+    this.$store.commit('vue2_solid_store/setGraph', graph)
     // .width(this.$refs.graph.parentElement.clientWidth).height(this.$refs.graph.parentElement.clientHeight)
     //.graphData(gData);
   },
   methods: {
-    updateNode(n){
-      const index = this.nodes.findIndex(x => x.id == n.id);
-      index === -1 ? this.nodes.push(n) : "" //this.nodes[index] = Object.assign({}, n)
-      this.graph.graphData({nodes: this.nodes, links: this.links})
-    },
-    updateLinks(l){
-      const index = this.links.findIndex(x => x.source == l.source && x.target==l.target && x.name == l.name);
-      index === -1 ? this.links.push(l) : "" //this.links[index] = Object.assign({}, l)
-      this.graph.graphData({nodes: this.nodes, links: this.links})
-    },
+
     onNodeClick(node){
       console.log(node)
+      this.$nodeFocus(node)
+      this.modifyPath(node)
+
+    },
+    async modifyPath(node){
+      switch (node.group) {
+        case 'container':
+        let storage = {path: node.id}
+        storage = await this.$getThingAll(storage)
+        this.$store.commit('vue2_solid_store/setPath', storage)
+        break;
+        case 'webId':
+        this.$store.commit('vue2_solid_store/setWebId', node.id)
+        break;
+        case 'file':
+        this.$store.commit('vue2_solid_store/setFile', node.id)
+        break;
+        default:
+
+      }
+      // if(node.group == 'container'){
+      //   let storage = {path: node.id}
+      //   storage = await this.$getThingAll(storage)
+      //   this.$store.commit('vue2_solid_store/setPath', storage)
+      // }
+      // if(node.group == 'webId'){
+      //   this.$store.commit('vue2_solid_store/setWebId', node.id)
+      // }
     }
 
   },
   watch:{
-    path(){
 
-      this.updateNode({id: this.path.path, name: this.path.path, group:'container', color: "yellow"})
-
-      this.path.containers.forEach((c) => {
-        this.updateNode({id: c.url, name: c.url, group:'container'})
-        this.updateLinks({source: this.path.path, target: c.url, name: "contains"})
-      });
-      this.path.files.forEach((f) => {
-        this.updateNode({id: f.url, name: f.url, group:'file'})
-        this.updateLinks({source: this.path.path, target: f.url, name: "contains"})
-      });
-      if(this.path.webId != undefined){
-        this.updateNode({id: this.path.webId, name: this.path.webId, group:'webId', color:"red"})
-        this.updateLinks({source: this.path.webId, target: this.path.path, name: "storage"})
-      }
-
-    },
     friends(){
       console.log("graph friends",this.friends)
     },
@@ -84,9 +100,7 @@ export default {
     },
   },
   computed:{
-    path(){
-      return this.$store.state.vue2_solid_store.path
-    },
+
     friends(){
       return this.$store.state.vue2_solid_store.friends
     },
@@ -104,5 +118,13 @@ export default {
 <style lang="css" scoped>
 .explorer-3d {
 
+}
+
+.node-label {
+  font-size: 12px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.5);
+  user-select: none;
 }
 </style>

@@ -11,7 +11,14 @@ const state = () => ({
   history: [],
   paths: [],
   path: null,
-  file: null
+  file: null,
+  friends: [],
+  users: [],
+  user: null,
+  friend: null,
+  nodes: [],
+  links: [],
+  graph: null
 })
 
 const mutations = {
@@ -28,13 +35,54 @@ const mutations = {
     state.history.push(w)
     state.webId = w
   },
+  setGraph(state, g){
+    state.graph = g
+  },
   setPath(state, p){
     state.path = p
+
+    if(p.webId != undefined){
+      this._vm.$updateNode({id: p.webId, name: p.webId, group:'webId', color:"red"})
+    }
+    this._vm.$updateNode({id: p.path, name: p.path, group:'container', color: "yellow"})
+
+    p.containers.forEach((c) => {
+      let color = c.url.endsWith('/public/') ? 'orange' : "yellow"
+      this._vm.$updateNode({id: c.url, name: c.url, group:'container', color: color})
+      this._vm.$updateLinks({source: p.path, target: c.url, name: "contains"})
+    });
+    p.files.forEach((f) => {
+      this._vm.$updateNode({id: f.url, name: f.url, group:'file', color: "#d8e7f0"})
+      this._vm.$updateLinks({source: p.path, target: f.url, name: "contains"})
+    });
+    if(p.webId != undefined){
+      this._vm.$updateNode({id: p.webId, name: p.webId, group:'webId', color:"red"})
+      this._vm.$updateLinks({source: p.webId, target: p.path, name: "storage"})
+    }
+
+
     state.paths = state.paths.filter(x => x.path != p.path)
     p != null ? state.paths.push(p) : ""
   },
   setFile(state, f){
     state.file = f
+  },
+  addFriends(state,friends){
+    console.log("addFriends")
+    let app = this._vm
+    friends.forEach(f => {
+      app.$updateNode({id: f.webId, name: f.webId, group:'webId', color:"red"})
+    });
+
+    // state.friend = f
+    // state.friends = state.friends.filter(x => x.webId != p.webId)
+    // state.friends.push(f)
+  },
+  addUser(state, u){
+    console.log("addUser", u)
+    // state.user = u
+    // state.users = state.users.filter(x => x.webId != p.webId)
+    // state.users.push(f)
   }
   // updateDoc(state, newDoc) {
   //   state.doc = newDoc

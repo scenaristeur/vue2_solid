@@ -46,6 +46,7 @@
     "@inrupt/vocab-solid-common": "^0.7.5",
     "3d-force-graph": "^1.70.10",
     "bootstrap": "^4.5.3",
-    "bootstrap-vue": "^2.22.0"
+    "bootstrap-vue": "^2.22.0",
+    "three": "^0.143.0"
   }
 }
