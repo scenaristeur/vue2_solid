@@ -220,7 +220,7 @@ const Vue2Solid = {
       const index = gData.nodes.findIndex(x => x.id == n.id);
       index === -1 ? gData.nodes.push(n) : "" //this.nodes[index] = Object.assign({}, n)
       g.graphData({nodes: gData.nodes, links: gData.links})
-    }
+        }
 
     Vue.prototype.$updateLinks = function(l){
       let g = store.state.vue2_solid_store.graph

@@ -46,6 +46,7 @@ const mutations = {
     }
     this._vm.$updateNode({id: p.path, name: p.path, group:'container', color: "yellow"})
 
+
     p.containers.forEach((c) => {
       let color = c.url.endsWith('/public/') ? 'orange' : "yellow"
       this._vm.$updateNode({id: c.url, name: c.url, group:'container', color: color})
@@ -63,6 +64,8 @@ const mutations = {
 
     state.paths = state.paths.filter(x => x.path != p.path)
     p != null ? state.paths.push(p) : ""
+
+
   },
   setFile(state, f){
     state.file = f

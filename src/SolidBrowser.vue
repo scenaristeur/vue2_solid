@@ -20,10 +20,18 @@ export default {
       let storage = {type: 'pod', path: c.url}
       storage = await this.$getThingAll(storage)
       this.$store.commit('vue2_solid_store/setPath', storage)
+
+      // let node = this.$store.state.vue2_solid_store.nodes.find(n => n.id == storage.path)
+      // console.log("nodefocus", node)
+      // this.$nodeFocus(node)
+      console.log("should focus to",storage.path)
+
+
     },
     async clickFile(f){
       console.log("file",f)
-      this.$store.commit('vue2_solid_store/setFile', f)
+      this.$store.commit('vue2_solid_store/setFile', {id: f.url})
+        console.log("should focus to",f.url)
     }
   },
   computed:{

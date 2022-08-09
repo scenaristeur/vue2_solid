@@ -1,6 +1,7 @@
 import ForceGraph3D from '3d-force-graph';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import 'three';
+import SpriteText from 'three-spritetext';
 import { getSolidDataset, getThing, getStringNoLocale, getUrl, getUrlAll, getThingAll } from '@inrupt/solid-client';
 import { FOAF, VCARD } from '@inrupt/vocab-common-rdf';
 import { WS } from '@inrupt/vocab-solid-common';
@@ -1299,10 +1300,18 @@ var script$3 = {
       let storage = {type: 'pod', path: c.url};
       storage = await this.$getThingAll(storage);
       this.$store.commit('vue2_solid_store/setPath', storage);
+
+      // let node = this.$store.state.vue2_solid_store.nodes.find(n => n.id == storage.path)
+      // console.log("nodefocus", node)
+      // this.$nodeFocus(node)
+      console.log("should focus to",storage.path);
+
+
     },
     async clickFile(f){
       console.log("file",f);
-      this.$store.commit('vue2_solid_store/setFile', f);
+      this.$store.commit('vue2_solid_store/setFile', {id: f.url});
+        console.log("should focus to",f.url);
     }
   },
   computed:{
@@ -1369,11 +1378,11 @@ __vue_render__$3._withStripped = true;
   /* style */
   const __vue_inject_styles__$3 = function (inject) {
     if (!inject) return
-    inject("data-v-3acb2512_0", { source: "\n.solid-browser[data-v-3acb2512] {\n}\n.scroll[data-v-3acb2512]{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidBrowser.vue"],"names":[],"mappings":";AAuCA;AAEA;AACA;EACA,gBAAA;EACA,mBAAA;EACA,iBAAA;EACA,iCAAA;AACA","file":"SolidBrowser.vue","sourcesContent":["<template>\n\n  <b-list-group flush class=\"scroll\" v-if=\"path != null\">\n    <b-list-group-item button v-for=\"c in path.containers\" :key=\"c.url\" @click=\"clickContainer(c)\">\n      {{c.url}}\n    </b-list-group-item>\n    <b-list-group-item button v-for=\"f in path.files\" :key=\"f.url\" @click=\"clickFile(f)\">\n      {{f.url}}\n    </b-list-group-item>\n  </b-list-group>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidBrowser',\n  methods: {\n    async clickContainer(c){\n      console.log(\"container\",c)\n      let storage = {type: 'pod', path: c.url}\n      storage = await this.$getThingAll(storage)\n      this.$store.commit('vue2_solid_store/setPath', storage)\n    },\n    async clickFile(f){\n      console.log(\"file\",f)\n      this.$store.commit('vue2_solid_store/setFile', f)\n    }\n  },\n  computed:{\n    path(){\n      return this.$store.state.vue2_solid_store.path\n    }\n  }\n\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-browser {\n\n}\n.scroll{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n</style>\n"]}, media: undefined });
+    inject("data-v-8bacf11a_0", { source: "\n.solid-browser[data-v-8bacf11a] {\n}\n.scroll[data-v-8bacf11a]{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidBrowser.vue"],"names":[],"mappings":";AA+CA;AAEA;AACA;EACA,gBAAA;EACA,mBAAA;EACA,iBAAA;EACA,iCAAA;AACA","file":"SolidBrowser.vue","sourcesContent":["<template>\n\n  <b-list-group flush class=\"scroll\" v-if=\"path != null\">\n    <b-list-group-item button v-for=\"c in path.containers\" :key=\"c.url\" @click=\"clickContainer(c)\">\n      {{c.url}}\n    </b-list-group-item>\n    <b-list-group-item button v-for=\"f in path.files\" :key=\"f.url\" @click=\"clickFile(f)\">\n      {{f.url}}\n    </b-list-group-item>\n  </b-list-group>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidBrowser',\n  methods: {\n    async clickContainer(c){\n      console.log(\"container\",c)\n      let storage = {type: 'pod', path: c.url}\n      storage = await this.$getThingAll(storage)\n      this.$store.commit('vue2_solid_store/setPath', storage)\n\n      // let node = this.$store.state.vue2_solid_store.nodes.find(n => n.id == storage.path)\n      // console.log(\"nodefocus\", node)\n      // this.$nodeFocus(node)\n      console.log(\"should focus to\",storage.path)\n\n\n    },\n    async clickFile(f){\n      console.log(\"file\",f)\n      this.$store.commit('vue2_solid_store/setFile', {id: f.url})\n        console.log(\"should focus to\",f.url)\n    }\n  },\n  computed:{\n    path(){\n      return this.$store.state.vue2_solid_store.path\n    }\n  }\n\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-browser {\n\n}\n.scroll{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$3 = "data-v-3acb2512";
+  const __vue_scope_id__$3 = "data-v-8bacf11a";
   /* module identifier */
   const __vue_module_identifier__$3 = undefined;
   /* functional template */
@@ -1483,14 +1492,48 @@ var script$1 = {
     //     target: Math.round(Math.random() * (id-1))
     //   }))
     // };
-    console.log(this.$refs.graph.parentElement.clientWidth);
+    // console.log(this.$refs.graph.parentElement.clientWidth)
+
+    let size = this.getSize();
+    let highlightLinks = new Set();
+
+
     let graph = ForceGraph3D({
       extraRenderers: [new CSS2DRenderer()]
     })
     (this.$refs.graph)
-    .width(this.$refs.graph.parentElement.clientWidth/2).height(window.innerHeight/2)
+    // .width(this.$refs.graph.parentElement.clientWidth/2).height(window.innerHeight/2)
+
+    .width(size.w)
+    .height(size.h/2)
+    .backgroundColor('#99ccff')//('#eafaff')
     .nodeAutoColorBy('group')
-    .onNodeClick(node => this.onNodeClick(node));
+    .onNodeClick(node => this.onNodeClick(node))
+    .linkThreeObjectExtend(true)
+    .linkThreeObject(link => {
+      // extend link with text sprite
+      if(link.label != undefined){
+        const sprite = new SpriteText(`${link.label}`);
+        sprite.color = 'darkgrey'; //'lightgrey';
+        sprite.textHeight = 1.5;
+        return sprite;
+      }
+    })
+    .linkDirectionalArrowLength(3.5)
+    .linkDirectionalArrowRelPos(1)
+    //  .linkCurvature(0.25)
+    .linkPositionUpdate((sprite, { start, end }) => {
+      if(sprite != undefined){
+        const middlePos = Object.assign(...['x', 'y', 'z'].map(c => ({
+          [c]: start[c] + (end[c] - start[c]) / 4 // calc middle point
+        })));
+        // Position sprite
+        Object.assign(sprite.position, middlePos);
+      }
+    })
+    .linkWidth(link => highlightLinks.has(link) ? 4 : 1)
+    .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 0)
+    .linkDirectionalParticleWidth(4);
     // .nodeThreeObject(node => {
     //     const nodeEl = document.createElement('div');
     //     nodeEl.textContent = node.id;
@@ -1501,69 +1544,89 @@ var script$1 = {
     //   .nodeThreeObjectExtend(true)
     console.log(graph);
     this.$store.commit('vue2_solid_store/setGraph', graph);
+
+    let app = this;
+    window.addEventListener('resize', function(){
+      if (store.state.vue2_solid_store.graph != null){
+        size = app.getSize();
+        store.state.vue2_solid_store.graph.width(size.w);
+        store.state.vue2_solid_store.graph.height(size.h);
+      }
+    } );
     // .width(this.$refs.graph.parentElement.clientWidth).height(this.$refs.graph.parentElement.clientHeight)
     //.graphData(gData);
   },
   methods: {
+    getSize(){
 
-    onNodeClick(node){
-      console.log(node);
-      this.$nodeFocus(node);
-      this.modifyPath(node);
+      //768 = medium bootstrap
+      return {w: window.innerWidth > 768 ? window.innerWidth/2 : window.innerWidth,
+        h: window.innerWidth > 768 ? window.innerHeight*.9 : window.innerHeight*.8}
+      },
+      onNodeClick(node){
+        console.log(node);
+        this.$nodeFocus(node);
+        this.modifyPath(node);
 
-    },
-    async modifyPath(node){
-      switch (node.group) {
-        case 'container':
-        let storage = {path: node.id};
-        storage = await this.$getThingAll(storage);
-        this.$store.commit('vue2_solid_store/setPath', storage);
-        break;
-        case 'webId':
-        this.$store.commit('vue2_solid_store/setWebId', node.id);
-        break;
-        case 'file':
-        this.$store.commit('vue2_solid_store/setFile', node.id);
-        break;
+      },
+      async modifyPath(node){
+        switch (node.group) {
+          case 'container':
+          let storage = {path: node.id};
+          storage = await this.$getThingAll(storage);
+          this.$store.commit('vue2_solid_store/setPath', storage);
+          break;
+          case 'webId':
+          this.$store.commit('vue2_solid_store/setWebId', node.id);
+          break;
+          case 'file':
+          this.$store.commit('vue2_solid_store/setFile', {id: node.id});
+          break;
 
+        }
+        // if(node.group == 'container'){
+        //   let storage = {path: node.id}
+        //   storage = await this.$getThingAll(storage)
+        //   this.$store.commit('vue2_solid_store/setPath', storage)
+        // }
+        // if(node.group == 'webId'){
+        //   this.$store.commit('vue2_solid_store/setWebId', node.id)
+        // }
       }
-      // if(node.group == 'container'){
-      //   let storage = {path: node.id}
-      //   storage = await this.$getThingAll(storage)
-      //   this.$store.commit('vue2_solid_store/setPath', storage)
-      // }
-      // if(node.group == 'webId'){
-      //   this.$store.commit('vue2_solid_store/setWebId', node.id)
-      // }
+
+    },
+    watch:{
+
+      friends(){
+        console.log("graph friends",this.friends);
+      },
+      webId(){
+        console.log("graph webId",this.webId);
+      },
+      user(){
+        console.log("graph user",this.user);
+      },
+      path(){
+        console.log("graph path",this.path);
+        },
+    },
+    computed:{
+
+      friends(){
+        return this.$store.state.vue2_solid_store.friends
+      },
+      webId(){
+        return this.$store.state.vue2_solid_store.webId
+      },
+      user(){
+        return this.$store.state.vue2_solid_store.user
+      },
+      path(){
+        return this.$store.state.vue2_solid_store.path
+      }
     }
 
-  },
-  watch:{
-
-    friends(){
-      console.log("graph friends",this.friends);
-    },
-    webId(){
-      console.log("graph webId",this.webId);
-    },
-    user(){
-      console.log("graph user",this.user);
-    },
-  },
-  computed:{
-
-    friends(){
-      return this.$store.state.vue2_solid_store.friends
-    },
-    webId(){
-      return this.$store.state.vue2_solid_store.webId
-    },
-    user(){
-      return this.$store.state.vue2_solid_store.user
-    }
-  }
-
-};
+  };
 
 /* script */
 const __vue_script__$1 = script$1;
@@ -1583,11 +1646,11 @@ __vue_render__$1._withStripped = true;
   /* style */
   const __vue_inject_styles__$1 = function (inject) {
     if (!inject) return
-    inject("data-v-575e36f7_0", { source: "\n.explorer-3d[data-v-575e36f7] {\n}\n.node-label[data-v-575e36f7] {\n  font-size: 12px;\n  padding: 1px 4px;\n  border-radius: 4px;\n  background-color: rgba(0,0,0,0.5);\n  user-select: none;\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/Explorer3D.vue"],"names":[],"mappings":";AAsHA;AAEA;AAEA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,iCAAA;EACA,iBAAA;AACA","file":"Explorer3D.vue","sourcesContent":["<template>\n  <div class=\"explorer-3d\">\n    <!-- <b-button v-model=\"nodeExtended\" @click=\"nodeExtended = !nodeExtended\" size=\"sm\" variant=\"primary\">extended {{nodeExtended}}</b-button> -->\n    <div id=\"3d-graph\" ref=\"graph\"></div>\n  </div>\n</template>\n\n<script>\nimport ForceGraph3D from '3d-force-graph';\nimport {CSS2DRenderer, CSS2DObject} from 'three/examples/jsm/renderers/CSS2DRenderer.js';\nimport * as THREE from 'three';\n\nexport default {\n  name: 'Explorer3D',\n  data(){\n    return{\n      // graph: null,\n      nodes: [],\n      links: [],\n      // nodeExtended: false\n    }\n  },\n  mounted(){\n    // const N = 300;\n    // const gData = {\n    //   nodes: [...Array(N).keys()].map(i => ({ id: i })),\n    //   links: [...Array(N).keys()]\n    //   .filter(id => id)\n    //   .map(id => ({\n    //     source: id,\n    //     target: Math.round(Math.random() * (id-1))\n    //   }))\n    // };\n    console.log(this.$refs.graph.parentElement.clientWidth)\n    let graph = ForceGraph3D({\n      extraRenderers: [new CSS2DRenderer()]\n    })\n    (this.$refs.graph)\n    .width(this.$refs.graph.parentElement.clientWidth/2).height(window.innerHeight/2)\n    .nodeAutoColorBy('group')\n    .onNodeClick(node => this.onNodeClick(node))\n    // .nodeThreeObject(node => {\n    //     const nodeEl = document.createElement('div');\n    //     nodeEl.textContent = node.id;\n    //     nodeEl.style.color = node.color;\n    //     nodeEl.className = 'node-label';\n    //     return new CSS2DObject(nodeEl);\n    //   })\n    //   .nodeThreeObjectExtend(true)\n    console.log(graph)\n    this.$store.commit('vue2_solid_store/setGraph', graph)\n    // .width(this.$refs.graph.parentElement.clientWidth).height(this.$refs.graph.parentElement.clientHeight)\n    //.graphData(gData);\n  },\n  methods: {\n\n    onNodeClick(node){\n      console.log(node)\n      this.$nodeFocus(node)\n      this.modifyPath(node)\n\n    },\n    async modifyPath(node){\n      switch (node.group) {\n        case 'container':\n        let storage = {path: node.id}\n        storage = await this.$getThingAll(storage)\n        this.$store.commit('vue2_solid_store/setPath', storage)\n        break;\n        case 'webId':\n        this.$store.commit('vue2_solid_store/setWebId', node.id)\n        break;\n        case 'file':\n        this.$store.commit('vue2_solid_store/setFile', node.id)\n        break;\n        default:\n\n      }\n      // if(node.group == 'container'){\n      //   let storage = {path: node.id}\n      //   storage = await this.$getThingAll(storage)\n      //   this.$store.commit('vue2_solid_store/setPath', storage)\n      // }\n      // if(node.group == 'webId'){\n      //   this.$store.commit('vue2_solid_store/setWebId', node.id)\n      // }\n    }\n\n  },\n  watch:{\n\n    friends(){\n      console.log(\"graph friends\",this.friends)\n    },\n    webId(){\n      console.log(\"graph webId\",this.webId)\n    },\n    user(){\n      console.log(\"graph user\",this.user)\n    },\n  },\n  computed:{\n\n    friends(){\n      return this.$store.state.vue2_solid_store.friends\n    },\n    webId(){\n      return this.$store.state.vue2_solid_store.webId\n    },\n    user(){\n      return this.$store.state.vue2_solid_store.user\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.explorer-3d {\n\n}\n\n.node-label {\n  font-size: 12px;\n  padding: 1px 4px;\n  border-radius: 4px;\n  background-color: rgba(0,0,0,0.5);\n  user-select: none;\n}\n</style>\n"]}, media: undefined });
+    inject("data-v-44d5d0fd_0", { source: "\n.explorer-3d[data-v-44d5d0fd] {\n}\n.node-label[data-v-44d5d0fd] {\n  font-size: 12px;\n  padding: 1px 4px;\n  border-radius: 4px;\n  background-color: rgba(0,0,0,0.5);\n  user-select: none;\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/Explorer3D.vue"],"names":[],"mappings":";AA6KA;AAEA;AAEA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,iCAAA;EACA,iBAAA;AACA","file":"Explorer3D.vue","sourcesContent":["<template>\n  <div class=\"explorer-3d\">\n    <!-- <b-button v-model=\"nodeExtended\" @click=\"nodeExtended = !nodeExtended\" size=\"sm\" variant=\"primary\">extended {{nodeExtended}}</b-button> -->\n    <div id=\"3d-graph\" ref=\"graph\"></div>\n  </div>\n</template>\n\n<script>\nimport ForceGraph3D from '3d-force-graph';\nimport {CSS2DRenderer, CSS2DObject} from 'three/examples/jsm/renderers/CSS2DRenderer.js';\nimport * as THREE from 'three';\nimport SpriteText from 'three-spritetext';\n\nexport default {\n  name: 'Explorer3D',\n  data(){\n    return{\n      // graph: null,\n      nodes: [],\n      links: [],\n      // nodeExtended: false\n    }\n  },\n  mounted(){\n    // const N = 300;\n    // const gData = {\n    //   nodes: [...Array(N).keys()].map(i => ({ id: i })),\n    //   links: [...Array(N).keys()]\n    //   .filter(id => id)\n    //   .map(id => ({\n    //     source: id,\n    //     target: Math.round(Math.random() * (id-1))\n    //   }))\n    // };\n    // console.log(this.$refs.graph.parentElement.clientWidth)\n\n    let size = this.getSize()\n    let highlightLinks = new Set()\n\n\n    let graph = ForceGraph3D({\n      extraRenderers: [new CSS2DRenderer()]\n    })\n    (this.$refs.graph)\n    // .width(this.$refs.graph.parentElement.clientWidth/2).height(window.innerHeight/2)\n\n    .width(size.w)\n    .height(size.h/2)\n    .backgroundColor('#99ccff')//('#eafaff')\n    .nodeAutoColorBy('group')\n    .onNodeClick(node => this.onNodeClick(node))\n    .linkThreeObjectExtend(true)\n    .linkThreeObject(link => {\n      // extend link with text sprite\n      if(link.label != undefined){\n        const sprite = new SpriteText(`${link.label}`);\n        sprite.color = 'darkgrey'; //'lightgrey';\n        sprite.textHeight = 1.5;\n        return sprite;\n      }\n    })\n    .linkDirectionalArrowLength(3.5)\n    .linkDirectionalArrowRelPos(1)\n    //  .linkCurvature(0.25)\n    .linkPositionUpdate((sprite, { start, end }) => {\n      if(sprite != undefined){\n        const middlePos = Object.assign(...['x', 'y', 'z'].map(c => ({\n          [c]: start[c] + (end[c] - start[c]) / 4 // calc middle point\n        })))\n        // Position sprite\n        Object.assign(sprite.position, middlePos);\n      }\n    })\n    .linkWidth(link => highlightLinks.has(link) ? 4 : 1)\n    .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 0)\n    .linkDirectionalParticleWidth(4)\n    // .nodeThreeObject(node => {\n    //     const nodeEl = document.createElement('div');\n    //     nodeEl.textContent = node.id;\n    //     nodeEl.style.color = node.color;\n    //     nodeEl.className = 'node-label';\n    //     return new CSS2DObject(nodeEl);\n    //   })\n    //   .nodeThreeObjectExtend(true)\n    console.log(graph)\n    this.$store.commit('vue2_solid_store/setGraph', graph)\n\n    let app = this\n    window.addEventListener('resize', function(){\n      if (store.state.vue2_solid_store.graph != null){\n        size = app.getSize()\n        store.state.vue2_solid_store.graph.width(size.w)\n        store.state.vue2_solid_store.graph.height(size.h)\n      }\n    } )\n    // .width(this.$refs.graph.parentElement.clientWidth).height(this.$refs.graph.parentElement.clientHeight)\n    //.graphData(gData);\n  },\n  methods: {\n    getSize(){\n\n      //768 = medium bootstrap\n      return {w: window.innerWidth > 768 ? window.innerWidth/2 : window.innerWidth,\n        h: window.innerWidth > 768 ? window.innerHeight*.9 : window.innerHeight*.8}\n      },\n      onNodeClick(node){\n        console.log(node)\n        this.$nodeFocus(node)\n        this.modifyPath(node)\n\n      },\n      async modifyPath(node){\n        switch (node.group) {\n          case 'container':\n          let storage = {path: node.id}\n          storage = await this.$getThingAll(storage)\n          this.$store.commit('vue2_solid_store/setPath', storage)\n          break;\n          case 'webId':\n          this.$store.commit('vue2_solid_store/setWebId', node.id)\n          break;\n          case 'file':\n          this.$store.commit('vue2_solid_store/setFile', {id: node.id})\n          break;\n          default:\n\n        }\n        // if(node.group == 'container'){\n        //   let storage = {path: node.id}\n        //   storage = await this.$getThingAll(storage)\n        //   this.$store.commit('vue2_solid_store/setPath', storage)\n        // }\n        // if(node.group == 'webId'){\n        //   this.$store.commit('vue2_solid_store/setWebId', node.id)\n        // }\n      }\n\n    },\n    watch:{\n\n      friends(){\n        console.log(\"graph friends\",this.friends)\n      },\n      webId(){\n        console.log(\"graph webId\",this.webId)\n      },\n      user(){\n        console.log(\"graph user\",this.user)\n      },\n      path(){\n        console.log(\"graph path\",this.path)\n        },\n    },\n    computed:{\n\n      friends(){\n        return this.$store.state.vue2_solid_store.friends\n      },\n      webId(){\n        return this.$store.state.vue2_solid_store.webId\n      },\n      user(){\n        return this.$store.state.vue2_solid_store.user\n      },\n      path(){\n        return this.$store.state.vue2_solid_store.path\n      }\n    }\n\n  }\n  </script>\n\n  <style lang=\"css\" scoped>\n  .explorer-3d {\n\n  }\n\n  .node-label {\n    font-size: 12px;\n    padding: 1px 4px;\n    border-radius: 4px;\n    background-color: rgba(0,0,0,0.5);\n    user-select: none;\n  }\n  </style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$1 = "data-v-575e36f7";
+  const __vue_scope_id__$1 = "data-v-44d5d0fd";
   /* module identifier */
   const __vue_module_identifier__$1 = undefined;
   /* functional template */
@@ -1746,6 +1809,7 @@ const mutations = {
     }
     this._vm.$updateNode({id: p.path, name: p.path, group:'container', color: "yellow"});
 
+
     p.containers.forEach((c) => {
       let color = c.url.endsWith('/public/') ? 'orange' : "yellow";
       this._vm.$updateNode({id: c.url, name: c.url, group:'container', color: color});
@@ -1763,6 +1827,8 @@ const mutations = {
 
     state.paths = state.paths.filter(x => x.path != p.path);
     p != null ? state.paths.push(p) : "";
+
+
   },
   setFile(state, f){
     state.file = f;
@@ -1965,7 +2031,7 @@ const Vue2Solid = {
       const index = gData.nodes.findIndex(x => x.id == n.id);
       index === -1 ? gData.nodes.push(n) : ""; //this.nodes[index] = Object.assign({}, n)
       g.graphData({nodes: gData.nodes, links: gData.links});
-    };
+        };
 
     Vue.prototype.$updateLinks = function(l){
       let g = store.state.vue2_solid_store.graph;
