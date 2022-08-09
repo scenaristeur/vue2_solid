@@ -7,9 +7,10 @@ const state = () => ({
   // doc: null
   session: null,
   pod: null,
-  foo: 12,
   webId: null,
-  history: []
+  history: [],
+  paths: [],
+  path: null
 })
 
 const mutations = {
@@ -18,23 +19,19 @@ const mutations = {
     state.session = s
   },
   setPod(state, p){
-    console.log("pod",p)
     state.pod = p
-    console.log("pod state", state.pod)
-  },
-  incremente(state, val){
-    console.log("inc")
-    state.foo += val
-  },
-  decremente(state, val ){
-    console.log("dec")
-    state.foo -= val
   },
   setWebId(state, w){
     console.log("webId",w)
+    state.history = state.history.filter(x => x != w)
     state.history.push(w)
     state.webId = w
   },
+  setPath(state, p){
+    state.path = p
+    state.paths = state.paths.filter(x => x.path != p.path)
+    p != null ? state.paths.push(p) : ""
+  }
   // updateDoc(state, newDoc) {
   //   state.doc = newDoc
   //   //render(newDoc)

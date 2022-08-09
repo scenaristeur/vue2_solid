@@ -1,25 +1,23 @@
-import InputText from './InputText.vue'
-import InputTextarea from './InputTextarea.vue'
 import SolidLogin from './SolidLogin.vue'
-import SolidBrowser from './SolidBrowser.vue'
+import SolidExplorer from './SolidExplorer.vue'
 import SolidProfile from './SolidProfile.vue'
 import SolidUser from './SolidUser.vue'
 import SolidUserSmall from './SolidUserSmall.vue'
 import SolidFriends from './SolidFriends.vue'
 import SolidStorage from './SolidStorage.vue'
-// import myComponentA from './myComponentA.vue'
-// import myComponentB from './myComponentB.vue'
+import SolidBrowser from './SolidBrowser.vue'
+import Explorer2D from './Explorer2D.vue'
+import Explorer3D from './Explorer3D.vue'
 
 export default {
-  InputTextarea,
-  InputText,
-  // myComponentA,
-  // myComponentB
   SolidLogin,
-  SolidBrowser,
+  SolidExplorer,
   SolidProfile,
   SolidFriends,
   SolidUser,
   SolidUserSmall,
-  SolidStorage
+  SolidStorage,
+  SolidBrowser,
+  Explorer2D,
+  Explorer3D
 }

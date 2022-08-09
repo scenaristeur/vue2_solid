@@ -9,7 +9,9 @@
 <span>
   <span v-if="user != null" class="d-flex align-items-center">
     <!-- {{user.photo}} {{user.name}} -->
-    <b-avatar variant="info" :src="user.photo" class="mr-3"></b-avatar>
+    <!-- <b-avatar variant="info" :src="user.photo" class="mr-3"></b-avatar> -->
+<img :src="user.photo" class="mr-3" width="40px" />
+
     <span class="mr-auto">{{user.name || webId}}</span>
     <b-badge>{{ friends.length}}</b-badge>
 

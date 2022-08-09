@@ -7,7 +7,7 @@ import vue2_solid_store from './store.js'
 
 import {
   getSolidDataset,
-  // getThingAll,
+  getThingAll,
   //getPublicAccess,
   //  getAgentAccess,
   //getSolidDatasetWithAcl,
@@ -149,9 +149,8 @@ const Vue2Solid = {
     }
 
     Vue.prototype.$getUser = async function(webId){
-              let user = {wedId: webId}
+      let user = {wedId: webId}
       try{
-
         console.log("user before",user)
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
@@ -160,30 +159,54 @@ const Vue2Solid = {
         user.storage = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/'
         user.photo = await getUrl(profile, VCARD.hasPhoto);
         console.log("user after",user)
-
       }catch(e)
       {
         console.log("erreur",e)
         user.name = "can not load "+webId
       }
-        return user
+      return user
     }
 
     Vue.prototype.$getFriends = async function(webId){
       let friends = []
       try{
-
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
         friends = await getUrlAll(profile, FOAF.knows).map(f => {return {webId: f}})
-
       }catch(e)
       {
         console.log("erreur",e)
-
       }
-      console.log(friends)
       return friends
+    }
+
+    Vue.prototype.$getStorage = async function(webId){
+      let storage = {type: 'pod'}
+      try{
+        const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
+        let profile = await getThing( dataset, webId );
+        storage.path = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/'
+        storage.permissions = null
+        storage = await this.$getThingAll(storage)
+      }catch(e)
+      {
+        console.log("erreur",e)
+      }
+      console.log(storage)
+      return storage
+    }
+
+    Vue.prototype.$getThingAll = async function(storage){
+      try{
+        const dataset = await getSolidDataset( storage.path, { fetch: sc.fetch });
+        let things  = await getThingAll( dataset );
+        storage.containers = things.filter(t => t.url.endsWith('/') && t.url!= storage.path)
+        storage.files = things.filter(t => !t.url.endsWith('/'))
+      }catch(e)
+      {
+        console.log("erreur",e)
+      }
+      return storage
     }
 
     //
