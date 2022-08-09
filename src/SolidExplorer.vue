@@ -31,7 +31,7 @@ export default {
     return{
       toggleExplorer: true,
       toggle2D: false,
-      toggle3D: false
+      toggle3D: true
     }
   },
   created(){

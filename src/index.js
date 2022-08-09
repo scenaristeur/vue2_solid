@@ -180,7 +180,7 @@ const Vue2Solid = {
     }
 
     Vue.prototype.$getStorage = async function(webId){
-      let storage = {type: 'pod'}
+      let storage = {type: 'pod', webId: webId}
       try{
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
@@ -208,7 +208,7 @@ const Vue2Solid = {
       {
         console.log("erreur",e)
       }
-        console.log(storage)
+      console.log(storage)
       return storage
     }
 
