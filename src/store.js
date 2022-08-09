@@ -10,7 +10,8 @@ const state = () => ({
   webId: null,
   history: [],
   paths: [],
-  path: null
+  path: null,
+  file: null
 })
 
 const mutations = {
@@ -31,6 +32,9 @@ const mutations = {
     state.path = p
     state.paths = state.paths.filter(x => x.path != p.path)
     p != null ? state.paths.push(p) : ""
+  },
+  setFile(state, f){
+    state.file = f
   }
   // updateDoc(state, newDoc) {
   //   state.doc = newDoc

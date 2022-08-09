@@ -8,6 +8,7 @@ import vue2_solid_store from './store.js'
 import {
   getSolidDataset,
   getThingAll,
+  universalAccess,
   //getPublicAccess,
   //  getAgentAccess,
   //getSolidDatasetWithAcl,
@@ -184,7 +185,6 @@ const Vue2Solid = {
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
         storage.path = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/'
-        storage.permissions = null
         storage = await this.$getThingAll(storage)
       }catch(e)
       {
@@ -200,10 +200,15 @@ const Vue2Solid = {
         let things  = await getThingAll( dataset );
         storage.containers = things.filter(t => t.url.endsWith('/') && t.url!= storage.path)
         storage.files = things.filter(t => !t.url.endsWith('/'))
+        storage.permissions = await universalAccess.getAgentAccessAll(
+          storage.path, // resource
+          { fetch: sc.fetch }                // fetch function from authenticated session
+        )
       }catch(e)
       {
         console.log("erreur",e)
       }
+        console.log(storage)
       return storage
     }
 

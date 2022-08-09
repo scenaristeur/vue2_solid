@@ -8,6 +8,7 @@ import SolidStorage from './SolidStorage.vue'
 import SolidBrowser from './SolidBrowser.vue'
 import Explorer2D from './Explorer2D.vue'
 import Explorer3D from './Explorer3D.vue'
+import SolidEditor from './SolidEditor.vue'
 
 export default {
   SolidLogin,
@@ -19,5 +20,6 @@ export default {
   SolidStorage,
   SolidBrowser,
   Explorer2D,
-  Explorer3D
+  Explorer3D,
+  SolidEditor
 }

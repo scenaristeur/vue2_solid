@@ -23,6 +23,7 @@ export default {
     },
     async clickFile(f){
       console.log("file",f)
+      this.$store.commit('vue2_solid_store/setFile', f)
     }
   },
   computed:{

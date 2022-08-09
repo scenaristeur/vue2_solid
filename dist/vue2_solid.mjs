@@ -1,4 +1,4 @@
-import { getSolidDataset, getThing, getStringNoLocale, getUrl, getUrlAll, getThingAll } from '@inrupt/solid-client';
+import { getSolidDataset, getThing, getStringNoLocale, getUrl, getUrlAll, getThingAll, universalAccess } from '@inrupt/solid-client';
 import { FOAF, VCARD } from '@inrupt/vocab-common-rdf';
 import { WS } from '@inrupt/vocab-solid-common';
 import * as sc from '@inrupt/solid-client-authn-browser';
@@ -65,7 +65,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 //
 //
 
-var script$9 = {
+var script$a = {
   name: "SolidLogin",
   props: [
     "clientName"
@@ -262,10 +262,10 @@ function addStyle(id, css) {
 }
 
 /* script */
-const __vue_script__$9 = script$9;
+const __vue_script__$a = script$a;
 
 /* template */
-var __vue_render__$9 = function () {
+var __vue_render__$a = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -385,34 +385,34 @@ var __vue_render__$9 = function () {
     _c("div", {}),
   ])
 };
-var __vue_staticRenderFns__$9 = [];
-__vue_render__$9._withStripped = true;
+var __vue_staticRenderFns__$a = [];
+__vue_render__$a._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__$9 = function (inject) {
+  const __vue_inject_styles__$a = function (inject) {
     if (!inject) return
     inject("data-v-5ce0c98e_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .login{\nfloat: left\n} */\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidLogin.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAiIA;;GAEA","file":"SolidLogin.vue","sourcesContent":["<template>\n  <span class=\"login\">\n    <!-- <b-icon-person-circle></b-icon-person-circle> -->\n    <!-- https://vuetailwind.com/components/button -->\n        <!-- <button class=\"mx-2 px-2 py-1 text-xs rounded text-gray-800 border focus:outline-none hover:bg-gray-100\">Default</button>\n    <button class=\"mx-2 px-4 py-2 text-sm rounded text-white bg-red-500 focus:outline-none hover:bg-red-400\">Danger</button>\n        <button class=\"mx-2 px-4 py-2 text-sm text-blue-600 focus:outline-none hover:underline\">Link</button> -->\n    <div v-if=\"session == null || session.isLoggedIn == false\" class=\"d-flex align-items-center\">\n      <b-form-group>\n\n        <!-- <b-dropdown id=\"dropdown-login\"\n        text=\"Login\"\n        class=\"m-md-2\"\n        size=\"sm\"\n        variant=\"success\">\n        <b-dropdown-item v-for=\"issuer in issuers\" :key=\"issuer.value\" @click=\"login(issuer.value)\">\n        {{issuer.text}}\n      </b-dropdown-item>\n    </b-dropdown> -->\n\n\n    <b-form-select autofocus size=\"sm\" v-model=\"issuer\"\n    :options=\"issuers\" @change=\"login\">\n    <template #first>\n      <b-form-select-option :value=\"null\" disabled>-- Login / Connexion --</b-form-select-option>\n    </template>\n\n  </b-form-select>\n\n  <div v-if=\"issuer == 'other'\">\n    <b-form-group\n    id=\"fieldset-1\"\n    description= \"ex: `https://solidcommunity.net`\"\n    label=\"url of your pod provider\"\n    label-for=\"input-1\"\n    valid-feedback=\"Thxs!\"\n    :invalid-feedback=\"invalidFeedback\"\n    :state=\"state\"\n    >\n\n    <b-form-input id=\"input-1\" v-model=\"other\" :state=\"state\" @change=\"onChange\" trim></b-form-input>\n  </b-form-group>\n\n  <b-button size=\"sm\" variant=\"info\">Login / connexion</b-button>\n</div>\n</b-form-group>\n</div>\n\n<div v-else class=\"d-flex align-items-center\">\n  <b-button @click=\"logout\" variant=\"outline-danger\" size=\"sm\">Logout</b-button>\n  <a :href=\"session.webId\" target=\"_blank\">pod</a>\n</div>\n<div class=\"\">\n\n  </div>\n</span>\n</template>\n\n<script>\nexport default {\n  name: \"SolidLogin\",\n  props: [\n    \"clientName\"\n  ],\n  data() {\n    return {\n      issuers: [\n        { value: \"https://solidcommunity.net\", text: 'SolidCommunity.net (NSS)' },\n        { value: \"https://solidweb.org\", text: 'Solidweb.org (NSS)' },\n        { value: 'https://solidweb.me/', text: 'Solidweb.me (CSS)'},\n        { value: \"https://broker.pod.inrupt.com\", text: 'Broker Pod Inrupt (Entreprise Solid Server)' },\n        { value: \"https://inrupt.net\", text: 'Inrupt.net (NSS)' },\n        { value: \"https://dev.inrupt.net\", text: 'dev.inrupt.net (NSS)' },\n        { value: \"https://trinpod.us/\", text: 'Trinpod.us (hs ?)'},\n        { value: \"other\", text: 'Autre / Other' },\n      ],\n      issuer: null,\n      restore: true,\n      other: \"\"\n    }\n  },\n  created(){\n    this.$checkSession()\n  },\n  methods:{\n    onInput(){\n      console.log(\"input\", this.other)\n    },\n    onChange(){\n      console.log(\"change\", this.other)\n      if (this.other != undefined && this.other.length != undefined)  {\n        this.issuer = this.other\n        this.login(this.issuer)\n      }\n    },\n    login(issuer){\n      console.log(issuer)\n      this.issuer = issuer\n      if (this.issuer != null && this.issuer != \"other\"){\n        console.log(this.issuer)\n        let params = {issuer : this.issuer, clientName: this.clientName}\n        this.$login(params)\n      }\n    },\n    logout(){\n      this.$logout()\n    }\n  },\n  computed:{\n    session(){\n     return this.$store.state.vue2_solid_store.session\n    },\n    pod(){\n     return this.$store.state.vue2_solid_store.pod\n    },\n    state() {\n      return this.other.startsWith('http')\n    },\n    invalidFeedback() {\n      if (this.other.length> 0 && !this.other.startsWith('http')) {\n        return \"the url of your pod provider should start with `http`\"\n      }\n      return \"the url of your pod provider, not your webId ! \"\n    }\n  }\n}\n</script>\n\n<style>\n/* .login{\nfloat: left\n} */\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$9 = undefined;
+  const __vue_scope_id__$a = undefined;
   /* module identifier */
-  const __vue_module_identifier__$9 = undefined;
+  const __vue_module_identifier__$a = undefined;
   /* functional template */
-  const __vue_is_functional_template__$9 = false;
+  const __vue_is_functional_template__$a = false;
   /* style inject SSR */
   
   /* style inject shadow dom */
   
 
   
-  const __vue_component__$9 = /*#__PURE__*/normalizeComponent(
-    { render: __vue_render__$9, staticRenderFns: __vue_staticRenderFns__$9 },
-    __vue_inject_styles__$9,
-    __vue_script__$9,
-    __vue_scope_id__$9,
-    __vue_is_functional_template__$9,
-    __vue_module_identifier__$9,
+  const __vue_component__$a = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$a, staticRenderFns: __vue_staticRenderFns__$a },
+    __vue_inject_styles__$a,
+    __vue_script__$a,
+    __vue_scope_id__$a,
+    __vue_is_functional_template__$a,
+    __vue_module_identifier__$a,
     false,
     createInjector,
     undefined,
@@ -445,9 +445,8 @@ __vue_render__$9._withStripped = true;
 //
 //
 //
-//
 
-var script$8 = {
+var script$9 = {
   name: 'SolidExplorer',
   data(){
     return {
@@ -473,6 +472,11 @@ var script$8 = {
       let storage = {type: 'pod', path: p};
       storage = await this.$getThingAll(storage);
       this.$store.commit('vue2_solid_store/setPath', storage);
+    },
+    async add(){
+      console.log("add towhat? to ", this.paths.slice(-1)[0].path);
+      let f= {path: this.paths.slice(-1)[0].path};
+      this.$store.commit('vue2_solid_store/setFile', f);
     }
   },
   watch:{
@@ -492,10 +496,10 @@ var script$8 = {
 };
 
 /* script */
-const __vue_script__$8 = script$8;
+const __vue_script__$9 = script$9;
 
 /* template */
-var __vue_render__$8 = function () {
+var __vue_render__$9 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -608,6 +612,15 @@ var __vue_render__$8 = function () {
                 2
               )
             : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              attrs: { size: "sm", variant: "success" },
+              on: { click: _vm.add },
+            },
+            [_vm._v("+")]
+          ),
         ],
         1
       ),
@@ -629,34 +642,34 @@ var __vue_render__$8 = function () {
     1
   )
 };
-var __vue_staticRenderFns__$8 = [];
-__vue_render__$8._withStripped = true;
+var __vue_staticRenderFns__$9 = [];
+__vue_render__$9._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__$8 = function (inject) {
+  const __vue_inject_styles__$9 = function (inject) {
     if (!inject) return
-    inject("data-v-2a16c630_0", { source: "\n.solid-explorer[data-v-2a16c630] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidExplorer.vue"],"names":[],"mappings":";AA0EA;AAEA","file":"SolidExplorer.vue","sourcesContent":["<template>\n\n  <b-card\n  class=\"solid-explorer\"\n  >\n  <b-card-header>\n    <b-button size=\"sm\" :pressed.sync=\"toggleExplorer\" :variant=\"toggleExplorer ? 'primary' : 'light'\">Explorer</b-button>\n    <b-button size=\"sm\" :pressed.sync=\"toggle2D\" :variant=\"toggle2D ? 'primary' : 'light'\">2D</b-button>\n    <b-button size=\"sm\" :pressed.sync=\"toggle3D\" :variant=\"toggle3D ? 'primary' : 'light'\">3D</b-button>\n\n    <b-dropdown v-if=\"paths != null && paths.length > 0\" id=\"dropdown-paths\" class=\"m-md-2\" variant=\"primary\" size=\"sm\">\n      <template #button-content>\n        {{paths.slice(-1)[0].path}}\n      </template>\n      <b-dropdown-item v-for=\"p in paths\" :key=\"p.path\" @click=\"setPath(p.path)\">{{p.path}}</b-dropdown-item>\n    </b-dropdown>\n\n  </b-card-header>\n  <b-row>\n    <SolidBrowser v-if=\"toggleExplorer\" class=\"col\" />\n    <Explorer2D v-if=\"toggle2D\" class=\"col\"/>\n    <Explorer3D v-if=\"toggle3D\" class=\"col\"/>\n  </b-row>\n\n</b-card>\n</template>\n\n<script>\nexport default {\n  name: 'SolidExplorer',\n  data(){\n    return{\n      toggleExplorer: true,\n      toggle2D: false,\n      toggle3D: false\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      let storage = null\n      if(this.webId != null){\n        storage = await this.$getStorage(this.webId)\n      }else{\n        this.friends = []\n      }\n      this.$store.commit('vue2_solid_store/setPath', storage)\n    },\n    async setPath(p){\n      let storage = {type: 'pod', path: p}\n      storage = await this.$getThingAll(storage)\n      this.$store.commit('vue2_solid_store/setPath', storage)\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  },\n  computed:{\n    webId(){\n      return this.$store.state.vue2_solid_store.webId\n    },\n    paths(){\n      return this.$store.state.vue2_solid_store.paths\n    },\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-explorer {\n\n}\n</style>\n"]}, media: undefined });
+    inject("data-v-00325704_0", { source: "\n.solid-explorer[data-v-00325704] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidExplorer.vue"],"names":[],"mappings":";AA8EA;AAEA","file":"SolidExplorer.vue","sourcesContent":["<template>\n  <b-card class=\"solid-explorer\">\n    <b-card-header>\n      <b-button size=\"sm\" :pressed.sync=\"toggleExplorer\" :variant=\"toggleExplorer ? 'primary' : 'light'\">Explorer</b-button>\n      <b-button size=\"sm\" :pressed.sync=\"toggle2D\" :variant=\"toggle2D ? 'primary' : 'light'\">2D</b-button>\n      <b-button size=\"sm\" :pressed.sync=\"toggle3D\" :variant=\"toggle3D ? 'primary' : 'light'\">3D</b-button>\n\n      <b-dropdown v-if=\"paths != null && paths.length > 0\" id=\"dropdown-paths\" class=\"m-md-2\" variant=\"primary\" size=\"sm\">\n        <template #button-content>\n          {{paths.slice(-1)[0].path}}\n        </template>\n        <b-dropdown-item v-for=\"p in paths\" :key=\"p.path\" @click=\"setPath(p.path)\">{{p.path}}</b-dropdown-item>\n      </b-dropdown>\n\n      <b-button size=\"sm\" @click=\"add\" variant=\"success\">+</b-button>\n\n    </b-card-header>\n    <b-row>\n      <SolidBrowser v-if=\"toggleExplorer\" class=\"col\" />\n      <Explorer2D v-if=\"toggle2D\" class=\"col\"/>\n      <Explorer3D v-if=\"toggle3D\" class=\"col\"/>\n    </b-row>\n\n  </b-card>\n</template>\n\n<script>\nexport default {\n  name: 'SolidExplorer',\n  data(){\n    return{\n      toggleExplorer: true,\n      toggle2D: false,\n      toggle3D: false\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      let storage = null\n      if(this.webId != null){\n        storage = await this.$getStorage(this.webId)\n      }else{\n        this.friends = []\n      }\n      this.$store.commit('vue2_solid_store/setPath', storage)\n    },\n    async setPath(p){\n      let storage = {type: 'pod', path: p}\n      storage = await this.$getThingAll(storage)\n      this.$store.commit('vue2_solid_store/setPath', storage)\n    },\n    async add(){\n      console.log(\"add towhat? to \", this.paths.slice(-1)[0].path)\n      let f= {path: this.paths.slice(-1)[0].path}\n      this.$store.commit('vue2_solid_store/setFile', f)\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  },\n  computed:{\n    webId(){\n      return this.$store.state.vue2_solid_store.webId\n    },\n    paths(){\n      return this.$store.state.vue2_solid_store.paths\n    },\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-explorer {\n\n}\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$8 = "data-v-2a16c630";
+  const __vue_scope_id__$9 = "data-v-00325704";
   /* module identifier */
-  const __vue_module_identifier__$8 = undefined;
+  const __vue_module_identifier__$9 = undefined;
   /* functional template */
-  const __vue_is_functional_template__$8 = false;
+  const __vue_is_functional_template__$9 = false;
   /* style inject SSR */
   
   /* style inject shadow dom */
   
 
   
-  const __vue_component__$8 = /*#__PURE__*/normalizeComponent(
-    { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
-    __vue_inject_styles__$8,
-    __vue_script__$8,
-    __vue_scope_id__$8,
-    __vue_is_functional_template__$8,
-    __vue_module_identifier__$8,
+  const __vue_component__$9 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$9, staticRenderFns: __vue_staticRenderFns__$9 },
+    __vue_inject_styles__$9,
+    __vue_script__$9,
+    __vue_scope_id__$9,
+    __vue_is_functional_template__$9,
+    __vue_module_identifier__$9,
     false,
     createInjector,
     undefined,
@@ -673,15 +686,15 @@ __vue_render__$8._withStripped = true;
 //
 
 
-var script$7 = {
+var script$8 = {
   name: 'SolidProfile',
 };
 
 /* script */
-const __vue_script__$7 = script$7;
+const __vue_script__$8 = script$8;
 
 /* template */
-var __vue_render__$7 = function () {
+var __vue_render__$8 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -692,17 +705,17 @@ var __vue_render__$7 = function () {
     1
   )
 };
-var __vue_staticRenderFns__$7 = [];
-__vue_render__$7._withStripped = true;
+var __vue_staticRenderFns__$8 = [];
+__vue_render__$8._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__$7 = undefined;
+  const __vue_inject_styles__$8 = undefined;
   /* scoped */
-  const __vue_scope_id__$7 = undefined;
+  const __vue_scope_id__$8 = undefined;
   /* module identifier */
-  const __vue_module_identifier__$7 = undefined;
+  const __vue_module_identifier__$8 = undefined;
   /* functional template */
-  const __vue_is_functional_template__$7 = false;
+  const __vue_is_functional_template__$8 = false;
   /* style inject */
   
   /* style inject SSR */
@@ -711,13 +724,13 @@ __vue_render__$7._withStripped = true;
   
 
   
-  const __vue_component__$7 = /*#__PURE__*/normalizeComponent(
-    { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
-    __vue_inject_styles__$7,
-    __vue_script__$7,
-    __vue_scope_id__$7,
-    __vue_is_functional_template__$7,
-    __vue_module_identifier__$7,
+  const __vue_component__$8 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
+    __vue_inject_styles__$8,
+    __vue_script__$8,
+    __vue_scope_id__$8,
+    __vue_is_functional_template__$8,
+    __vue_module_identifier__$8,
     false,
     undefined,
     undefined,
@@ -754,7 +767,7 @@ __vue_render__$7._withStripped = true;
 //
 //
 
-var script$6 = {
+var script$7 = {
   name: 'SolidUser',
   data(){
     return {
@@ -787,10 +800,10 @@ var script$6 = {
 };
 
 /* script */
-const __vue_script__$6 = script$6;
+const __vue_script__$7 = script$7;
 
 /* template */
-var __vue_render__$6 = function () {
+var __vue_render__$7 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -813,17 +826,137 @@ var __vue_render__$6 = function () {
       )
     : _vm._e()
 };
+var __vue_staticRenderFns__$7 = [];
+__vue_render__$7._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$7 = function (inject) {
+    if (!inject) return
+    inject("data-v-3251a61e_0", { source: "\n.solid-user[data-v-3251a61e] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidUser.vue"],"names":[],"mappings":";AAgEA;AAEA","file":"SolidUser.vue","sourcesContent":["<template>\n\n  <!-- <div>\n  User : {{ webId}}\n  <hr>\n  user : {{ user}}\n\n</div> -->\n<b-card v-if=\"user != null\"\n:title=\"user.name || 'no name'\"\n:img-src=\"user.photo || 'no photo'\"\nimg-alt=\"Image\"\nimg-top\ntag=\"article\"\nstyle=\"max-width: 20rem;\"\nclass=\"mb-2 solid-user\"\n>\n<b-card-header>\n\n</b-card-header>\n<b-card-text>\n\n</b-card-text>\n\n<!-- <b-button href=\"#\" variant=\"primary\">Go somewhere</b-button> -->\n</b-card>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidUser',\n  data(){\n    return {\n      user: null\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      if(this.webId != null){\n        this.user = await this.$getUser(this.webId)\n      }else{\n        this.user = null\n      }\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  },\n  computed:{\n    webId(){\n      return this.$store.state.vue2_solid_store.webId\n    },\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-user {\n\n}\n</style>\n"]}, media: undefined });
+
+  };
+  /* scoped */
+  const __vue_scope_id__$7 = "data-v-3251a61e";
+  /* module identifier */
+  const __vue_module_identifier__$7 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$7 = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$7 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
+    __vue_inject_styles__$7,
+    __vue_script__$7,
+    __vue_scope_id__$7,
+    __vue_is_functional_template__$7,
+    __vue_module_identifier__$7,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$6 = {
+  name: 'SolidUserSmall',
+  props: ['webId'],
+  data(){
+    return {
+      user: null,
+      friends:[]
+    }
+  },
+  created(){
+    this.init();
+  },
+  methods: {
+    async init(){
+      // console.log('get!user',this.webId)
+      this.user = await this.$getUser(this.webId);
+      // console.log(this.user)
+      this.friends = await this.$getFriends(this.webId);
+      // this.friendsLength = friends.length
+    },
+
+  },
+  watch:{
+    webId(){
+      this.init();
+    }
+  }
+
+};
+
+/* script */
+const __vue_script__$6 = script$6;
+
+/* template */
+var __vue_render__$6 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("span", [
+    _vm.user != null
+      ? _c(
+          "span",
+          { staticClass: "d-flex align-items-center" },
+          [
+            _c("img", {
+              staticClass: "mr-3",
+              attrs: { src: _vm.user.photo, width: "40px" },
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "mr-auto" }, [
+              _vm._v(_vm._s(_vm.user.name || _vm.webId)),
+            ]),
+            _vm._v(" "),
+            _c("b-badge", [_vm._v(_vm._s(_vm.friends.length))]),
+          ],
+          1
+        )
+      : _c("span", [
+          _c("small", [_c("i", [_vm._v("...Loading " + _vm._s(_vm.webId))])]),
+        ]),
+  ])
+};
 var __vue_staticRenderFns__$6 = [];
 __vue_render__$6._withStripped = true;
 
   /* style */
   const __vue_inject_styles__$6 = function (inject) {
     if (!inject) return
-    inject("data-v-3251a61e_0", { source: "\n.solid-user[data-v-3251a61e] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidUser.vue"],"names":[],"mappings":";AAgEA;AAEA","file":"SolidUser.vue","sourcesContent":["<template>\n\n  <!-- <div>\n  User : {{ webId}}\n  <hr>\n  user : {{ user}}\n\n</div> -->\n<b-card v-if=\"user != null\"\n:title=\"user.name || 'no name'\"\n:img-src=\"user.photo || 'no photo'\"\nimg-alt=\"Image\"\nimg-top\ntag=\"article\"\nstyle=\"max-width: 20rem;\"\nclass=\"mb-2 solid-user\"\n>\n<b-card-header>\n\n</b-card-header>\n<b-card-text>\n\n</b-card-text>\n\n<!-- <b-button href=\"#\" variant=\"primary\">Go somewhere</b-button> -->\n</b-card>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidUser',\n  data(){\n    return {\n      user: null\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      if(this.webId != null){\n        this.user = await this.$getUser(this.webId)\n      }else{\n        this.user = null\n      }\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  },\n  computed:{\n    webId(){\n      return this.$store.state.vue2_solid_store.webId\n    },\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-user {\n\n}\n</style>\n"]}, media: undefined });
+    inject("data-v-0e9279c6_0", { source: "\n.solid-user[data-v-0e9279c6] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidUserSmall.vue"],"names":[],"mappings":";AAwDA;AAEA","file":"SolidUserSmall.vue","sourcesContent":["<template>\n\n  <!-- <div>\n  User : {{ webId}}\n  <hr>\n  user : {{ user}}\n\n</div> -->\n<span>\n  <span v-if=\"user != null\" class=\"d-flex align-items-center\">\n    <!-- {{user.photo}} {{user.name}} -->\n    <!-- <b-avatar variant=\"info\" :src=\"user.photo\" class=\"mr-3\"></b-avatar> -->\n<img :src=\"user.photo\" class=\"mr-3\" width=\"40px\" />\n\n    <span class=\"mr-auto\">{{user.name || webId}}</span>\n    <b-badge>{{ friends.length}}</b-badge>\n\n  </span>\n  <span v-else><small><i>...Loading {{webId}}</i></small></span>\n</span>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidUserSmall',\n  props: ['webId'],\n  data(){\n    return {\n      user: null,\n      friends:[]\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      // console.log('get!user',this.webId)\n      this.user = await this.$getUser(this.webId)\n      // console.log(this.user)\n      this.friends = await this.$getFriends(this.webId)\n      // this.friendsLength = friends.length\n    },\n\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-user {\n\n}\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$6 = "data-v-3251a61e";
+  const __vue_scope_id__$6 = "data-v-0e9279c6";
   /* module identifier */
   const __vue_module_identifier__$6 = undefined;
   /* functional template */
@@ -870,136 +1003,16 @@ __vue_render__$6._withStripped = true;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 var script$5 = {
-  name: 'SolidUserSmall',
-  props: ['webId'],
-  data(){
-    return {
-      user: null,
-      friends:[]
-    }
-  },
-  created(){
-    this.init();
-  },
-  methods: {
-    async init(){
-      // console.log('get!user',this.webId)
-      this.user = await this.$getUser(this.webId);
-      // console.log(this.user)
-      this.friends = await this.$getFriends(this.webId);
-      // this.friendsLength = friends.length
-    },
-
-  },
-  watch:{
-    webId(){
-      this.init();
-    }
-  }
-
-};
-
-/* script */
-const __vue_script__$5 = script$5;
-
-/* template */
-var __vue_render__$5 = function () {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("span", [
-    _vm.user != null
-      ? _c(
-          "span",
-          { staticClass: "d-flex align-items-center" },
-          [
-            _c("img", {
-              staticClass: "mr-3",
-              attrs: { src: _vm.user.photo, width: "40px" },
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "mr-auto" }, [
-              _vm._v(_vm._s(_vm.user.name || _vm.webId)),
-            ]),
-            _vm._v(" "),
-            _c("b-badge", [_vm._v(_vm._s(_vm.friends.length))]),
-          ],
-          1
-        )
-      : _c("span", [
-          _c("small", [_c("i", [_vm._v("...Loading " + _vm._s(_vm.webId))])]),
-        ]),
-  ])
-};
-var __vue_staticRenderFns__$5 = [];
-__vue_render__$5._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$5 = function (inject) {
-    if (!inject) return
-    inject("data-v-0e9279c6_0", { source: "\n.solid-user[data-v-0e9279c6] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidUserSmall.vue"],"names":[],"mappings":";AAwDA;AAEA","file":"SolidUserSmall.vue","sourcesContent":["<template>\n\n  <!-- <div>\n  User : {{ webId}}\n  <hr>\n  user : {{ user}}\n\n</div> -->\n<span>\n  <span v-if=\"user != null\" class=\"d-flex align-items-center\">\n    <!-- {{user.photo}} {{user.name}} -->\n    <!-- <b-avatar variant=\"info\" :src=\"user.photo\" class=\"mr-3\"></b-avatar> -->\n<img :src=\"user.photo\" class=\"mr-3\" width=\"40px\" />\n\n    <span class=\"mr-auto\">{{user.name || webId}}</span>\n    <b-badge>{{ friends.length}}</b-badge>\n\n  </span>\n  <span v-else><small><i>...Loading {{webId}}</i></small></span>\n</span>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidUserSmall',\n  props: ['webId'],\n  data(){\n    return {\n      user: null,\n      friends:[]\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      // console.log('get!user',this.webId)\n      this.user = await this.$getUser(this.webId)\n      // console.log(this.user)\n      this.friends = await this.$getFriends(this.webId)\n      // this.friendsLength = friends.length\n    },\n\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-user {\n\n}\n</style>\n"]}, media: undefined });
-
-  };
-  /* scoped */
-  const __vue_scope_id__$5 = "data-v-0e9279c6";
-  /* module identifier */
-  const __vue_module_identifier__$5 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$5 = false;
-  /* style inject SSR */
-  
-  /* style inject shadow dom */
-  
-
-  
-  const __vue_component__$5 = /*#__PURE__*/normalizeComponent(
-    { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
-    __vue_inject_styles__$5,
-    __vue_script__$5,
-    __vue_scope_id__$5,
-    __vue_is_functional_template__$5,
-    __vue_module_identifier__$5,
-    false,
-    createInjector,
-    undefined,
-    undefined
-  );
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var script$4 = {
   name: 'SolidFriends',
   data(){
     return {
@@ -1045,10 +1058,10 @@ var script$4 = {
 };
 
 /* script */
-const __vue_script__$4 = script$4;
+const __vue_script__$5 = script$5;
 
 /* template */
-var __vue_render__$4 = function () {
+var __vue_render__$5 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -1154,17 +1167,74 @@ var __vue_render__$4 = function () {
     1
   )
 };
+var __vue_staticRenderFns__$5 = [];
+__vue_render__$5._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$5 = function (inject) {
+    if (!inject) return
+    inject("data-v-6ffbb74a_0", { source: "\n.solid-friends[data-v-6ffbb74a] {\n}\n.scroll[data-v-6ffbb74a]{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidFriends.vue"],"names":[],"mappings":";AA+EA;AAEA;AACA;EACA,gBAAA;EACA,mBAAA;EACA,iBAAA;EACA,iCAAA;AACA","file":"SolidFriends.vue","sourcesContent":["<template>\n\n  <b-card\n  class=\"solid-friends\"\n  no-body>\n  <b-card-header>\n    Friends <b-button v-if=\"session != null && session.webId != webId\" @click=\"setUser(session.webId)\" variant=\"primary\" size=\"sm\" class=\"ml-3\">Me</b-button>\n\n    {{history.slice(-1)[0]}}\n    <b-dropdown id=\"dropdown-history\" class=\"m-md-2\" variant=\"primary\" size=\"sm\">\n      <template #button-content>\n        {{history.slice(-1)[0]}}\n      </template>\n      <b-dropdown-item v-for=\"h in history\" :key=\"h\" @click=\"setUser(h)\">{{h}}</b-dropdown-item>\n    </b-dropdown>\n    <b-button disabled @click=\"addFriend\" variant=\"primary\" size=\"sm\">+</b-button>\n\n  </b-card-header>\n  <!-- webId : {{ webId}}\n  friends : {{ friends}} -->\n  <b-list-group flush class=\"scroll\">\n    <b-list-group-item button v-for=\"f in friends\" :key=\"f.webId\" @click=\"setUser(f.webId)\">\n      <SolidUserSmall :webId=\"f.webId\"  />\n      <!-- {{f.webId}} -->\n    </b-list-group-item>\n  </b-list-group>\n\n</b-card>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidFriends',\n  data(){\n    return {\n      friends: []\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      if(this.webId != null){\n        this.friends = await this.$getFriends(this.webId)\n      }else{\n        this.friends = []\n      }\n    },\n    addFriend(){\n      console.log('add')\n    },\n    setUser(webId){\n      console.log('setUser', webId)\n      this.$store.commit('vue2_solid_store/setWebId', webId)\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  },\n  computed:{\n    webId(){\n      return this.$store.state.vue2_solid_store.webId\n    },\n    history(){\n      return this.$store.state.vue2_solid_store.history\n    },\n    session(){\n      return this.$store.state.vue2_solid_store.session\n    },\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-friends {\n\n}\n.scroll{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n</style>\n"]}, media: undefined });
+
+  };
+  /* scoped */
+  const __vue_scope_id__$5 = "data-v-6ffbb74a";
+  /* module identifier */
+  const __vue_module_identifier__$5 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$5 = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$5 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
+    __vue_inject_styles__$5,
+    __vue_script__$5,
+    __vue_scope_id__$5,
+    __vue_is_functional_template__$5,
+    __vue_module_identifier__$5,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+
+  var script$4 = {
+    name: 'SolidStorage',
+
+
+  };
+
+/* script */
+const __vue_script__$4 = script$4;
+
+/* template */
+var __vue_render__$4 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", { staticClass: "solid-storage" })
+};
 var __vue_staticRenderFns__$4 = [];
 __vue_render__$4._withStripped = true;
 
   /* style */
   const __vue_inject_styles__$4 = function (inject) {
     if (!inject) return
-    inject("data-v-6ffbb74a_0", { source: "\n.solid-friends[data-v-6ffbb74a] {\n}\n.scroll[data-v-6ffbb74a]{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidFriends.vue"],"names":[],"mappings":";AA+EA;AAEA;AACA;EACA,gBAAA;EACA,mBAAA;EACA,iBAAA;EACA,iCAAA;AACA","file":"SolidFriends.vue","sourcesContent":["<template>\n\n  <b-card\n  class=\"solid-friends\"\n  no-body>\n  <b-card-header>\n    Friends <b-button v-if=\"session != null && session.webId != webId\" @click=\"setUser(session.webId)\" variant=\"primary\" size=\"sm\" class=\"ml-3\">Me</b-button>\n\n    {{history.slice(-1)[0]}}\n    <b-dropdown id=\"dropdown-history\" class=\"m-md-2\" variant=\"primary\" size=\"sm\">\n      <template #button-content>\n        {{history.slice(-1)[0]}}\n      </template>\n      <b-dropdown-item v-for=\"h in history\" :key=\"h\" @click=\"setUser(h)\">{{h}}</b-dropdown-item>\n    </b-dropdown>\n    <b-button disabled @click=\"addFriend\" variant=\"primary\" size=\"sm\">+</b-button>\n\n  </b-card-header>\n  <!-- webId : {{ webId}}\n  friends : {{ friends}} -->\n  <b-list-group flush class=\"scroll\">\n    <b-list-group-item button v-for=\"f in friends\" :key=\"f.webId\" @click=\"setUser(f.webId)\">\n      <SolidUserSmall :webId=\"f.webId\"  />\n      <!-- {{f.webId}} -->\n    </b-list-group-item>\n  </b-list-group>\n\n</b-card>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidFriends',\n  data(){\n    return {\n      friends: []\n    }\n  },\n  created(){\n    this.init()\n  },\n  methods: {\n    async init(){\n      if(this.webId != null){\n        this.friends = await this.$getFriends(this.webId)\n      }else{\n        this.friends = []\n      }\n    },\n    addFriend(){\n      console.log('add')\n    },\n    setUser(webId){\n      console.log('setUser', webId)\n      this.$store.commit('vue2_solid_store/setWebId', webId)\n    }\n  },\n  watch:{\n    webId(){\n      this.init()\n    }\n  },\n  computed:{\n    webId(){\n      return this.$store.state.vue2_solid_store.webId\n    },\n    history(){\n      return this.$store.state.vue2_solid_store.history\n    },\n    session(){\n      return this.$store.state.vue2_solid_store.session\n    },\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-friends {\n\n}\n.scroll{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n</style>\n"]}, media: undefined });
+    inject("data-v-8e5e676a_0", { source: "\n.solid-storage[data-v-8e5e676a] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidStorage.vue"],"names":[],"mappings":";AAeA;AAEA","file":"SolidStorage.vue","sourcesContent":["<template>\n  <div class=\"solid-storage\">\n\n  </div>\n</template>\n\n<script>\n  export default {\n    name: 'SolidStorage',\n\n\n  }\n</script>\n\n<style lang=\"css\" scoped>\n  .solid-storage {\n\n  }\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$4 = "data-v-6ffbb74a";
+  const __vue_scope_id__$4 = "data-v-8e5e676a";
   /* module identifier */
   const __vue_module_identifier__$4 = undefined;
   /* functional template */
@@ -1194,63 +1264,6 @@ __vue_render__$4._withStripped = true;
 //
 //
 //
-
-  var script$3 = {
-    name: 'SolidStorage',
-
-
-  };
-
-/* script */
-const __vue_script__$3 = script$3;
-
-/* template */
-var __vue_render__$3 = function () {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("div", { staticClass: "solid-storage" })
-};
-var __vue_staticRenderFns__$3 = [];
-__vue_render__$3._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$3 = function (inject) {
-    if (!inject) return
-    inject("data-v-8e5e676a_0", { source: "\n.solid-storage[data-v-8e5e676a] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidStorage.vue"],"names":[],"mappings":";AAeA;AAEA","file":"SolidStorage.vue","sourcesContent":["<template>\n  <div class=\"solid-storage\">\n\n  </div>\n</template>\n\n<script>\n  export default {\n    name: 'SolidStorage',\n\n\n  }\n</script>\n\n<style lang=\"css\" scoped>\n  .solid-storage {\n\n  }\n</style>\n"]}, media: undefined });
-
-  };
-  /* scoped */
-  const __vue_scope_id__$3 = "data-v-8e5e676a";
-  /* module identifier */
-  const __vue_module_identifier__$3 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$3 = false;
-  /* style inject SSR */
-  
-  /* style inject shadow dom */
-  
-
-  
-  const __vue_component__$3 = /*#__PURE__*/normalizeComponent(
-    { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
-    __vue_inject_styles__$3,
-    __vue_script__$3,
-    __vue_scope_id__$3,
-    __vue_is_functional_template__$3,
-    __vue_module_identifier__$3,
-    false,
-    createInjector,
-    undefined,
-    undefined
-  );
-
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -1259,7 +1272,7 @@ __vue_render__$3._withStripped = true;
 //
 //
 
-var script$2 = {
+var script$3 = {
   name: 'SolidBrowser',
   methods: {
     async clickContainer(c){
@@ -1270,6 +1283,7 @@ var script$2 = {
     },
     async clickFile(f){
       console.log("file",f);
+      this.$store.commit('vue2_solid_store/setFile', f);
     }
   },
   computed:{
@@ -1282,10 +1296,10 @@ var script$2 = {
 };
 
 /* script */
-const __vue_script__$2 = script$2;
+const __vue_script__$3 = script$3;
 
 /* template */
-var __vue_render__$2 = function () {
+var __vue_render__$3 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -1330,17 +1344,80 @@ var __vue_render__$2 = function () {
       )
     : _vm._e()
 };
+var __vue_staticRenderFns__$3 = [];
+__vue_render__$3._withStripped = true;
+
+  /* style */
+  const __vue_inject_styles__$3 = function (inject) {
+    if (!inject) return
+    inject("data-v-3acb2512_0", { source: "\n.solid-browser[data-v-3acb2512] {\n}\n.scroll[data-v-3acb2512]{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidBrowser.vue"],"names":[],"mappings":";AAuCA;AAEA;AACA;EACA,gBAAA;EACA,mBAAA;EACA,iBAAA;EACA,iCAAA;AACA","file":"SolidBrowser.vue","sourcesContent":["<template>\n\n  <b-list-group flush class=\"scroll\" v-if=\"path != null\">\n    <b-list-group-item button v-for=\"c in path.containers\" :key=\"c.url\" @click=\"clickContainer(c)\">\n      {{c.url}}\n    </b-list-group-item>\n    <b-list-group-item button v-for=\"f in path.files\" :key=\"f.url\" @click=\"clickFile(f)\">\n      {{f.url}}\n    </b-list-group-item>\n  </b-list-group>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidBrowser',\n  methods: {\n    async clickContainer(c){\n      console.log(\"container\",c)\n      let storage = {type: 'pod', path: c.url}\n      storage = await this.$getThingAll(storage)\n      this.$store.commit('vue2_solid_store/setPath', storage)\n    },\n    async clickFile(f){\n      console.log(\"file\",f)\n      this.$store.commit('vue2_solid_store/setFile', f)\n    }\n  },\n  computed:{\n    path(){\n      return this.$store.state.vue2_solid_store.path\n    }\n  }\n\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-browser {\n\n}\n.scroll{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n</style>\n"]}, media: undefined });
+
+  };
+  /* scoped */
+  const __vue_scope_id__$3 = "data-v-3acb2512";
+  /* module identifier */
+  const __vue_module_identifier__$3 = undefined;
+  /* functional template */
+  const __vue_is_functional_template__$3 = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  const __vue_component__$3 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
+    __vue_inject_styles__$3,
+    __vue_script__$3,
+    __vue_scope_id__$3,
+    __vue_is_functional_template__$3,
+    __vue_module_identifier__$3,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+
+var script$2 = {
+  name: 'Explorer2D',
+  computed:{
+    path(){
+      return this.$store.state.vue2_solid_store.path
+    }
+  }
+
+};
+
+/* script */
+const __vue_script__$2 = script$2;
+
+/* template */
+var __vue_render__$2 = function () {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", { staticClass: "explorer-2d" }, [
+    _vm._v("\n  2d " + _vm._s(_vm.path) + "\n"),
+  ])
+};
 var __vue_staticRenderFns__$2 = [];
 __vue_render__$2._withStripped = true;
 
   /* style */
   const __vue_inject_styles__$2 = function (inject) {
     if (!inject) return
-    inject("data-v-c66cdf44_0", { source: "\n.solid-browser[data-v-c66cdf44] {\n}\n.scroll[data-v-c66cdf44]{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidBrowser.vue"],"names":[],"mappings":";AAsCA;AAEA;AACA;EACA,gBAAA;EACA,mBAAA;EACA,iBAAA;EACA,iCAAA;AACA","file":"SolidBrowser.vue","sourcesContent":["<template>\n\n  <b-list-group flush class=\"scroll\" v-if=\"path != null\">\n    <b-list-group-item button v-for=\"c in path.containers\" :key=\"c.url\" @click=\"clickContainer(c)\">\n      {{c.url}}\n    </b-list-group-item>\n    <b-list-group-item button v-for=\"f in path.files\" :key=\"f.url\" @click=\"clickFile(f)\">\n      {{f.url}}\n    </b-list-group-item>\n  </b-list-group>\n\n</template>\n\n<script>\nexport default {\n  name: 'SolidBrowser',\n  methods: {\n    async clickContainer(c){\n      console.log(\"container\",c)\n      let storage = {type: 'pod', path: c.url}\n      storage = await this.$getThingAll(storage)\n      this.$store.commit('vue2_solid_store/setPath', storage)\n    },\n    async clickFile(f){\n      console.log(\"file\",f)\n    }\n  },\n  computed:{\n    path(){\n      return this.$store.state.vue2_solid_store.path\n    }\n  }\n\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-browser {\n\n}\n.scroll{\n  max-height: 50vh;\n  margin-bottom: 10px;\n  overflow-y:scroll;\n  -webkit-overflow-scrolling: touch;\n}\n</style>\n"]}, media: undefined });
+    inject("data-v-2b6f17d8_0", { source: "\n.explorer-2d[data-v-2b6f17d8] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/Explorer2D.vue"],"names":[],"mappings":";AAmBA;AAEA","file":"Explorer2D.vue","sourcesContent":["<template>\n  <div class=\"explorer-2d\">\n    2d {{path}}\n  </div>\n</template>\n\n<script>\nexport default {\n  name: 'Explorer2D',\n  computed:{\n    path(){\n      return this.$store.state.vue2_solid_store.path\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.explorer-2d {\n\n}\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$2 = "data-v-c66cdf44";
+  const __vue_scope_id__$2 = "data-v-2b6f17d8";
   /* module identifier */
   const __vue_module_identifier__$2 = undefined;
   /* functional template */
@@ -1371,15 +1448,15 @@ __vue_render__$2._withStripped = true;
 //
 //
 
-var script$1 = {
-  name: 'Explorer2D',
-  computed:{
-    path(){
-      return this.$store.state.vue2_solid_store.path
+  var script$1 = {
+    name: 'Explorer3D',
+    computed:{
+      path(){
+        return this.$store.state.vue2_solid_store.path
+      }
     }
-  }
 
-};
+  };
 
 /* script */
 const __vue_script__$1 = script$1;
@@ -1389,8 +1466,8 @@ var __vue_render__$1 = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("div", { staticClass: "explorer-2d" }, [
-    _vm._v("\n  2d " + _vm._s(_vm.path) + "\n"),
+  return _c("div", { staticClass: "explorer-3d" }, [
+    _vm._v("\n3d " + _vm._s(_vm.path) + "\n  "),
   ])
 };
 var __vue_staticRenderFns__$1 = [];
@@ -1399,11 +1476,11 @@ __vue_render__$1._withStripped = true;
   /* style */
   const __vue_inject_styles__$1 = function (inject) {
     if (!inject) return
-    inject("data-v-2b6f17d8_0", { source: "\n.explorer-2d[data-v-2b6f17d8] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/Explorer2D.vue"],"names":[],"mappings":";AAmBA;AAEA","file":"Explorer2D.vue","sourcesContent":["<template>\n  <div class=\"explorer-2d\">\n    2d {{path}}\n  </div>\n</template>\n\n<script>\nexport default {\n  name: 'Explorer2D',\n  computed:{\n    path(){\n      return this.$store.state.vue2_solid_store.path\n    }\n  }\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.explorer-2d {\n\n}\n</style>\n"]}, media: undefined });
+    inject("data-v-7dbbc09a_0", { source: "\n.explorer-3d[data-v-7dbbc09a] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/Explorer3D.vue"],"names":[],"mappings":";AAmBA;AAEA","file":"Explorer3D.vue","sourcesContent":["<template>\n  <div class=\"explorer-3d\">\n3d {{path}}\n  </div>\n</template>\n\n<script>\n  export default {\n    name: 'Explorer3D',\n    computed:{\n      path(){\n        return this.$store.state.vue2_solid_store.path\n      }\n    }\n\n  }\n</script>\n\n<style lang=\"css\" scoped>\n  .explorer-3d {\n\n  }\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__$1 = "data-v-2b6f17d8";
+  const __vue_scope_id__$1 = "data-v-7dbbc09a";
   /* module identifier */
   const __vue_module_identifier__$1 = undefined;
   /* functional template */
@@ -1433,16 +1510,23 @@ __vue_render__$1._withStripped = true;
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
-  var script = {
-    name: 'Explorer3D',
-    computed:{
-      path(){
-        return this.$store.state.vue2_solid_store.path
-      }
-    }
+var script = {
+  name: 'SolidEditor',
+  computed:{
+    file(){
+      return this.$store.state.vue2_solid_store.file
+    },
+  }
 
-  };
+
+};
 
 /* script */
 const __vue_script__ = script;
@@ -1452,9 +1536,12 @@ var __vue_render__ = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("div", { staticClass: "explorer-3d" }, [
-    _vm._v("\n3d " + _vm._s(_vm.path) + "\n  "),
-  ])
+  return _c(
+    "b-card",
+    { staticClass: "solid-editor" },
+    [_c("b-card-header"), _vm._v("\n  editor\n  " + _vm._s(_vm.file) + "\n\n")],
+    1
+  )
 };
 var __vue_staticRenderFns__ = [];
 __vue_render__._withStripped = true;
@@ -1462,11 +1549,11 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-7dbbc09a_0", { source: "\n.explorer-3d[data-v-7dbbc09a] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/Explorer3D.vue"],"names":[],"mappings":";AAmBA;AAEA","file":"Explorer3D.vue","sourcesContent":["<template>\n  <div class=\"explorer-3d\">\n3d {{path}}\n  </div>\n</template>\n\n<script>\n  export default {\n    name: 'Explorer3D',\n    computed:{\n      path(){\n        return this.$store.state.vue2_solid_store.path\n      }\n    }\n\n  }\n</script>\n\n<style lang=\"css\" scoped>\n  .explorer-3d {\n\n  }\n</style>\n"]}, media: undefined });
+    inject("data-v-6700280f_0", { source: "\n.solid-editor[data-v-6700280f] {\n}\n", map: {"version":3,"sources":["/home/smag/dev/vue2_solid/src/SolidEditor.vue"],"names":[],"mappings":";AA0BA;AAEA","file":"SolidEditor.vue","sourcesContent":["<template>\n  <b-card class=\"solid-editor\">\n    <b-card-header>\n\n\n    </b-card-header>\n    editor\n    {{ file}}\n\n  </b-card>\n</template>\n\n<script>\nexport default {\n  name: 'SolidEditor',\n  computed:{\n    file(){\n      return this.$store.state.vue2_solid_store.file\n    },\n  }\n\n\n}\n</script>\n\n<style lang=\"css\" scoped>\n.solid-editor {\n\n}\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__ = "data-v-7dbbc09a";
+  const __vue_scope_id__ = "data-v-6700280f";
   /* module identifier */
   const __vue_module_identifier__ = undefined;
   /* functional template */
@@ -1491,16 +1578,17 @@ __vue_render__._withStripped = true;
   );
 
 var components = {
-  SolidLogin: __vue_component__$9,
-  SolidExplorer: __vue_component__$8,
-  SolidProfile: __vue_component__$7,
-  SolidFriends: __vue_component__$4,
-  SolidUser: __vue_component__$6,
-  SolidUserSmall: __vue_component__$5,
-  SolidStorage: __vue_component__$3,
-  SolidBrowser: __vue_component__$2,
-  Explorer2D: __vue_component__$1,
-  Explorer3D: __vue_component__
+  SolidLogin: __vue_component__$a,
+  SolidExplorer: __vue_component__$9,
+  SolidProfile: __vue_component__$8,
+  SolidFriends: __vue_component__$5,
+  SolidUser: __vue_component__$7,
+  SolidUserSmall: __vue_component__$6,
+  SolidStorage: __vue_component__$4,
+  SolidBrowser: __vue_component__$3,
+  Explorer2D: __vue_component__$2,
+  Explorer3D: __vue_component__$1,
+  SolidEditor: __vue_component__
 };
 
 // import Vue from 'vue'
@@ -1515,7 +1603,8 @@ const state = () => ({
   webId: null,
   history: [],
   paths: [],
-  path: null
+  path: null,
+  file: null
 });
 
 const mutations = {
@@ -1536,6 +1625,9 @@ const mutations = {
     state.path = p;
     state.paths = state.paths.filter(x => x.path != p.path);
     p != null ? state.paths.push(p) : "";
+  },
+  setFile(state, f){
+    state.file = f;
   }
   // updateDoc(state, newDoc) {
   //   state.doc = newDoc
@@ -1683,7 +1775,6 @@ const Vue2Solid = {
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
         storage.path = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/';
-        storage.permissions = null;
         storage = await this.$getThingAll(storage);
       }catch(e)
       {
@@ -1699,10 +1790,15 @@ const Vue2Solid = {
         let things  = await getThingAll( dataset );
         storage.containers = things.filter(t => t.url.endsWith('/') && t.url!= storage.path);
         storage.files = things.filter(t => !t.url.endsWith('/'));
+        storage.permissions = await universalAccess.getAgentAccessAll(
+          storage.path, // resource
+          { fetch: sc.fetch }                // fetch function from authenticated session
+        );
       }catch(e)
       {
         console.log("erreur",e);
       }
+        console.log(storage);
       return storage
     };
 
