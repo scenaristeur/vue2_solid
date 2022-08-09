@@ -151,14 +151,12 @@ const Vue2Solid = {
     Vue.prototype.$getUser = async function(webId){
       let user = {wedId: webId}
       try{
-        console.log("user before",user)
         const dataset = await getSolidDataset( webId, { fetch: sc.fetch });
         let profile = await getThing( dataset, webId );
         user.name = await getStringNoLocale(profile, FOAF.name);
         // user.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
         user.storage = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/'
         user.photo = await getUrl(profile, VCARD.hasPhoto);
-        console.log("user after",user)
       }catch(e)
       {
         console.log("erreur",e)

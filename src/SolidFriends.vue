@@ -5,7 +5,12 @@
   no-body>
   <b-card-header>
     Friends <b-button v-if="session != null && session.webId != webId" @click="setUser(session.webId)" variant="primary" size="sm" class="ml-3">Me</b-button>
-    <b-dropdown id="dropdown-1" text="history" class="m-md-2" variant="primary" size="sm">
+
+    {{history.slice(-1)[0]}}
+    <b-dropdown id="dropdown-history" class="m-md-2" variant="primary" size="sm">
+      <template #button-content>
+        {{history.slice(-1)[0]}}
+      </template>
       <b-dropdown-item v-for="h in history" :key="h" @click="setUser(h)">{{h}}</b-dropdown-item>
     </b-dropdown>
     <b-button disabled @click="addFriend" variant="primary" size="sm">+</b-button>

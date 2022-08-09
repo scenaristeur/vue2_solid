@@ -1,6 +1,6 @@
 <template>
 
-  <b-list-group flush class="scroll">
+  <b-list-group flush class="scroll" v-if="path != null">
     <b-list-group-item button v-for="c in path.containers" :key="c.url" @click="clickContainer(c)">
       {{c.url}}
     </b-list-group-item>

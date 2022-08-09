@@ -8,7 +8,10 @@
     <b-button size="sm" :pressed.sync="toggle2D" :variant="toggle2D ? 'primary' : 'light'">2D</b-button>
     <b-button size="sm" :pressed.sync="toggle3D" :variant="toggle3D ? 'primary' : 'light'">3D</b-button>
 
-    <b-dropdown id="dropdown-1" :text="paths.slice(-1)[0].path" class="m-md-2" variant="primary" size="sm">
+    <b-dropdown v-if="paths != null && paths.length > 0" id="dropdown-paths" class="m-md-2" variant="primary" size="sm">
+      <template #button-content>
+        {{paths.slice(-1)[0].path}}
+      </template>
       <b-dropdown-item v-for="p in paths" :key="p.path" @click="setPath(p.path)">{{p.path}}</b-dropdown-item>
     </b-dropdown>
 

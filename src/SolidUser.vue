@@ -45,8 +45,6 @@ export default {
       }else{
         this.user = null
       }
-
-
     }
   },
   watch:{

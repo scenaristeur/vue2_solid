@@ -36,9 +36,9 @@ export default {
   },
   methods: {
     async init(){
-      console.log('get!user',this.webId)
-      this.user = await this.$getUser(this.webId) ||
-      console.log(this.user)
+      // console.log('get!user',this.webId)
+      this.user = await this.$getUser(this.webId)
+      // console.log(this.user)
       this.friends = await this.$getFriends(this.webId)
       // this.friendsLength = friends.length
     },
