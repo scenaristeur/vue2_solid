@@ -9,6 +9,12 @@ import SolidBrowser from './SolidBrowser.vue'
 import Explorer2D from './Explorer2D.vue'
 import Explorer3D from './Explorer3D.vue'
 import SolidEditor from './SolidEditor.vue'
+// import SolidIdeaForm from './SolidIdeaForm.vue'
+import SolidTensionForm from './SolidTensionForm.vue'
+// import SolidTensionList from './SolidTensionList.vue'
+// import SolidWebSocket from './SolidWebSocket.vue'
+// import SolidWebSocketConnector from './SolidWebSocketConnector.vue'
+// import SolidWebSocketList from './SolidWebSocketList.vue'
 
 export default {
   SolidLogin,
@@ -21,5 +27,11 @@ export default {
   SolidBrowser,
   Explorer2D,
   Explorer3D,
-  SolidEditor
+  SolidEditor,
+  // SolidIdeaForm,
+  SolidTensionForm,
+  // SolidTensionList,
+  // SolidWebSocket,
+  // SolidWebSocketConnector,
+  // SolidWebSocketList
 }

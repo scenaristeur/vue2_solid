@@ -4,6 +4,8 @@ import components from'./components' // method1
 // import componentA from './myComponentA.vue';
 // import componentB from './myComponentB.vue';
 import vue2_solid_store from './store.js'
+import CommonPlugin from './plugins/common-plugin';
+
 
 import {
   getSolidDataset,
@@ -21,7 +23,7 @@ import {
   // getContainedResourceUrlAll,
   // getStringNoLocaleAll,
   // createContainerAt,
-  // getSourceUrl,
+  getSourceUrl,
   // deleteFile,
   //removeThing,
   // removeAll,
@@ -34,7 +36,7 @@ import {
   //createThing,
   //addUrl,
   //buildThing,
-  //overwriteFile,
+  overwriteFile,
   getStringNoLocale,
   getThing,
   getUrlAll,
@@ -73,6 +75,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 const Vue2Solid = {
   install (Vue, options) {
     let store = options.store
+
+    Vue.use(CommonPlugin, {store: store});
+
     for (const prop in components) {
       if (components.hasOwnProperty(prop)) {
         const component = components[prop]
@@ -158,7 +163,7 @@ const Vue2Solid = {
         // user.friends = await getUrlAll(profile, FOAF.knows).map(webId => {return {webId: webId}})
         user.storage = await getUrl(profile, WS.storage)  || webId.split('/').slice(0,-2).join('/')+'/'
         user.photo = await getUrl(profile, VCARD.hasPhoto);
-        this.$store.commit('vue2_solid_store/addUser', user)
+        //  this.$store.commit('vue2_solid_store/addUser', user)
       }catch(e)
       {
         console.log("erreur",e)
@@ -214,13 +219,34 @@ const Vue2Solid = {
       return storage
     }
 
+
+    Vue.prototype.$putThing = async function(data){
+      console.log(data)
+      let thing = await Vue.prototype.$newThing(data)
+      thing.creator = store.state.webId
+      thing.path = data.path
+      console.log("the thing", thing)
+
+      const savedFile = await overwriteFile(
+        thing.path+thing.id,
+        // thing.path+lastPartOfUrl(n.id),
+        new Blob([JSON.stringify(thing)], { type: "application/ld+json" }),
+        { contentType: "application/ld+json", fetch: sc.fetch }
+      );
+      //  console.log(savedFile)
+
+      console.log(`File saved at ${getSourceUrl(savedFile)}`);
+    }
+
+
+
     Vue.prototype.$updateNode = function(n){
       let g = store.state.vue2_solid_store.graph
       let gData = g.graphData()
       const index = gData.nodes.findIndex(x => x.id == n.id);
       index === -1 ? gData.nodes.push(n) : "" //this.nodes[index] = Object.assign({}, n)
       g.graphData({nodes: gData.nodes, links: gData.links})
-        }
+    }
 
     Vue.prototype.$updateLinks = function(l){
       let g = store.state.vue2_solid_store.graph
@@ -231,24 +257,24 @@ const Vue2Solid = {
     }
 
     Vue.prototype.$nodeFocus = function(node) {
- //  console.log("node",node)
+      //  console.log("node",node)
 
-   const distance = 100;
-   let pos = {x: distance, y: distance, z: distance}
-   if(node.x != 0 && node.y != 0 && node.z != 0){
-     const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
-     pos = { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }
-   }
-   store.state.vue2_solid_store.graph.cameraPosition(
-     pos, // new position
-     node, // lookAt ({ x, y, z })
-     3000  // ms transition duration
-   );
-   // console.log(store.state.core.graph)
-  // let n = store.state.core.nodes.find(n => n.id == node.id)
-   // store.commit ('core/setCurrentNode', n)
+      const distance = 100;
+      let pos = {x: distance, y: distance, z: distance}
+      if(node.x != 0 && node.y != 0 && node.z != 0){
+        const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+        pos = { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }
+      }
+      store.state.vue2_solid_store.graph.cameraPosition(
+        pos, // new position
+        node, // lookAt ({ x, y, z })
+        3000  // ms transition duration
+      );
+      // console.log(store.state.core.graph)
+      // let n = store.state.core.nodes.find(n => n.id == node.id)
+      // store.commit ('core/setCurrentNode', n)
 
- }
+    }
 
     //
     // Vue.prototype.$getPodInfosFromSession = async function(session){

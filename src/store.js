@@ -81,12 +81,12 @@ const mutations = {
     // state.friends = state.friends.filter(x => x.webId != p.webId)
     // state.friends.push(f)
   },
-  addUser(state, u){
-    console.log("addUser", u)
-    // state.user = u
-    // state.users = state.users.filter(x => x.webId != p.webId)
-    // state.users.push(f)
-  }
+  // addUser(state, u){
+  //   console.log("addUser", u)
+  //   // state.user = u
+  //   // state.users = state.users.filter(x => x.webId != p.webId)
+  //   // state.users.push(f)
+  // }
   // updateDoc(state, newDoc) {
   //   state.doc = newDoc
   //   //render(newDoc)

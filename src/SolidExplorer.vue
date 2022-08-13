@@ -13,6 +13,7 @@
       </b-dropdown>
       <b-button size="sm" @click="back" variant="primary" >&lt;-</b-button>
       <b-button size="sm" @click="add" variant="success">+</b-button>
+      <b-button size="sm" @click="add('tension')" variant="success"> <b-icon-lightning></b-icon-lightning></b-button>
 
     </b-card-header>
     <b-row>
@@ -53,9 +54,10 @@ export default {
       storage = await this.$getThingAll(storage)
       this.$store.commit('vue2_solid_store/setPath', storage)
     },
-    async add(){
+    async add(type){
       console.log("add towhat? to ", this.paths.slice(-1)[0].path)
       let f= {path: this.paths.slice(-1)[0].path}
+      type!= undefined ? f.type = type : ""
       this.$store.commit('vue2_solid_store/setFile', f)
     },
     async back(){
