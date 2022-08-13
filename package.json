@@ -1,6 +1,6 @@
 {
   "name": "@smag0/vue2_solid",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Vue2 components to do all the boring thing when creating a Solid decentralized app https://solidproject.org/",
   "main": "dist/vue2_solid.js",
   "module": "dist/vue2_solid.mjs",
