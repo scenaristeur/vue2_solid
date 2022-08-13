@@ -1,4 +1,5 @@
 import vue from 'rollup-plugin-vue'
+import alias from 'rollup-plugin-alias';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 
 export default [
@@ -15,7 +16,10 @@ export default [
       }
     ],
     plugins: [
-      vue(), peerDepsExternal()
+      vue(), peerDepsExternal(),
+      alias({
+        'vue$': __dirname + 'node_modules/vue/dist/vue.runtime.esm.js'
+      })
     ]
   }
 ]

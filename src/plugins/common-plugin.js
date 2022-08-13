@@ -19,7 +19,8 @@ const plugin = {
         let context =  {
           "name": "http://xmlns.com/foaf/0.1/name",
           "knows": "http://xmlns.com/foaf/0.1/knows",
-          "@base": "http://local/",
+          "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+          "@base": options.path || "http://local/",
           "@vocab": "https://scenaristeur.github.io/agent/",
           "id": "@id",
           "type": "@type",
@@ -33,8 +34,9 @@ const plugin = {
           "@context" : Object.assign(context, options['@context']),
           "id": options['@id'] || options.id || uuidv4(),
           "name": options.name && options.name['@value'] || options.name || "",
+          "rdfs:label": options.name && options.name['@value'] || options.name || "",
           type: options.type || "neurone",
-         //'shape': 'sphere' || options.shape,
+          //'shape': 'sphere' || options.shape,
           //color: "#00ff00",
           "homepage": "https://scenaristeur.github.io/agent/",
         };
@@ -48,7 +50,8 @@ const plugin = {
         }
         options.wi != undefined ? node.wi = options.wi : ""
         options.wsb != undefined ? node.wsb = options.wsb : ""
-        options.tags != undefined ? node.tags = options.tags : ""
+        options.prop != undefined ? node.prop = options.prop : ""
+        options.tags != undefined ? node.tags = JSON.stringify(options.tags) : ""
         node.updated = Date.now()
 
         return node

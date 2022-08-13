@@ -225,7 +225,8 @@ const Vue2Solid = {
       let thing = await Vue.prototype.$newThing(data)
       thing.creator = store.state.webId
       thing.path = data.path
-      console.log("the thing", thing)
+
+          console.log("the thing", thing)
 
       const savedFile = await overwriteFile(
         thing.path+thing.id,

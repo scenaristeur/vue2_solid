@@ -11,6 +11,7 @@ import Explorer3D from './Explorer3D.vue'
 import SolidEditor from './SolidEditor.vue'
 // import SolidIdeaForm from './SolidIdeaForm.vue'
 import SolidTensionForm from './SolidTensionForm.vue'
+import WikidataTags from './WikidataTags.vue'
 // import SolidTensionList from './SolidTensionList.vue'
 // import SolidWebSocket from './SolidWebSocket.vue'
 // import SolidWebSocketConnector from './SolidWebSocketConnector.vue'
@@ -30,6 +31,7 @@ export default {
   SolidEditor,
   // SolidIdeaForm,
   SolidTensionForm,
+  WikidataTags,
   // SolidTensionList,
   // SolidWebSocket,
   // SolidWebSocketConnector,

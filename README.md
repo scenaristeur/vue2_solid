@@ -82,3 +82,11 @@ new Vue({
   </template>
   ...
   ```
+# rollup alias Necessaire ?
+- https://mauricius.dev/use-import-aliases-in-rollup-module-bundler/
+
+
+# tags-input patch
+- npm install "https://github.com/lonnylot/vue-tagsinput.git#patch-2" --save
+
+for https://github.com/voerro/vue-tagsinput/issues/149#issuecomment-877595366
